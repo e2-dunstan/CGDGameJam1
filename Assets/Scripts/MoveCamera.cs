@@ -16,10 +16,5 @@ public class MoveCamera : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
-        //if (transform.position.x != player.transform.position.x ||
-        //    transform.position.y != player.transform.position.y)
-        //{
-
-        //}
     }
 }
