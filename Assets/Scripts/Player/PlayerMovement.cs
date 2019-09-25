@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player Movement Settings")]
     public float movementSpeed = 1f;
     public float maxSpeed = 5f;
     public float jumpVelocity = 1f;
+    [Header("Grounded Raycast Settings")]
+    public LayerMask groundedLayers;
+    public float groundedRaycastLength = 0.5f;
 
     private Rigidbody2D rigidbody = null;
     private BoxCollider2D collider = null;
@@ -34,9 +38,13 @@ public class PlayerMovement : MonoBehaviour
     private bool CheckGrounded()
     {
         Vector2 raycastOrigin = new Vector2(collider.bounds.center.x, collider.bounds.min.y + 0.1f);
-        Debug.DrawRay(raycastOrigin, Vector2.down * 0.5f, Color.blue, 10);
-        RaycastHit2D rayHit = Physics2D.Raycast(raycastOrigin, Vector2.down, 0.5f);
-        return rayHit.collider.CompareTag("Ground");
+        if(Physics2D.Raycast(raycastOrigin, Vector2.down, groundedRaycastLength, groundedLayers))
+        {
+            Debug.DrawRay(raycastOrigin, Vector2.down * groundedRaycastLength, Color.green, 10);
+            return true;
+        }
+        Debug.DrawRay(raycastOrigin, Vector2.down * groundedRaycastLength, Color.red, 10);
+        return false;
     }
 
     private void HandlePlayerInput()
@@ -66,10 +74,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Vertical drag / gravity
-        float gravityAmount = Physics2D.gravity.y * Time.fixedDeltaTime;
-        float newYVel = currentVel.y - gravityAmount;
+        float gravityAmount = Physics2D.gravity.y * rigidbody.mass * Time.fixedDeltaTime;
+        float newYVel = currentVel.y + gravityAmount;
         newVel.y = CheckGrounded() ? 0 : newYVel;
-
+        Debug.Log(newVel.y);
         rigidbody.velocity = newVel;
     }
 

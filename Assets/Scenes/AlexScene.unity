@@ -163,9 +163,9 @@ GameObject:
   - component: {fileID: 728614107}
   - component: {fileID: 728614109}
   - component: {fileID: 728614108}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 1232776109}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -467,9 +467,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2896d1f733cec264eb6731d37b901212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 25
+  movementSpeed: 15
   maxSpeed: 1
-  jumpVelocity: 1
+  jumpVelocity: 3
+  groundedLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  groundedRaycastLength: 0.15
 --- !u!114 &1232776110
 MonoBehaviour:
   m_ObjectHideFlags: 0
