@@ -66,9 +66,10 @@ public class Enemy : MonoBehaviour
     protected virtual void CalculateDistanceFromPlayer()
     {
         //Will remove this gameObject find, using until this is merged with alex's work, then we're implementing something else
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = Player.Instance().gameObject;
 
         distanceFromPlayer = Vector2.Distance(gameObject.transform.position, player.transform.position);
         
     }
 }
+
