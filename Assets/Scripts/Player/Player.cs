@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     //TODO add extra references to player subsystems
     [SerializeField] private PlayerMovement playerMovement = null;
-    public PlayerMovement PlayerMovement { get; private set; }
+    public PlayerMovement PlayerMovement { get => playerMovement; private set => playerMovement = value; }
 
     private static Player _instance = null;
     public static Player Instance()

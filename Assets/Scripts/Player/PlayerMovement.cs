@@ -16,11 +16,11 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed = 1f;
     [Tooltip("Determines what the Horizontal velocity will be capped at")]
     public float maxMovementSpeed = 5f;
-    [Tooltip("Determines how quickly the player breaks when not inputting a direction whilst grounded")]
+    [Tooltip("Determines how quickly the player breaks whilst grounded, if var == 2 then 2x the drag")]
     public float groundBreakingModifier = 0.5f;
-    [Tooltip("Determines how quickly the player breaks when not inputting a direction whilst airborn")]
+    [Tooltip("Determines how quickly the player breaks whilst airborn, if var == 2 then 2x the drag")]
     public float airBreakingModifier = 0.5f;
-    [Tooltip("Determines how much momentum is passed into the new direction of movement when switch directions in percentage")]
+    [Tooltip("Determines the modifier applied to the players acceleration if turning direction")]
     public float turnModifier = 0.5f;
     [Tooltip("Determines the initial burst of velocity applied to the Rigidbody's Y axis when jumping")]
     public float jumpVelocity = 1f;
@@ -32,8 +32,9 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Determines the length of the raycast shot from the base of the player to check grounded status")]
     public float groundedRaycastLength = 0.5f;
 
-    public PlayerState PlayersMovementState { get; private set; }
-    public Vector2 PlayersVelocity { get; private set; }
+    //Getters for private variables
+    public PlayerState PlayersMovementState { get => currentPlayerState; private set => currentPlayerState = value; }
+    public Vector2 PlayersVelocity { get => playerVelocity; private set => playerVelocity = value; }
 
     private Rigidbody2D rb2d;
     private BoxCollider2D col2d;
@@ -91,13 +92,32 @@ public class PlayerMovement : MonoBehaviour
     private void HandlePlayerInput()
     {
         inputHorizontal = Input.GetAxisRaw("Horizontal");
-        triggerJump = Input.GetButtonDown("Jump");
-        jumpRelease = Input.GetButtonUp("Jump");
+        if (Input.GetButtonDown("Jump") && currentPlayerState == PlayerState.GROUNDED)
+        {
+            triggerJump = true;
+            jumpRelease = false;
+        }
+        else if (Input.GetButtonUp("Jump") && currentPlayerState == PlayerState.JUMPING)
+        {
+            triggerJump = false;
+            jumpRelease = true;
+        }
     }
 
     private void ApplyHorizontalDrag()
     {
         float dragAmount = rb2d.drag * Time.fixedDeltaTime;
+
+        //Reduce velocity faster depending on current state
+        if (currentPlayerState == PlayerState.JUMPING)
+        {
+            dragAmount *= airBreakingModifier;
+        }
+        else if (currentPlayerState == PlayerState.GROUNDED)
+        {
+            dragAmount *= groundBreakingModifier;
+        }
+
         float newXVel = playerVelocity.x < 0 ? playerVelocity.x + dragAmount : playerVelocity.x - dragAmount;
         //Bitwise comparison to see if they are the same sign or if its gone from negative to possitive or visa versa then zero vel;
         playerVelocity.x = !((newXVel >= 0) ^ (playerVelocity.x < 0)) || playerVelocity.x == 0 ? 0 : newXVel;
@@ -113,27 +133,11 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateMovement()
     {
         ApplyHorizontalDrag();
-        
-        //if the player isnt inputting anything reduce velocity faster than normal
-        if(inputHorizontal == 0)
-        {
-            if(currentPlayerState == PlayerState.JUMPING)
-            {
-                playerVelocity.x *= airBreakingModifier;
-            }
-            else if(currentPlayerState == PlayerState.GROUNDED)
-            {
-                playerVelocity.x *= groundBreakingModifier;
-            }
-        }
 
-        //If the player switches direction pass on some of the momentum from traveling in the previous direction to stop it feeling unresponsive
-        if (!((lastHorizontalInput >= 0) ^ (inputHorizontal < 0)))
-        {
-            playerVelocity.x *= -turnModifier;
-        }
-
-        playerVelocity.x += inputHorizontal * movementSpeed * Time.fixedDeltaTime;
+        float newXAcceleration = inputHorizontal * movementSpeed * Time.fixedDeltaTime;
+        //If the player is turning around give a boost to the acceleration to stop it feeling sluggish
+        newXAcceleration = (playerVelocity.x >= 0) ^ (inputHorizontal < 0) ? newXAcceleration : newXAcceleration * turnModifier;
+        playerVelocity.x += newXAcceleration;
 
         //Cap the speed so it doesnt keep rising exponentially
         if (playerVelocity.x > maxMovementSpeed)
@@ -149,20 +153,21 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateJump()
     {
         ApplyVerticalDrag();
-
-        if (currentPlayerState == PlayerState.JUMPING && jumpRelease)
-        {
-            playerVelocity.y *= jumpQuickReleaseModifier;
-        }
-        else if (currentPlayerState == PlayerState.GROUNDED && triggerJump)
-        {
-            playerVelocity.y = jumpVelocity;
-            currentPlayerState = PlayerState.JUMPING;
-        }
-        else if (currentPlayerState == PlayerState.JUMPING && CheckGrounded())
+        if (currentPlayerState == PlayerState.JUMPING && CheckGrounded())
         {
             playerVelocity.y = 0;
             currentPlayerState = PlayerState.GROUNDED;
+        }
+        if (currentPlayerState == PlayerState.GROUNDED && triggerJump)
+        {
+            triggerJump = false;
+            playerVelocity.y = jumpVelocity;
+            currentPlayerState = PlayerState.JUMPING;
+        }
+        else if (currentPlayerState == PlayerState.JUMPING && jumpRelease && playerVelocity.y > 0)
+        {
+            playerVelocity.y *= jumpQuickReleaseModifier;
+            jumpRelease = playerVelocity.y > 0;
         }
     }
 
