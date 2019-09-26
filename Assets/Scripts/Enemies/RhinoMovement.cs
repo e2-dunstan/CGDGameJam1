@@ -47,8 +47,7 @@ public class RhinoMovement : EnemyMovement
         }
 
         //Check if unit is outside bounds
-        if(gameObject.transform.position.x < (spawnPosition.x - wonderingBoundaryXLeft) || gameObject.transform.position.x > (spawnPosition.x + wonderingBoundaryXRight) ||
-            gameObject.transform.position.y < (spawnPosition.y - wonderingBoundaryYDown) || gameObject.transform.position.y > (spawnPosition.y + wonderingBoundaryYUp))
+        if (IsWithinBounds() == true)
         {
             hasRandomTargetLocation = false;
         }
@@ -71,9 +70,35 @@ public class RhinoMovement : EnemyMovement
         gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, _targetDestination, moveSpeed);
     }
 
+    private bool IsWithinBounds()
+    {
+        if (gameObject.transform.position.x < (spawnPosition.x - wonderingBoundaryXLeft) || gameObject.transform.position.x > (spawnPosition.x + wonderingBoundaryXRight) ||
+            gameObject.transform.position.y < (spawnPosition.y - wonderingBoundaryYDown) || gameObject.transform.position.y > (spawnPosition.y + wonderingBoundaryYUp))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0, 0, 0.5f, 0.3f);
-        Gizmos.DrawCube(transform.position, new Vector3((wonderingBoundaryXLeft + wonderingBoundaryXRight), (wonderingBoundaryYDown + wonderingBoundaryYUp), 1));
+        Gizmos.DrawCube(new Vector3(spawnPosition.x + (wonderingBoundaryXRight/2), spawnPosition.y, 0), new Vector3(wonderingBoundaryXRight, (wonderingBoundaryYUp + wonderingBoundaryYDown), 0));
+
+
+        Gizmos.color = new Color(1.0f, 1.0f, 1.0f, 0.3f);
+        Gizmos.DrawCube(new Vector3(spawnPosition.x - (wonderingBoundaryXLeft / 2), spawnPosition.y, 0), new Vector3(wonderingBoundaryXLeft * -1, (wonderingBoundaryYUp + wonderingBoundaryYDown), 0));
+
+
+        Gizmos.color = new Color(0, 1, 0.5f, 0.3f);
+        Gizmos.DrawCube(new Vector3(spawnPosition.x, spawnPosition.y + (wonderingBoundaryYUp / 2), 0), new Vector3((wonderingBoundaryXRight + wonderingBoundaryXLeft), wonderingBoundaryYUp, 0));
+
+
+        Gizmos.color = new Color(1, 0, 0.5f, 0.3f);
+        Gizmos.DrawCube(new Vector3(spawnPosition.x, spawnPosition.y - (wonderingBoundaryYDown / 2), 0), new Vector3((wonderingBoundaryXRight + wonderingBoundaryXLeft), wonderingBoundaryYDown * -1, 0));
+
     }
 }

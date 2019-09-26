@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629372263773753741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.8, y: 0, z: 0}
+  m_LocalPosition: {x: 19.982418, y: 132.8274, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 629372264650826329}
@@ -46,10 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bec747744661e489ff7db9c58e2be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyState: 0
+  enemyState: 1
   canSeePlayer: 0
-  distanceFromPlayer: 0
-  visionRange: 1
+  distanceFromPlayer: 136.8285
+  visionRange: 15
   isOnIdleCooldown: 0
   isOnAttackCooldown: 0
   attackRange: 4
@@ -69,16 +69,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0.3
   spawnPosition: {x: 0, y: 0}
-  targetDestination: {x: 0, y: 0}
-  wonderingBoundaryXLeft: 150
-  wonderingBoundaryXRight: 200
-  wonderingBoundaryYUp: 50
-  wonderingBoundaryYDown: 50
+  targetDestination: {x: -60.521393, y: 132.8274}
+  wonderingBoundaryXLeft: 100
+  wonderingBoundaryXRight: 100
+  wonderingBoundaryYUp: 300
+  wonderingBoundaryYDown: 100
   canFly: 0
-  hasRandomTargetLocation: 0
+  hasRandomTargetLocation: 1
   randomLocation: {x: 0, y: 0}
-  randomXLocation: 0
-  randomYLocation: 0
+  randomXLocation: -60.521393
+  randomYLocation: 132.8274
 --- !u!61 &4480425636165849717
 BoxCollider2D:
   m_ObjectHideFlags: 0
