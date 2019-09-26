@@ -13,24 +13,24 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Player Movement Settings")]
     [Tooltip("Determines how quickly the players movement speed ramps up, works in conjunction with Rigidbody's 'Linear Drag'")]
-    public float movementSpeed = 1f;
+    [SerializeField] private float movementSpeed = 1f;
     [Tooltip("Determines what the Horizontal velocity will be capped at")]
-    public float maxMovementSpeed = 5f;
+    [SerializeField] private float maxMovementSpeed = 5f;
     [Tooltip("Determines how quickly the player breaks whilst grounded, if var == 2 then 2x the drag")]
-    public float groundBreakingModifier = 0.5f;
+    [SerializeField] private float groundBreakingModifier = 0.5f;
     [Tooltip("Determines how quickly the player breaks whilst airborn, if var == 2 then 2x the drag")]
-    public float airBreakingModifier = 0.5f;
+    [SerializeField] private float airBreakingModifier = 0.5f;
     [Tooltip("Determines the modifier applied to the players acceleration if turning direction")]
-    public float turnModifier = 0.5f;
+    [SerializeField] private float turnModifier = 0.5f;
     [Tooltip("Determines the initial burst of velocity applied to the Rigidbody's Y axis when jumping")]
-    public float jumpVelocity = 1f;
+    [SerializeField] private float jumpVelocity = 1f;
     [Tooltip("Determines how much the Y velocity decreases if the jump button is released early")]
-    public float jumpQuickReleaseModifier = 0.5f;
+    [SerializeField] private float jumpQuickReleaseModifier = 0.5f;
     [Header("Grounded Raycast Settings")]
     [Tooltip("Determines which layers count as floor for the CheckGrounded() raycast")]
-    public LayerMask groundedLayers;
+    [SerializeField] private LayerMask groundedLayers;
     [Tooltip("Determines the length of the raycast shot from the base of the player to check grounded status")]
-    public float groundedRaycastLength = 0.5f;
+    [SerializeField] private float groundedRaycastLength = 0.5f;
 
     //Getters for private variables
     public PlayerState PlayersMovementState { get => currentPlayerState; private set => currentPlayerState = value; }
