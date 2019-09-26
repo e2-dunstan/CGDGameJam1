@@ -33,10 +33,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundedRaycastLength = 0.5f;
 
     //Getters for private variables
-    public PlayerState PlayersMovementState { get => currentPlayerState; private set => currentPlayerState = value; }
+    public PlayerState PlayersMovementState { get => currentPlayerState;  set => currentPlayerState = value; }
     public Vector2 PlayersVelocity { get => playerVelocity; private set => playerVelocity = value; }
 
     private Rigidbody2D rb2d;
+    public Rigidbody2D Rigidbody { get => rb2d; private set => rb2d = value; }
+
     private BoxCollider2D col2d;
     private Vector2 playerVelocity = Vector2.zero;
     private PlayerState currentPlayerState = PlayerState.GROUNDED;
@@ -52,13 +54,20 @@ public class PlayerMovement : MonoBehaviour
         col2d = GetComponent<BoxCollider2D>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         HandlePlayerInput();
-        UpdateMovement();
-        UpdateJump();
-        ApplyVelocityToRigidbody();
-        UpdateLastHorizontalInput();
+    }
+
+    private void FixedUpdate()
+    {
+        if (currentPlayerState != PlayerState.WEBBING)
+        {
+            UpdateMovement();
+            UpdateJump();
+            ApplyVelocityToRigidbody();
+            UpdateLastHorizontalInput();
+        }
     }
 
     private bool CheckGrounded()
@@ -92,10 +101,17 @@ public class PlayerMovement : MonoBehaviour
     private void HandlePlayerInput()
     {
         inputHorizontal = Input.GetAxisRaw("Horizontal");
-        if (Input.GetButtonDown("Jump") && currentPlayerState == PlayerState.GROUNDED)
+        if (Input.GetButtonDown("Jump"))
         {
-            triggerJump = true;
-            jumpRelease = false;
+            if (currentPlayerState == PlayerState.GROUNDED)
+            {
+                triggerJump = true;
+                jumpRelease = false;
+            }
+            else if (currentPlayerState == PlayerState.JUMPING || currentPlayerState == PlayerState.WEBBING)
+            {
+                Player.Instance().WebSwing.ToggleSwinging();
+            }
         }
         else if (Input.GetButtonUp("Jump") && currentPlayerState == PlayerState.JUMPING)
         {
@@ -132,7 +148,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateMovement()
     {
-        ApplyHorizontalDrag();
+        if (currentPlayerState != PlayerState.WEBBING)
+        {
+            ApplyHorizontalDrag();
+        }
 
         float newXAcceleration = inputHorizontal * movementSpeed * Time.fixedDeltaTime;
         //If the player is turning around give a boost to the acceleration to stop it feeling sluggish
@@ -152,7 +171,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateJump()
     {
-        ApplyVerticalDrag();
+        if (currentPlayerState != PlayerState.WEBBING)
+        {
+            ApplyVerticalDrag();
+        }
+
         if (currentPlayerState == PlayerState.JUMPING && CheckGrounded())
         {
             playerVelocity.y = 0;
