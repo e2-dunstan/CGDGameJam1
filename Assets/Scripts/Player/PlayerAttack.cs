@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] GameObject webProjectile;
     [SerializeField] Transform attackPosition;
     [SerializeField] float attackRange;
+    [SerializeField] float projectileSpeed;
     [SerializeField] int damageAmount;
 
     float attackCooldownTimer = 0;
@@ -21,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
                 if(Input.GetKey(KeyCode.S))
                 {
                     WebProjectile projectile = Instantiate(webProjectile, attackPosition.position, Quaternion.identity).GetComponent<WebProjectile>();
-                    projectile.SpawnProjectile(new Vector2(3, 0), 0.25f);
+                    projectile.SpawnProjectile(new Vector2(projectileSpeed, 0), 0.25f);
 
                     attackCooldownTimer = attackCooldownDuration;
                 }
