@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public float attackCooldownDuration = 0.5f;
-    public GameObject webProjectile;
-    public Transform attackPosition;
-    public LayerMask enemyMask;
-    public float attackRange;
-    public int damageAmount;
+    [SerializeField] float attackCooldownDuration = 0.5f;
+    [SerializeField] GameObject webProjectile;
+    [SerializeField] Transform attackPosition;
+    [SerializeField] float attackRange;
+    [SerializeField] int damageAmount;
 
     float attackCooldownTimer = 0;
 

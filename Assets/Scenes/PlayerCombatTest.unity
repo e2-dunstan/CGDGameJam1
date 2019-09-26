@@ -263,7 +263,7 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 0
-  attackRange: 0.05
+  attackRange: 5.47
   damageAmount: 2
 --- !u!50 &652916785
 Rigidbody2D:
@@ -643,7 +643,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068822444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.06, y: 0.0128, z: 0}
+  m_LocalPosition: {x: 5.9, y: 1.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 652916781}
