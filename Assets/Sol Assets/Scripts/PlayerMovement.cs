@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Inputs _inputs;
     [SerializeField] private float runningSpeed;
     [SerializeField] private bool isjumping;
+    [SerializeField] private float jumpHeight;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         runningSpeed = 5;
+        jumpHeight = 2200;
     }
 
     // Update is called once per frame
@@ -40,15 +42,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (_inputs.bothAxes == new Vector2(1, 0))
                 {
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(500, 1500), ForceMode2D.Impulse);
+                    GetComponent<Rigidbody2D>().AddForce(new Vector2(1000, jumpHeight), ForceMode2D.Impulse);
                 }
                 else if (_inputs.bothAxes == new Vector2(-1, 0))
                 {
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(-500, 1500), ForceMode2D.Impulse);
+                    GetComponent<Rigidbody2D>().AddForce(new Vector2(-1000, jumpHeight), ForceMode2D.Impulse);
                 }
                 else
                 {
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1500), ForceMode2D.Impulse);
+                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
                 }
                 isjumping = true;
             }
