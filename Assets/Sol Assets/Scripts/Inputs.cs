@@ -19,6 +19,6 @@ public class Inputs : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
         bothAxes = new Vector2(horizontalInput, verticalInput);
-
+        action = (Input.GetAxisRaw("Submit") > 0);
     }
 }
