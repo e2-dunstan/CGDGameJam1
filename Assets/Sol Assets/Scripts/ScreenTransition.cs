@@ -5,21 +5,41 @@ using UnityEngine;
 public class ScreenTransition : MonoBehaviour
 {
     private Camera mainCamera;
-    [SerializeField] private Transform newCameraPosition;
-    [SerializeField] private Transform newPlayerPosition;
     private Transform playerTransform;
+
+    [Header("New positions")]
+
+    [Tooltip("Where the camera moves after the screen transition")]
+    [SerializeField] private Transform newCameraPosition;
+    private Vector3 newScreenView;
+
+    [Tooltip("Where the player moves after the screen transition.")]
+    [SerializeField] private Transform newPlayerPosition;
+    private Vector2 entryPoint;
+
+    //Only for testing until webbing is complete
+    [SerializeField] private GameObject web;
+    [SerializeField] private Transform newWebPosition;
 
     private void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerEnter2D(Collider2D _col)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (_col.gameObject.CompareTag("Player"))
         {
-            playerTransform = collision.gameObject.transform;
-            collision.gameObject.transform.position = new Vector2(newPlayerPosition.position.x, playerTransform.position.y);
-            mainCamera.transform.position = new Vector3(newCameraPosition.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+
+            playerTransform = _col.gameObject.transform;
+            entryPoint = new Vector2(newPlayerPosition.position.x, playerTransform.position.y);
+
+            newScreenView = new Vector3(newCameraPosition.position.x, newCameraPosition.transform.position.y, mainCamera.transform.position.z);
+            _col.gameObject.transform.position = entryPoint;
+            mainCamera.transform.position = newScreenView;
+
+            web.transform.position = new Vector2(newWebPosition.transform.position.x, web.transform.position.y);
+
         }
     }
 }
