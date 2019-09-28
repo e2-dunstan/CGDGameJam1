@@ -13,30 +13,32 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Player Movement Settings")]
     [Tooltip("Determines how quickly the players movement speed ramps up, works in conjunction with Rigidbody's 'Linear Drag'")]
-    public float movementSpeed = 1f;
+    [SerializeField] private float movementSpeed = 1f;
     [Tooltip("Determines what the Horizontal velocity will be capped at")]
-    public float maxMovementSpeed = 5f;
+    [SerializeField] private float maxMovementSpeed = 5f;
     [Tooltip("Determines how quickly the player breaks whilst grounded, if var == 2 then 2x the drag")]
-    public float groundBreakingModifier = 0.5f;
+    [SerializeField] private float groundBreakingModifier = 0.5f;
     [Tooltip("Determines how quickly the player breaks whilst airborn, if var == 2 then 2x the drag")]
-    public float airBreakingModifier = 0.5f;
+    [SerializeField] private float airBreakingModifier = 0.5f;
     [Tooltip("Determines the modifier applied to the players acceleration if turning direction")]
-    public float turnModifier = 0.5f;
+    [SerializeField] private float turnModifier = 0.5f;
     [Tooltip("Determines the initial burst of velocity applied to the Rigidbody's Y axis when jumping")]
-    public float jumpVelocity = 1f;
+    [SerializeField] private float jumpVelocity = 1f;
     [Tooltip("Determines how much the Y velocity decreases if the jump button is released early")]
-    public float jumpQuickReleaseModifier = 0.5f;
+    [SerializeField] private float jumpQuickReleaseModifier = 0.5f;
     [Header("Grounded Raycast Settings")]
     [Tooltip("Determines which layers count as floor for the CheckGrounded() raycast")]
-    public LayerMask groundedLayers;
+    [SerializeField] private LayerMask groundedLayers;
     [Tooltip("Determines the length of the raycast shot from the base of the player to check grounded status")]
-    public float groundedRaycastLength = 0.5f;
+    [SerializeField] private float groundedRaycastLength = 0.5f;
 
     //Getters for private variables
-    public PlayerState PlayersMovementState { get => currentPlayerState; private set => currentPlayerState = value; }
+    public PlayerState PlayersMovementState { get => currentPlayerState;  set => currentPlayerState = value; }
     public Vector2 PlayersVelocity { get => playerVelocity; private set => playerVelocity = value; }
 
     private Rigidbody2D rb2d;
+    public Rigidbody2D Rigidbody { get => rb2d; private set => rb2d = value; }
+
     private BoxCollider2D col2d;
     private Vector2 playerVelocity = Vector2.zero;
     private PlayerState currentPlayerState = PlayerState.GROUNDED;
@@ -52,13 +54,20 @@ public class PlayerMovement : MonoBehaviour
         col2d = GetComponent<BoxCollider2D>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         HandlePlayerInput();
-        UpdateMovement();
-        UpdateJump();
-        ApplyVelocityToRigidbody();
-        UpdateLastHorizontalInput();
+    }
+
+    private void FixedUpdate()
+    {
+        if (currentPlayerState != PlayerState.WEBBING)
+        {
+            UpdateMovement();
+            UpdateJump();
+            ApplyVelocityToRigidbody();
+            UpdateLastHorizontalInput();
+        }
     }
 
     private bool CheckGrounded()
@@ -92,10 +101,17 @@ public class PlayerMovement : MonoBehaviour
     private void HandlePlayerInput()
     {
         inputHorizontal = Input.GetAxisRaw("Horizontal");
-        if (Input.GetButtonDown("Jump") && currentPlayerState == PlayerState.GROUNDED)
+        if (Input.GetButtonDown("Jump"))
         {
-            triggerJump = true;
-            jumpRelease = false;
+            if (currentPlayerState == PlayerState.GROUNDED)
+            {
+                triggerJump = true;
+                jumpRelease = false;
+            }
+            else if (currentPlayerState == PlayerState.JUMPING || currentPlayerState == PlayerState.WEBBING)
+            {
+                Player.Instance().WebSwing.ToggleSwinging();
+            }
         }
         else if (Input.GetButtonUp("Jump") && currentPlayerState == PlayerState.JUMPING)
         {
@@ -132,7 +148,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateMovement()
     {
-        ApplyHorizontalDrag();
+        if (currentPlayerState != PlayerState.WEBBING)
+        {
+            ApplyHorizontalDrag();
+        }
 
         float newXAcceleration = inputHorizontal * movementSpeed * Time.fixedDeltaTime;
         //If the player is turning around give a boost to the acceleration to stop it feeling sluggish
@@ -152,7 +171,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateJump()
     {
-        ApplyVerticalDrag();
+        if (currentPlayerState != PlayerState.WEBBING)
+        {
+            ApplyVerticalDrag();
+        }
+
         if (currentPlayerState == PlayerState.JUMPING && CheckGrounded())
         {
             playerVelocity.y = 0;
