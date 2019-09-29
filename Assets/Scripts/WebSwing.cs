@@ -41,7 +41,7 @@ public class WebSwing : MonoBehaviour
         springJoint.enabled = isSwinging;
         lineRenderer.enabled = isSwinging;
 
-        Player.Instance().PlayerMovement.PlayersMovementState = isSwinging ? PlayerMovement.PlayerState.WEBBING : PlayerMovement.PlayerState.JUMPING;
+        Player.Instance().CurrentPlayerState = isSwinging ? Player.PlayerState.WEBBING : Player.PlayerState.AIRBORNE;
         Player.Instance().PlayerMovement.Rigidbody.gravityScale = isSwinging ? 100 : 1;
 
         Debug.Log("Swinging " + isSwinging);
