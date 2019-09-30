@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
     {
         GROUNDED,
         AIRBORNE,
-        WEBBING
+        WEBBING,
+        CLIMBING
     }
 
     //TODO add extra references to player subsystems

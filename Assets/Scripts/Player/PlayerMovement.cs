@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
         RIGHT
     }
 
-
     [Header("Player Movement Settings")]
     [Tooltip("Determines how quickly the players movement speed ramps up, works in conjunction with Rigidbody's 'Linear Drag'")]
     [SerializeField] private float movementSpeed = 1f;
@@ -63,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING)
+        if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING && playerSingleton.CurrentPlayerState != Player.PlayerState.CLIMBING)
         {
             UpdateMovement();
             UpdateJump();
