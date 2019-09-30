@@ -209,4 +209,9 @@ public class PlayerMovement : MonoBehaviour
     {
         lastHorizontalInput = Input.GetAxisRaw("Horizontal");
     }
+
+    public void ResetVelocity()
+    {
+        playerVelocity = rb2d.velocity;
+    }
 }

@@ -60,6 +60,7 @@ public class WebSwing : MonoBehaviour
         {
             springJoint.autoConfigureDistance = true;
             Player.Instance().GetComponent<Collider2D>().enabled = true;
+            Player.Instance().PlayerMovement.ResetVelocity();
         }
 
         Player.Instance().PlayerMovement.Rigidbody.drag = isSwinging ? 0f : 0.1f;
