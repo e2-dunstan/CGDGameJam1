@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xOffset: 25
-  disableCollisionsWhenSwinging: 1
+  disableCollisionsWhenSwinging: 0
 --- !u!1001 &3567153632811711509
 PrefabInstance:
   m_ObjectHideFlags: 0
