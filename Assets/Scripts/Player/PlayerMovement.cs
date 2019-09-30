@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -97,13 +97,19 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
             {
-                Player.Instance().WebSwing.ToggleSwinging();
+                Player.Instance().WebManager.ToggleSwinging();
             }
         }
         else if (Input.GetButtonUp("Jump") && playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE)
         {
             triggerJump = false;
             jumpRelease = true;
+        }
+
+        float inputVertical = Input.GetAxisRaw("Vertical");
+        if (playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING && inputVertical != 0)
+        {
+            Player.Instance().WebManager.MoveVertically(inputVertical);
         }
     }
 
