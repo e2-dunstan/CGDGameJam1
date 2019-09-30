@@ -69,7 +69,6 @@ public class Enemy : MonoBehaviour
         player = Player.Instance().gameObject;
 
         distanceFromPlayer = Vector2.Distance(gameObject.transform.position, player.transform.position);
-        
     }
 }
 

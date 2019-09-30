@@ -8,7 +8,8 @@ public class PlayerMovement : MonoBehaviour
     {
         GROUNDED,
         JUMPING,
-        WEBBING
+        WEBBING,
+        CRAWLING
     }
 
     [Header("Player Movement Settings")]
