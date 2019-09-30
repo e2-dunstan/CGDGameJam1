@@ -60,6 +60,7 @@ public class WebSwing : MonoBehaviour
         {
             springJoint.autoConfigureDistance = true;
             Player.Instance().GetComponent<Collider2D>().enabled = true;
+            Player.Instance().PlayerMovement.ResetVelocity();
         }
 
         Player.Instance().PlayerMovement.Rigidbody.drag = isSwinging ? 0f : 0.1f;
@@ -98,8 +99,6 @@ public class WebSwing : MonoBehaviour
         }
 
         _offset += playerTransform.position.x;
-
-        Debug.Log(Player.Instance().PlayerMovement.PlayersVelocity.magnitude);
 
         webOrigin.position = new Vector2(_offset, webOrigin.position.y);
     }
