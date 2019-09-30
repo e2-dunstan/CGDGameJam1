@@ -130,9 +130,10 @@ GameObject:
   m_Component:
   - component: {fileID: 652916781}
   - component: {fileID: 652916780}
-  - component: {fileID: 652916784}
   - component: {fileID: 652916783}
+  - component: {fileID: 652916786}
   - component: {fileID: 652916782}
+  - component: {fileID: 652916784}
   - component: {fileID: 652916785}
   m_Layer: 0
   m_Name: Player
@@ -214,10 +215,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 652916779}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fe435d8839da114b8186846a35463b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 2896d1f733cec264eb6731d37b901212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  movementSpeed: 90
+  maxMovementSpeed: 60
+  groundBreakingModifier: 500
+  airBreakingModifier: 300
+  turnModifier: 3
+  jumpVelocity: 115
+  jumpQuickReleaseModifier: 0.5
+  groundedLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  groundedRaycastLength: 0.3
 --- !u!61 &652916783
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -275,15 +286,28 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 25
+  m_LinearDrag: 0.1
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!114 &652916786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652916779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a69df7bc6fe237d4fa01b5ec956922d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 652916782}
 --- !u!1 &1175773951
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +545,7 @@ GameObject:
   - component: {fileID: 1761279849}
   - component: {fileID: 1761279848}
   - component: {fileID: 1761279850}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

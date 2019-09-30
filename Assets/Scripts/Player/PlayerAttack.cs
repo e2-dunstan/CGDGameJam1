@@ -17,7 +17,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(attackCooldownTimer <= 0)
         {
-            if(Input.GetKey(KeyCode.Space))
+            if(Input.GetKey(KeyCode.F))
             {
                 if(Input.GetKey(KeyCode.S))
                 {
