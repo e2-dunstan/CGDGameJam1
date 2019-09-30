@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private MovementDirection movDir = MovementDirection.LEFT;
     public MovementDirection PlayerMovementDirection { get => movDir; set => movDir = value; }
 
-    private BoxCollider2D col2d;
+    private CapsuleCollider2D col2d;
     private Player playerSingleton = null;
     private float inputHorizontal = 0;
     private float lastHorizontalInput = 0;
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        col2d = GetComponent<BoxCollider2D>();
+        col2d = GetComponent<CapsuleCollider2D>();
         playerSingleton = Player.Instance();
     }
 
@@ -82,7 +82,9 @@ public class PlayerMovement : MonoBehaviour
         raycastRight.x = col2d.bounds.max.x;
         raycastLeft.x = col2d.bounds.min.x;
         //If left or right raycast registers as grounded then the player is grounded
-        return Physics2D.Raycast(raycastLeft, Vector2.down, groundedRaycastLength, groundedLayers) | Physics2D.Raycast(raycastRight, Vector2.down, groundedRaycastLength, groundedLayers);
+        RaycastHit2D left = Physics2D.Raycast(raycastLeft, Vector2.down, groundedRaycastLength, groundedLayers);
+        RaycastHit2D right = Physics2D.Raycast(raycastRight, Vector2.down, groundedRaycastLength, groundedLayers);
+        return left | right;
     }
 
     private void HandlePlayerInput()
@@ -179,7 +181,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING)
         {
-            ApplyVerticalDrag();
+            //if (!CheckGrounded())
+            //{
+                ApplyVerticalDrag();
+            //}
+            //else
+            //{
+            //    playerVelocity.y = 0;
+            //}
         }
 
         if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE && CheckGrounded())
