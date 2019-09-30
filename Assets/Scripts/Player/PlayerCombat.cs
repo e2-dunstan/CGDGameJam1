@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] float attackCooldownDuration = 0.5f;
     [SerializeField] GameObject webProjectile;
@@ -10,8 +10,10 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float attackRange;
     [SerializeField] float projectileSpeed;
     [SerializeField] int damageAmount;
+    [SerializeField] int health = 10;
 
     float attackCooldownTimer = 0;
+
 
     void Update()
     {
@@ -51,5 +53,10 @@ public class PlayerAttack : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(attackPosition.position, attackRange);
+    }
+    
+    public void TakeDamage(int _damage)
+    {
+        health -= _damage;
     }
 }

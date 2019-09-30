@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,8 +41,9 @@ public class PlayerMovement : MonoBehaviour
     private MovementDirection movDir = MovementDirection.LEFT;
     public MovementDirection PlayerMovementDirection { get => movDir; set => movDir = value; }
 
-    private BoxCollider2D col2d;
+    private CapsuleCollider2D col2d;
     private Player playerSingleton = null;
+    private InputManager inputSingleton = null;
     private float inputHorizontal = 0;
     private float lastHorizontalInput = 0;
     private bool triggerJump = false;
@@ -52,8 +53,9 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        col2d = GetComponent<BoxCollider2D>();
+        col2d = GetComponent<CapsuleCollider2D>();
         playerSingleton = Player.Instance();
+        inputSingleton = InputManager.Instance();
     }
 
     private void Update()
@@ -82,13 +84,15 @@ public class PlayerMovement : MonoBehaviour
         raycastRight.x = col2d.bounds.max.x;
         raycastLeft.x = col2d.bounds.min.x;
         //If left or right raycast registers as grounded then the player is grounded
-        return Physics2D.Raycast(raycastLeft, Vector2.down, groundedRaycastLength, groundedLayers) | Physics2D.Raycast(raycastRight, Vector2.down, groundedRaycastLength, groundedLayers);
+        RaycastHit2D left = Physics2D.Raycast(raycastLeft, Vector2.down, groundedRaycastLength, groundedLayers);
+        RaycastHit2D right = Physics2D.Raycast(raycastRight, Vector2.down, groundedRaycastLength, groundedLayers);
+        return left | right;
     }
 
     private void HandlePlayerInput()
     {
-        inputHorizontal = Input.GetAxisRaw("Horizontal");
-        if (Input.GetButtonDown("Jump"))
+        inputHorizontal = inputSingleton.GetHorizontalInput();
+        if (inputSingleton.GetActionButton0Down())
         {
             if (playerSingleton.CurrentPlayerState == Player.PlayerState.GROUNDED)
             {
@@ -97,13 +101,19 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
             {
-                Player.Instance().WebSwing.ToggleSwinging();
+               playerSingleton.WebManager.ToggleSwinging();
             }
         }
-        else if (Input.GetButtonUp("Jump") && playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE)
+        else if (inputSingleton.GetActionButton0Up() && playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE)
         {
             triggerJump = false;
             jumpRelease = true;
+        }
+
+        float inputVertical = inputSingleton.GetVerticalInput();
+        if (playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING && inputVertical != 0)
+        {
+            playerSingleton.WebManager.MoveVertically(inputVertical);
         }
     }
 
@@ -201,6 +211,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateLastHorizontalInput()
     {
-        lastHorizontalInput = Input.GetAxisRaw("Horizontal");
+        lastHorizontalInput = inputSingleton.GetHorizontalInput();
+    }
+
+    public void ResetVelocity()
+    {
+        playerVelocity = rb2d.velocity;
     }
 }

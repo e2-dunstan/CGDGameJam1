@@ -274,6 +274,7 @@ MonoBehaviour:
   attackRange: 5.47
   projectileSpeed: 50
   damageAmount: 2
+  health: 10
 --- !u!50 &652916785
 Rigidbody2D:
   serializedVersion: 4
@@ -308,6 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 652916782}
+  webSwing: {fileID: 0}
 --- !u!1 &1175773951
 GameObject:
   m_ObjectHideFlags: 0
