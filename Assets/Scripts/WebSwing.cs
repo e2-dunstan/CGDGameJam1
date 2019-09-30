@@ -99,8 +99,6 @@ public class WebSwing : MonoBehaviour
 
         _offset += playerTransform.position.x;
 
-        Debug.Log(Player.Instance().PlayerMovement.PlayersVelocity.magnitude);
-
         webOrigin.position = new Vector2(_offset, webOrigin.position.y);
     }
 }
