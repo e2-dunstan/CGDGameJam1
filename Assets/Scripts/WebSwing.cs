@@ -44,25 +44,7 @@ public class WebSwing : MonoBehaviour
         lineVerts[1] = playerTransform.position;
         lineRenderer.SetPositions(lineVerts);
     }
-
-<<<<<<< HEAD
-    public void ToggleSwinging()
-    {
-        isSwinging = !isSwinging;
-        UpdateSwinging();
-    }
-
-    private void UpdateSwinging()
-    {
-        springJoint.enabled = isSwinging;
-        lineRenderer.enabled = isSwinging;
-
-        Player.Instance().CurrentPlayerState = isSwinging ? Player.PlayerState.WEBBING : Player.PlayerState.AIRBORNE;
-        Player.Instance().PlayerMovement.Rigidbody.gravityScale = isSwinging ? 100 : 1;
-
-        Debug.Log("Swinging " + isSwinging);
-=======
-
+    
     public void ToggleSwinging()
     {
         isSwinging = !isSwinging;
@@ -118,6 +100,5 @@ public class WebSwing : MonoBehaviour
         _offset += playerTransform.position.x;
 
         webOrigin.position = new Vector2(_offset, webOrigin.position.y);
->>>>>>> origin/develop
     }
 }

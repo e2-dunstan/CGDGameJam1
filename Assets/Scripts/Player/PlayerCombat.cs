@@ -4,40 +4,47 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
+    [Header("Player Combat Settings")]
     [SerializeField] float attackCooldownDuration = 0.5f;
     [SerializeField] GameObject webProjectile;
-    [SerializeField] Transform attackPosition;
+    [SerializeField] Transform attackTransform;
     [SerializeField] float attackRange;
+    [SerializeField] int punchDamage = 2;
     [SerializeField] float projectileSpeed;
-    [SerializeField] int damageAmount;
+    [SerializeField] int projectileDamage = 1;
+    [SerializeField] float projectileLifetime = 0.25f;
     [SerializeField] int health = 10;
 
-    float attackCooldownTimer = 0;
+    private Player playerSingleton = null;
+    private InputManager inputSingleton = null;
+    private float attackCooldownTimer = 0;
 
+    private void Start() 
+    {
+        playerSingleton = Player.Instance();
+        inputSingleton = InputManager.Instance();
+    }
 
     void Update()
     {
-        if(attackCooldownTimer <= 0)
-        {
-            if(Input.GetKey(KeyCode.F))
-            {
-                if(Input.GetKey(KeyCode.S))
-                {
-                    WebProjectile projectile = Instantiate(webProjectile, attackPosition.position, Quaternion.identity).GetComponent<WebProjectile>();
-                    projectile.SpawnProjectile(new Vector2(projectileSpeed, 0), 0.25f);
+        UpdateAttackTransform();
+        HandleInputs();
+    }
 
-                    attackCooldownTimer = attackCooldownDuration;
+    private void HandleInputs()
+    {
+        //Check for inputs
+        if (attackCooldownTimer <= 0)
+        {
+            if (inputSingleton.GetActionButton1Down())
+            {
+                if (inputSingleton.GetVerticalInput() < 0 || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
+                {
+                    FireWebProjectile();
                 }
                 else
                 {
-                    Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange);
-                    for(int i = 0; i < enemiesToDamage.Length; i++)
-                    {
-                        if(enemiesToDamage[i].CompareTag("Enemy"))
-                        {
-                            enemiesToDamage[i].GetComponent<Health>().TakeDamage(damageAmount);
-                        }
-                    }
+                    PunchEnemy();
                 }
 
                 attackCooldownTimer = attackCooldownDuration;
@@ -49,10 +56,47 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+    private void FireWebProjectile()
+    {
+        //Right = 1 || Left = -1
+        float directionMultiplier = playerSingleton.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT ? 1 : -1;
+
+        WebProjectile projectile = Instantiate(webProjectile, attackTransform.position, Quaternion.identity).GetComponent<WebProjectile>();
+        projectile.SpawnProjectile(new Vector2(projectileSpeed * 10 * directionMultiplier, 0), projectileLifetime, projectileDamage);
+
+        attackCooldownTimer = attackCooldownDuration;
+    }
+
+    private void PunchEnemy()
+    {
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackTransform.position, attackRange);
+        for (int i = 0; i < enemiesToDamage.Length; i++)
+        {
+            if (enemiesToDamage[i].CompareTag("Enemy"))
+            {
+                enemiesToDamage[i].GetComponent<Enemy>().InflictDamage(punchDamage);
+            }
+        }
+    }
+
+    void UpdateAttackTransform()
+    {
+        Vector2 attackPosition = attackTransform.localPosition;
+        if (playerSingleton.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT)
+        {
+            attackPosition.x = Mathf.Abs(attackPosition.x);
+        } 
+        else if (playerSingleton.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.LEFT) 
+        {
+            attackPosition.x = -Mathf.Abs(attackPosition.x);
+        }
+        attackTransform.localPosition = attackPosition;
+    }
+
     void OnDrawGizmosSelected() 
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(attackPosition.position, attackRange);
+        Gizmos.DrawWireSphere(attackTransform.position, attackRange);
     }
     
     public void TakeDamage(int _damage)

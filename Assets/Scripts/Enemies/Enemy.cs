@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     }
 
     [SerializeField] public EnemyState enemyState = EnemyState.IDLE;
-    [SerializeField] public int health {get; set;}
+    [SerializeField] public int health = 5;
 
     [SerializeField] protected bool canSeePlayer = false;
     [SerializeField] protected float distanceFromPlayer;
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
 
     GameObject player;
 
-    protected void InflictDamage(int _damageAmount)
+    public virtual void InflictDamage(int _damageAmount)
     {
         health = health - _damageAmount;
     }
