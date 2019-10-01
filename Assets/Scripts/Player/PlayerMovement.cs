@@ -64,12 +64,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING && playerSingleton.CurrentPlayerState != Player.PlayerState.CLIMBING)
-        {
-            UpdateMovement();
-            UpdateJump();
-            ApplyVelocityToRigidbody();
-            UpdateLastHorizontalInput();
+        if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING && playerSingleton.CurrentPlayerState != Player.PlayerState.CLIMBING)
+
+        {
+
+            UpdateMovement();
+
+            UpdateJump();
+
+            ApplyVelocityToRigidbody();
+
+            UpdateLastHorizontalInput();
+
         }
     }
 
@@ -98,9 +104,12 @@ public class PlayerMovement : MonoBehaviour
                 triggerJump = true;
                 jumpRelease = false;
             }
-            else if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
-            {
-               playerSingleton.WebManager.ToggleSwinging();
+            else if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
+
+            {
+
+               playerSingleton.WebManager.ToggleSwinging();
+
             }
         }
         else if (inputSingleton.GetActionButton0Up() && playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE)
@@ -110,9 +119,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         float inputVertical = inputSingleton.GetVerticalInput();
-        if (playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING && inputVertical != 0)
-        {
-            playerSingleton.WebManager.MoveVertically(inputVertical);
+        if (playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING && inputVertical != 0)
+
+        {
+
+            playerSingleton.WebManager.MoveVertically(inputVertical);
+
         }
     }
 
@@ -181,9 +193,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateJump()
     {
-        if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING)
-        {
-            ApplyVerticalDrag();
+        if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING)
+
+        {
+
+            ApplyVerticalDrag();
+
         }
 
         if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE && CheckGrounded())
