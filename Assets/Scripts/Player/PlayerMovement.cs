@@ -89,7 +89,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandlePlayerInput()
     {
-        inputHorizontal = Input.GetAxisRaw("Horizontal");
+        //inputHorizontal = Input.GetAxisRaw("Horizontal");
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            inputHorizontal = -1000;
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            inputHorizontal = 1000;
+        }
+
         if (Input.GetButtonDown("Jump"))
         {
             if (playerSingleton.CurrentPlayerState == Player.PlayerState.GROUNDED)
@@ -149,6 +158,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         float newXAcceleration = inputHorizontal * movementSpeed * Time.fixedDeltaTime;
+        Debug.Log(inputHorizontal);
         //If the player is turning around give a boost to the acceleration to stop it feeling sluggish
         newXAcceleration = (playerVelocity.x >= 0) ^ (inputHorizontal < 0) ? newXAcceleration : newXAcceleration * turnModifier;
         playerVelocity.x += newXAcceleration;
@@ -181,14 +191,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING)
         {
-            //if (!CheckGrounded())
-            //{
-                ApplyVerticalDrag();
-            //}
-            //else
-            //{
-            //    playerVelocity.y = 0;
-            //}
+            ApplyVerticalDrag();
         }
 
         if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE && CheckGrounded())
