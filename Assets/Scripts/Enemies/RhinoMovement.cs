@@ -85,20 +85,26 @@ public class RhinoMovement : EnemyMovement
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(0, 0, 0.5f, 0.3f);
-        Gizmos.DrawCube(new Vector3(spawnPosition.x + (wonderingBoundaryXRight/2), spawnPosition.y, 0), new Vector3(wonderingBoundaryXRight, (wonderingBoundaryYUp + wonderingBoundaryYDown), 0));
-
 
         Gizmos.color = new Color(1.0f, 1.0f, 1.0f, 0.3f);
-        Gizmos.DrawCube(new Vector3(spawnPosition.x - (wonderingBoundaryXLeft / 2), spawnPosition.y, 0), new Vector3(wonderingBoundaryXLeft * -1, (wonderingBoundaryYUp + wonderingBoundaryYDown), 0));
+        Gizmos.DrawCube(new Vector3(spawnPosition.x - (wonderingBoundaryXLeft / 2), spawnPosition.y, 0),
+                        new Vector3(wonderingBoundaryXLeft * -1, 6, 0));
 
 
-        Gizmos.color = new Color(0, 1, 0.5f, 0.3f);
-        Gizmos.DrawCube(new Vector3(spawnPosition.x, spawnPosition.y + (wonderingBoundaryYUp / 2), 0), new Vector3((wonderingBoundaryXRight + wonderingBoundaryXLeft), wonderingBoundaryYUp, 0));
+        Gizmos.color = new Color(0.5f, 1.0f, 0.5f, 0.3f);
+        Gizmos.DrawCube(new Vector3(spawnPosition.x + (((wonderingBoundaryXRight) + (wonderingBoundaryXLeft * -1)) / 2), spawnPosition.y + (wonderingBoundaryYUp / 2), 0),
+                        new Vector3((wonderingBoundaryXRight + (wonderingBoundaryXLeft)), wonderingBoundaryYUp, 0));
 
 
         Gizmos.color = new Color(1, 0, 0.5f, 0.3f);
-        Gizmos.DrawCube(new Vector3(spawnPosition.x, spawnPosition.y - (wonderingBoundaryYDown / 2), 0), new Vector3((wonderingBoundaryXRight + wonderingBoundaryXLeft), wonderingBoundaryYDown * -1, 0));
+        Gizmos.DrawCube(new Vector3(spawnPosition.x + (((wonderingBoundaryXRight) + (wonderingBoundaryXLeft * -1)) / 2), spawnPosition.y - (wonderingBoundaryYDown / 2), 0),
+                        new Vector3((wonderingBoundaryXRight + (wonderingBoundaryXLeft)), wonderingBoundaryYDown * -1, 0));
+
+
+        Gizmos.color = new Color(0, 0, 0.5f, 0.3f);
+        Gizmos.DrawCube(new Vector3(spawnPosition.x + (wonderingBoundaryXRight / 2), spawnPosition.y, 0),
+                        new Vector3(wonderingBoundaryXRight, 6, 0));
+
 
     }
 }
