@@ -17,10 +17,6 @@ public class ScreenTransition : MonoBehaviour
     [SerializeField] private Transform newPlayerPosition;
     private Vector2 entryPoint;
 
-    //Only for testing until webbing is complete
-    [SerializeField] private GameObject web;
-    [SerializeField] private Transform newWebPosition;
-
     private void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -37,9 +33,6 @@ public class ScreenTransition : MonoBehaviour
             newScreenView = new Vector3(newCameraPosition.position.x, newCameraPosition.transform.position.y, mainCamera.transform.position.z);
             _col.gameObject.transform.position = entryPoint;
             mainCamera.transform.position = newScreenView;
-
-            web.transform.position = new Vector2(newWebPosition.transform.position.x, web.transform.position.y);
-
         }
     }
 }
