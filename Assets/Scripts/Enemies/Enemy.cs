@@ -31,6 +31,13 @@ public class Enemy : MonoBehaviour
     public virtual void InflictDamage(int _damageAmount)
     {
         health = health - _damageAmount;
+        //Change enemy colour
+
+        if(health <= 0)
+        {
+            enemyState = EnemyState.DYING;
+            //Play death animation
+        }
     }
 
     ///<summary> 

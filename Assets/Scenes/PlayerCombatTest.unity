@@ -187,6 +187,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3567153631499955213, guid: b13a610f1dba49f45bef9a51b61bce4b,
+        type: 3}
+      propertyPath: xOffset
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b13a610f1dba49f45bef9a51b61bce4b, type: 3}
 --- !u!1 &1175773951
@@ -368,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyState: 0
-  health: 5
+  health: 3
   canSeePlayer: 0
   distanceFromPlayer: 0
   visionRange: 1
@@ -422,7 +427,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!1 &1761279847
 GameObject:
   m_ObjectHideFlags: 0
