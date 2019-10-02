@@ -1,0 +1,10 @@
+{
+    "enemyMetaDataList": [
+        {
+        "enemyId" : "1",
+        "enemyType" : 1,
+        "spawnPos" : {0,0,0},
+        "enemyMovement" : null
+        }
+    ]
+}
