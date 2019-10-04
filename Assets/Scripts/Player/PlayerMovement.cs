@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
         RIGHT
     }
 
-
     [Header("Player Movement Settings")]
     [Tooltip("Determines how quickly the players movement speed ramps up, works in conjunction with Rigidbody's 'Linear Drag'")]
     [SerializeField] private float movementSpeed = 1f;
@@ -43,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     private CapsuleCollider2D col2d;
     private Player playerSingleton = null;
+    private InputManager inputSingleton = null;
     private float inputHorizontal = 0;
     private float lastHorizontalInput = 0;
     private bool triggerJump = false;
@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         col2d = GetComponent<CapsuleCollider2D>();
         playerSingleton = Player.Instance();
+        inputSingleton = InputManager.Instance();
     }
 
     private void Update()
@@ -63,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING)
+        if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING && playerSingleton.CurrentPlayerState != Player.PlayerState.CLIMBING)
         {
             UpdateMovement();
             UpdateJump();
@@ -89,8 +90,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandlePlayerInput()
     {
-        inputHorizontal = Input.GetAxisRaw("Horizontal");
-        if (Input.GetButtonDown("Jump"))
+        inputHorizontal = inputSingleton.GetHorizontalInput();
+        if (inputSingleton.GetActionButton0Down())
         {
             if (playerSingleton.CurrentPlayerState == Player.PlayerState.GROUNDED)
             {
@@ -99,19 +100,19 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
             {
-                Player.Instance().WebManager.ToggleSwinging();
+               playerSingleton.WebManager.ToggleSwinging();
             }
         }
-        else if (Input.GetButtonUp("Jump") && playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE)
+        else if (inputSingleton.GetActionButton0Up() && playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE)
         {
             triggerJump = false;
             jumpRelease = true;
         }
 
-        float inputVertical = Input.GetAxisRaw("Vertical");
+        float inputVertical = inputSingleton.GetVerticalInput();
         if (playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING && inputVertical != 0)
         {
-            Player.Instance().WebManager.MoveVertically(inputVertical);
+            playerSingleton.WebManager.MoveVertically(inputVertical);
         }
     }
 
@@ -181,14 +182,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING)
         {
-            //if (!CheckGrounded())
-            //{
-                ApplyVerticalDrag();
-            //}
-            //else
-            //{
-            //    playerVelocity.y = 0;
-            //}
+            ApplyVerticalDrag();
         }
 
         if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE && CheckGrounded())
@@ -216,11 +210,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateLastHorizontalInput()
     {
-        lastHorizontalInput = Input.GetAxisRaw("Horizontal");
+        lastHorizontalInput = inputSingleton.GetHorizontalInput();
     }
 
     public void ResetVelocity()
     {
         playerVelocity = rb2d.velocity;
+    }
+
+    public float GetMaxSpeed()
+    {
+        return maxMovementSpeed;
     }
 }

@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class WebSwing : MonoBehaviour
 {
+    private enum SwingDirection
+    {
+        LEFT, RIGHT
+    }
+    private SwingDirection swingDir;
+
     private Transform webOrigin;
     private LineRenderer lineRenderer;
     private SpringJoint2D springJoint;
 
     private Transform playerTransform;
+    private PlayerMovement playerMovement;
 
     private Vector3[] lineVerts = new Vector3[2];
 
@@ -20,6 +27,8 @@ public class WebSwing : MonoBehaviour
 
     public bool disableCollisionsWhenSwinging = true;
 
+    private float maxSwingSpeed;
+
 
     private void Start()
     {
@@ -28,6 +37,8 @@ public class WebSwing : MonoBehaviour
         springJoint = GetComponent<SpringJoint2D>();
 
         playerTransform = Player.Instance().transform;
+        playerMovement = Player.Instance().PlayerMovement;
+        maxSwingSpeed = playerMovement.GetMaxSpeed() * 2;
 
         lineVerts[0] = webOrigin.position;
 
@@ -40,26 +51,59 @@ public class WebSwing : MonoBehaviour
 
     private void Update()
     {
+        if (!isSwinging) return;
+
+        swingDir = UpdateSwingDirection();
+
         lineVerts[0] = webOrigin.position;
         lineVerts[1] = playerTransform.position;
         lineRenderer.SetPositions(lineVerts);
+
+        // -- Left and right to speed up/down -- //
+
+        Vector2 velocity = playerMovement.Rigidbody.velocity;
+
+        float horizontal = InputManager.Instance().GetHorizontalInput();
+
+        if ((swingDir == SwingDirection.LEFT && horizontal < 0 
+            && playerMovement.Rigidbody.velocity.x > -maxSwingSpeed)
+            ||
+            (swingDir == SwingDirection.RIGHT && horizontal > 0
+            && playerMovement.Rigidbody.velocity.magnitude < maxSwingSpeed))
+        {
+            velocity.x += horizontal * 50 * Time.deltaTime;
+        }
+
+        playerMovement.Rigidbody.velocity = velocity;
+    }
+
+
+    private SwingDirection UpdateSwingDirection()
+    {
+        if (playerMovement.Rigidbody.velocity.x < 0)
+            return SwingDirection.LEFT;
+        else if (playerMovement.Rigidbody.velocity.x > 0)
+            return SwingDirection.RIGHT;
+        else
+            return swingDir;
     }
 
 
     public void ToggleSwinging()
     {
         isSwinging = !isSwinging;
+        Update();
 
         if (isSwinging)
         {
             initialSwingPos = springJoint.distance;
             UpdateWebOrigin();
-            Player.Instance().GetComponent<Collider2D>().enabled = disableCollisionsWhenSwinging ? false : true;
+            Player.Instance().gameObject.layer = disableCollisionsWhenSwinging ? 11 : 0;
         }
         else
         {
             springJoint.autoConfigureDistance = true;
-            Player.Instance().GetComponent<Collider2D>().enabled = true;
+            Player.Instance().gameObject.layer = 0;
             Player.Instance().PlayerMovement.ResetVelocity();
         }
 

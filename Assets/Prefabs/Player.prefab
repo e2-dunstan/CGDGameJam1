@@ -156,5 +156,5 @@ MonoBehaviour:
   jumpQuickReleaseModifier: 0.5
   groundedLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1792
   groundedRaycastLength: 0.3
