@@ -53,6 +53,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (InputManager.Instance().GetActionButton1Held())
+        {
+            spriteRenderer.sprite = sprites[2];
+            return;
+        }
+
         switch (currentPlayerState)
         {
             case PlayerState.GROUNDED:
