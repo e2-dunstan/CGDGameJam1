@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class WebSwing : MonoBehaviour
 {
-    private enum SwingDirection
-    {
-        LEFT, RIGHT
-    }
-    private SwingDirection swingDir;
+    private PlayerMovement.MovementDirection swingDir;
 
     private Transform webOrigin;
     private LineRenderer lineRenderer;
@@ -65,10 +61,12 @@ public class WebSwing : MonoBehaviour
 
         float horizontal = InputManager.Instance().GetHorizontalInput();
 
-        if ((swingDir == SwingDirection.LEFT && horizontal < 0 
+        playerMovement.PlayerMovementDirection = swingDir;
+
+        if ((swingDir == PlayerMovement.MovementDirection.LEFT && horizontal < 0 
             && playerMovement.Rigidbody.velocity.x > -maxSwingSpeed)
             ||
-            (swingDir == SwingDirection.RIGHT && horizontal > 0
+            (swingDir == PlayerMovement.MovementDirection.RIGHT && horizontal > 0
             && playerMovement.Rigidbody.velocity.magnitude < maxSwingSpeed))
         {
             velocity.x += horizontal * 50 * Time.deltaTime;
@@ -78,12 +76,12 @@ public class WebSwing : MonoBehaviour
     }
 
 
-    private SwingDirection UpdateSwingDirection()
+    private PlayerMovement.MovementDirection UpdateSwingDirection()
     {
         if (playerMovement.Rigidbody.velocity.x < 0)
-            return SwingDirection.LEFT;
+            return PlayerMovement.MovementDirection.LEFT;
         else if (playerMovement.Rigidbody.velocity.x > 0)
-            return SwingDirection.RIGHT;
+            return PlayerMovement.MovementDirection.RIGHT;
         else
             return swingDir;
     }
