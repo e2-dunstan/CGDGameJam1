@@ -40,6 +40,16 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public virtual void StunEnemy(float _stunDuration)
+    {
+
+    }
+
+    public virtual void KnockbackEnemy()
+    {
+        
+    }
+
     ///<summary> 
     ///By default this will raycast out from the enemy for the specified visionRange. 
     ///Override this if more complicated player detection is required.
