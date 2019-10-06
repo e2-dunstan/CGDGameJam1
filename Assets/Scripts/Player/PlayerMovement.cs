@@ -217,4 +217,9 @@ public class PlayerMovement : MonoBehaviour
     {
         playerVelocity = rb2d.velocity;
     }
+
+    public float GetMaxSpeed()
+    {
+        return maxMovementSpeed;
+    }
 }
