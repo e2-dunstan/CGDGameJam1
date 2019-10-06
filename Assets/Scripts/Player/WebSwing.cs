@@ -102,7 +102,7 @@ public class WebSwing : MonoBehaviour
         {
             springJoint.autoConfigureDistance = true;
             Player.Instance().gameObject.layer = 0;
-            Player.Instance().PlayerMovement.ResetVelocity();
+            Player.Instance().PlayerMovement.CarryOverVelocityFromSwinging();
         }
 
         Player.Instance().PlayerMovement.Rigidbody.drag = isSwinging ? 0f : 0.1f;
@@ -115,7 +115,7 @@ public class WebSwing : MonoBehaviour
     {
         springJoint.autoConfigureDistance = false;
 
-        springJoint.distance -= input * Time.deltaTime * 50;
+        springJoint.distance += input * Time.deltaTime * 50;
     }
 
 
