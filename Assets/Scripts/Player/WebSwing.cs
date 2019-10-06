@@ -115,7 +115,7 @@ public class WebSwing : MonoBehaviour
     {
         springJoint.autoConfigureDistance = false;
 
-        springJoint.distance -= input * Time.deltaTime * 50;
+        springJoint.distance += input * Time.deltaTime * 50;
     }
 
 
