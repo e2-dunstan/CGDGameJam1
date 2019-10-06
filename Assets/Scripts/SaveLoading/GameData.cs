@@ -4,20 +4,24 @@ using UnityEngine;
 using System.Linq;
 
 [System.Serializable]
-public class GameData : MonoBehaviour
-{
-    public struct LeaderboardEntry
+public struct LeaderboardEntry
     {
         public string playerName;
         public int playerScore;
     }
 
+[System.Serializable]
+public class GameData
+{
+    
     public List<EnemyMetaData> enemyMetaDataList = new List<EnemyMetaData>();
 
     public List<LeaderboardEntry> leaderboardList = new List<LeaderboardEntry>();
 
     public void AddScoreToLeaderboard(LeaderboardEntry _leaderboardEntry)
     {
-        leaderboardList.Where(x => x.playerScore > _leaderboardEntry.playerScore);
+        int insertionIndex = leaderboardList.FindIndex(x => x.playerScore > _leaderboardEntry.playerScore);
+
+        leaderboardList.Insert(insertionIndex + 1, _leaderboardEntry);
     }
 }

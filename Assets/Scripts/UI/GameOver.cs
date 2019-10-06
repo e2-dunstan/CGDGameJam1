@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
+
+    [SerializeField] public SaveLoadManager saveLoadManager;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject highscorePanel;
 
@@ -25,7 +27,6 @@ public class GameOver : MonoBehaviour
         ENTER_NAME, NAME_ENTERED, HIGHSCORE
     }
     private GameOverState state = GameOverState.ENTER_NAME;
-
 
     private void Start()
     {
@@ -68,11 +69,27 @@ public class GameOver : MonoBehaviour
         finalScoreText.enabled = true;
         yield return new WaitForSeconds(1.0f);
 
+        saveLoadManager.gameData.AddScoreToLeaderboard(new LeaderboardEntry { playerName = enterName.NameEntered, playerScore = FinalScore });
+        saveLoadManager.ForceSave();
         ShowHighscores();
     }
 
     private void ShowHighscores()
     {
+        List<LeaderboardEntry> leaderboardEntries = saveLoadManager.GetLeaderboardEntries();
+
+        for(int i = 0; i < highscores.Length; i++)
+        {
+            if (i < leaderboardEntries.Count)
+            {
+                highscores[i].GetComponent<HighscoreUI>().setHighscore(leaderboardEntries[i].playerName, leaderboardEntries[i].playerScore);
+            }
+            else
+            {
+                highscores[i].SetActive(false);
+            }
+        }
+
         gameOverPanel.SetActive(false);
         highscorePanel.SetActive(true);
     }
