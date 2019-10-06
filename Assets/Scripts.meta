@@ -1,8 +1,19 @@
+<<<<<<< HEAD
 fileFormatVersion: 2
-guid: de3e60d30c07fff4092dec3ea421fdee
+guid: 286d1530fe2b77242b9a6cce32f19a50
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+=======
+fileFormatVersion: 2
+guid: 918b865c05abe3845bc6fd8b5dbc738c
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>> origin/Enemies

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -63,7 +64,7 @@ public class WebSwing : MonoBehaviour
 
         playerMovement.PlayerMovementDirection = swingDir;
 
-        if ((swingDir == PlayerMovement.MovementDirection.LEFT && horizontal < 0 
+        if ((swingDir == PlayerMovement.MovementDirection.LEFT && horizontal < 0
             && playerMovement.Rigidbody.velocity.x > -maxSwingSpeed)
             ||
             (swingDir == PlayerMovement.MovementDirection.RIGHT && horizontal > 0
@@ -106,7 +107,7 @@ public class WebSwing : MonoBehaviour
         }
 
         Player.Instance().PlayerMovement.Rigidbody.drag = isSwinging ? 0f : 0.1f;
-        
+
         UpdateSwinging();
     }
 
