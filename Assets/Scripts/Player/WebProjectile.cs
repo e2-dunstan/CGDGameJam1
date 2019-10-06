@@ -4,12 +4,25 @@ using UnityEngine;
 
 public class WebProjectile : Projectile
 {
+    public bool isPlayerProjectile = true;
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Enemy"))
+        if (isPlayerProjectile == true)
         {
-            other.gameObject.GetComponent<Enemy>().InflictDamage(projectileDamage);
-            Destroy(this.gameObject);
+            if (other.CompareTag("Enemy"))
+            {
+                other.gameObject.GetComponent<Enemy>().InflictDamage(projectileDamage);
+                Destroy(this.gameObject);
+            }
+        }
+        else
+        {
+            if (other.CompareTag("Player"))
+            {
+                other.gameObject.GetComponent<PlayerCombat>().TakeDamage(1);
+                Destroy(this.gameObject);
+            }
         }
     }
 }

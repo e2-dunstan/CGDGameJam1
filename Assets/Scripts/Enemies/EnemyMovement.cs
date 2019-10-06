@@ -7,7 +7,8 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] public float moveSpeed = 1.0f;
 
     [SerializeField] public Vector2 spawnPosition;
-     public Vector2 targetDestination;
+     public Vector3 targetDestination;
+    public bool hasReachedDestination = false;
 
     public virtual void MoveWithinDefinedWonderingBounds()
     {
@@ -26,6 +27,11 @@ public class EnemyMovement : MonoBehaviour
     }
 
     public virtual void StopMovingForTime(float _timePeriod)
+    {
+
+    }
+
+    public virtual void ForceMoveToSpecificPosition(Vector2 _targetPosition)
     {
 
     }
