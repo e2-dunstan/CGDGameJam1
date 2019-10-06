@@ -1884,6 +1884,55 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 800289587}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1012715933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1012715935}
+  - component: {fileID: 1012715934}
+  m_Layer: 0
+  m_Name: SaveLoadManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1012715934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012715933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adbbdac2d7b0e4f2ebc3f1a1c90439f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameData:
+    enemyMetaDataList: []
+    leaderboardList: []
+  spawnManager: {fileID: 0}
+  prefabs: {fileID: 0}
+  instantiateableObjects: []
+--- !u!4 &1012715935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012715933}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 102.81154, y: 73.67715, z: -240.24211}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1230281600
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,6 +2404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a645ee8e73d9e4fb3eba1302227d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveLoadManager: {fileID: 1012715934}
   gameOverPanel: {fileID: 182499720}
   highscorePanel: {fileID: 333851694}
   highscores:

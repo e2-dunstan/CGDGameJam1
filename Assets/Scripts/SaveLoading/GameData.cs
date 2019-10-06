@@ -20,7 +20,7 @@ public class GameData
 
     public void AddScoreToLeaderboard(LeaderboardEntry _leaderboardEntry)
     {
-        int insertionIndex = leaderboardList.FindIndex(x => x.playerScore > _leaderboardEntry.playerScore);
+        int insertionIndex = leaderboardList.FindIndex(x => x.playerScore <= _leaderboardEntry.playerScore);
 
         leaderboardList.Insert(insertionIndex + 1, _leaderboardEntry);
     }
