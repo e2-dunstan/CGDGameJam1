@@ -134,7 +134,7 @@ public class PlayerCombat : MonoBehaviour
         Gizmos.DrawWireSphere(attackTransform.position, attackRange);
     }
     
-    public void TakeDamage(int _damage)
+    public void InflictDamage(int _damage)
     {
         health -= _damage;
     }

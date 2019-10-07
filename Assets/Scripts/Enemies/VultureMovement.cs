@@ -20,12 +20,6 @@ public struct MovementPosition
 public class VultureMovement : EnemyMovement
 {
     public List<MovementPosition> movementPositions;
-
-    [SerializeField] private bool canFly = true;
-
-    [SerializeField] private bool hasRandomTargetLocation = false;
-
-    [SerializeField] private Vector3 randomLocation;
     
     [SerializeField] private int randomPositionIndex = 0;
     [SerializeField] private int randomShootingPos = 0;

@@ -146,7 +146,7 @@ public class VultureEnemy : Enemy
                 player.WebManager.ToggleSwinging();
                 Vector2 knockBackVelocity = (enemyMovement.transform.position - player.transform.position) * 15;
                 player.PlayerMovement.Rigidbody.velocity = knockBackVelocity;
-                player.PlayerCombat.TakeDamage(1);
+                player.PlayerCombat.InflictDamage(1);
             }
         }
     }

@@ -16,15 +16,13 @@ public class EnemyProjectile : Projectile
 
 		if (other.CompareTag("Player"))
 		{
-            other.gameObject.GetComponent<PlayerCombat>().TakeDamage(1);
+            other.gameObject.GetComponent<PlayerCombat>().InflictDamage(1);
 
+            if (player.CurrentPlayerState == Player.PlayerState.WEBBING)
+            {
+                player.WebManager.ToggleSwinging();
+            }
             
-                if (player.CurrentPlayerState == Player.PlayerState.WEBBING)
-                {
-                    player.WebManager.ToggleSwinging();
-                }
-            
-
             Destroy(this.gameObject);
 		}
 

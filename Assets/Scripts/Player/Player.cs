@@ -15,10 +15,10 @@ public class Player : MonoBehaviour
     //TODO add extra references to player subsystems
     [SerializeField] private PlayerMovement playerMovement = null;
     public PlayerMovement PlayerMovement { get => playerMovement; private set => playerMovement = value; }
-    [SerializeField] private WebSwing webManager = null;
-    public WebSwing WebManager { get => webManager; private set => webManager = value; }
     [SerializeField] private PlayerCombat playerCombat = null;
     public PlayerCombat PlayerCombat { get => playerCombat; private set => playerCombat = value; }
+    [SerializeField] private WebSwing webManager = null;
+    public WebSwing WebManager { get => webManager; private set => webManager = value; }
 
     private static Player _instance = null;
     private PlayerState currentPlayerState = PlayerState.GROUNDED;
