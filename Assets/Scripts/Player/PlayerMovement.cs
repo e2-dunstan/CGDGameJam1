@@ -158,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         float newXAcceleration = inputHorizontal * movementSpeed * Time.fixedDeltaTime;
-        Debug.Log(inputHorizontal);
+        //Debug.Log(inputHorizontal);
         //If the player is turning around give a boost to the acceleration to stop it feeling sluggish
         newXAcceleration = (playerVelocity.x >= 0) ^ (inputHorizontal < 0) ? newXAcceleration : newXAcceleration * turnModifier;
         playerVelocity.x += newXAcceleration;
@@ -217,9 +217,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void ApplyVelocityToRigidbody()
+    public void ApplyVelocityToRigidbody()
     {
         rb2d.velocity = playerVelocity;
+    }
+
+    public void SetPlayerVelocity(Vector2 vel)
+    {
+        playerVelocity = vel;
     }
 
     private void UpdateLastHorizontalInput()
