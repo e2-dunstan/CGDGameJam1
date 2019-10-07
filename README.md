@@ -46,8 +46,12 @@ Unity version 2019.2.0
 ## Style
 
 - Atari 2600
-  - Resolution 160x192
+  - Resolution 160w 192h
   - Aspect ratio 4:3 (stick to this!)
+  
+- Sprite resolutions (width)
+  - Player: 8 pixels
+  - Ball and missile: 1 pixel
 
 
 ## Inspiration

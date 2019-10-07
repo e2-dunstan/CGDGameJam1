@@ -26,6 +26,7 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         if (Instance == null) Instance = this;
+        else if (Instance != this) Destroy(gameObject);
 
         thisAudioSource = GetComponent<AudioSource>();
     }
