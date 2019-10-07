@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private bool CheckGrounded()
+    public bool CheckGrounded()
     {
         /*Changes the point of the raycast depending on direction of movement
         so that if any of the player is on an edge you will be able to jump */
