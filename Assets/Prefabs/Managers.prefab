@@ -79,6 +79,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b6aec546b5b252749aa0a6916cc5e67c, type: 3}
   - {fileID: 8300000, guid: b1c611efef3bb944780e79036f6cc661, type: 3}
   - {fileID: 8300000, guid: 79edb984b620742479eddfa79770e208, type: 3}
+  - {fileID: 8300000, guid: 89510a28fc2fb5248800cf953dec38d6, type: 3}
   jumpSounds:
   - {fileID: 8300000, guid: e93a6c7d3cc79764b9d87e0bf0ce98ea, type: 3}
   - {fileID: 8300000, guid: 63ed58063b48eff42ab8299d9dafeec1, type: 3}
