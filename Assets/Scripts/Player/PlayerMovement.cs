@@ -158,7 +158,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         float newXAcceleration = inputHorizontal * movementSpeed * Time.fixedDeltaTime;
-        Debug.Log(inputHorizontal);
         //If the player is turning around give a boost to the acceleration to stop it feeling sluggish
         newXAcceleration = (playerVelocity.x >= 0) ^ (inputHorizontal < 0) ? newXAcceleration : newXAcceleration * turnModifier;
         playerVelocity.x += newXAcceleration;

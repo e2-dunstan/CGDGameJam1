@@ -7,7 +7,7 @@ public class GameUI : MonoBehaviour
 {
     public static GameUI Instance;
 
-    [SerializeField] private GameObject[] lives;
+    [SerializeField] private Text lives;
     [SerializeField] private Text scoreElement;
     [SerializeField] private Text timeElement;
     private int score = 0;
@@ -43,25 +43,10 @@ public class GameUI : MonoBehaviour
             timeElement.text = str;
             timeElapsed = 0;
         }
-    }
 
-
-    public void RemoveLife()
-    {
-        if (lives[2].activeInHierarchy)
+        if (Player.Instance())
         {
-            lives[2].SetActive(false);
-            Debug.Log("2 LIVES LEFT");
-        }
-        else if (lives[1].activeInHierarchy)
-        {
-            lives[1].SetActive(false);
-            Debug.Log("1 LIFE LEFT");
-        }
-        else if (lives[0].activeInHierarchy)
-        {
-            lives[0].SetActive(false);
-            Debug.Log("OUT OF LIVES");
+            lives.text = Player.Instance().PlayerHealth.GetCurrentLives().ToString();
         }
     }
     
@@ -75,10 +60,7 @@ public class GameUI : MonoBehaviour
 
     private void ResetUI()
     {
-        lives[0].SetActive(true);
-        lives[1].SetActive(true);
-        lives[2].SetActive(true);
-
+        lives.text = 0.ToString();
         score = 0;
     }
 }
