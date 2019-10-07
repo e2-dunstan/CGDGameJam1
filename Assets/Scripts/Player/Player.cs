@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     {
         if (InputManager.Instance().GetActionButton1Down() && currentPlayerState == PlayerState.GROUNDED)
         {
-            AudioManager.Instance.PlayRandomClip(AudioManager.ClipType.FIRE, playerMovement.transform);
+            AudioManager.Instance.PlayRandomClip(AudioManager.ClipType.IMPACT, playerMovement.transform);
         }
         if (InputManager.Instance().GetActionButton1Held())
         {

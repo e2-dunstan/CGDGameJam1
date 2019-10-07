@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
 
     public enum ClipType
     {
-        DEATH, JUMP, WEB, FIRE, IMPACT, POINTS_GAINED
+        DEATH, JUMP, WEB, FIRE, IMPACT, POINTS_GAINED, TAKE_DAMAGE
     }
 
     public AudioClip[] deathSounds;
@@ -19,12 +19,27 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] jumpSounds;
     public AudioClip[] fireSounds;
     public AudioClip[] pointsGainedSounds;
+    public AudioClip[] takeDamageSounds;
+
+    public AudioClip[] other;
 
     void Awake()
     {
         if (Instance == null) Instance = this;
 
         thisAudioSource = GetComponent<AudioSource>();
+    }
+
+    public void PlaySpecificClip(AudioClip clip, Transform audioSource)
+    {
+        AudioSource source = audioSource.GetComponent<AudioSource>();
+        if (source == null)
+        {
+            source = audioSource.gameObject.AddComponent<AudioSource>();
+            source.playOnAwake = false;
+        }
+        
+        source.PlayOneShot(clip);
     }
     
 
@@ -50,6 +65,9 @@ public class AudioManager : MonoBehaviour
             case ClipType.POINTS_GAINED:
                 PlayRandom(pointsGainedSounds, audioSource);
                 break;
+            case ClipType.TAKE_DAMAGE:
+                PlayRandom(takeDamageSounds, audioSource);
+                break;
         }
     }
 
@@ -59,10 +77,11 @@ public class AudioManager : MonoBehaviour
 
         AudioSource source = audioSource.GetComponent<AudioSource>();
         if (source == null)
+        {
             source = audioSource.gameObject.AddComponent<AudioSource>();
-
-        source.playOnAwake = false;
-        //source.clip = clip;
+            source.playOnAwake = false;
+        }
+        
         source.PlayOneShot(clip);
     }
 }
