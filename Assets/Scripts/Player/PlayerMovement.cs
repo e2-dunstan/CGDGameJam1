@@ -47,7 +47,8 @@ public class PlayerMovement : MonoBehaviour
     private float lastHorizontalInput = 0;
     private bool triggerJump = false;
     private bool jumpRelease = false;
-
+    private bool horizontalCapOverride = false;
+    private float horizontalOverrideCap = 0.0f;
 
     void Start()
     {
@@ -65,17 +66,11 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING && playerSingleton.CurrentPlayerState != Player.PlayerState.CLIMBING)
-
         {
-
             UpdateMovement();
-
             UpdateJump();
-
             ApplyVelocityToRigidbody();
-
             UpdateLastHorizontalInput();
-
         }
     }
 
@@ -105,11 +100,8 @@ public class PlayerMovement : MonoBehaviour
                 jumpRelease = false;
             }
             else if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
-
             {
-
                playerSingleton.WebManager.ToggleSwinging();
-
             }
         }
         else if (inputSingleton.GetActionButton0Up() && playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE)
@@ -183,11 +175,11 @@ public class PlayerMovement : MonoBehaviour
         //Cap the speed so it doesnt keep rising exponentially
         if (playerVelocity.x > maxMovementSpeed)
         {
-            playerVelocity.x = maxMovementSpeed;
+            playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : maxMovementSpeed;
         }
         else if (playerVelocity.x < -maxMovementSpeed)
         {
-            playerVelocity.x = -maxMovementSpeed;
+            playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : -maxMovementSpeed;
         }
     }
 
@@ -204,10 +196,12 @@ public class PlayerMovement : MonoBehaviour
         if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE && CheckGrounded())
         {
             playerVelocity.y = 0;
+            horizontalCapOverride = false;
             playerSingleton.CurrentPlayerState = Player.PlayerState.GROUNDED;
         }
         if (playerSingleton.CurrentPlayerState == Player.PlayerState.GROUNDED && triggerJump)
         {
+            AudioManager.Instance.PlayRandomClip(AudioManager.ClipType.JUMP, transform);
             triggerJump = false;
             playerVelocity.y = jumpVelocity;
             playerSingleton.CurrentPlayerState = Player.PlayerState.AIRBORNE;
@@ -229,8 +223,15 @@ public class PlayerMovement : MonoBehaviour
         lastHorizontalInput = inputSingleton.GetHorizontalInput();
     }
 
-    public void ResetVelocity()
+    public void CarryOverVelocityFromSwinging()
     {
+        horizontalCapOverride = true;
+        horizontalOverrideCap = rb2d.velocity.x;
         playerVelocity = rb2d.velocity;
+    }
+
+    public float GetMaxSpeed()
+    {
+        return maxMovementSpeed;
     }
 }

@@ -45,6 +45,11 @@ public class InputManager : MonoBehaviour
         return Input.GetButtonDown("ActionButton1");
     }
 
+    public bool GetActionButton1Held()
+    {
+        return Input.GetButton("ActionButton1");
+    }
+
     public bool GetActionButton1Up()
     {
         return Input.GetButtonUp("ActionButton1");
