@@ -33,6 +33,8 @@ public class GameOver : MonoBehaviour
         gameOverPanel.SetActive(true);
         highscorePanel.SetActive(false);
         finalScoreText.enabled = false;
+
+        score = ScoreManager.Instance.GetFinalScore();
     }
     
     private void Update()
@@ -96,7 +98,6 @@ public class GameOver : MonoBehaviour
         highscorePanel.SetActive(true);
     }
 
-    //Add a time multiplier
     public int FinalScore
     {
         get

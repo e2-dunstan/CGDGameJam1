@@ -33,6 +33,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2822530251785591163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3148564426384548524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f414650f016a9b4b81e5667252c3c9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLives: 3
+  iFrameDuration: 2
+  deathSceneName: Game Over
 --- !u!114 &3567153631499955213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +144,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1683382105031885931}
     m_Modifications:
+    - target: {fileID: 1887256723528965817, guid: 1e5113af87f3e3044a4460c5185ff507,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1887256723528965818, guid: 1e5113af87f3e3044a4460c5185ff507,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -184,11 +204,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1887256723528965817, guid: 1e5113af87f3e3044a4460c5185ff507,
-        type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 1887256723528965822, guid: 1e5113af87f3e3044a4460c5185ff507,
         type: 3}
       propertyPath: webManager
@@ -196,6 +211,12 @@ PrefabInstance:
       objectReference: {fileID: 3567153631499955213}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5113af87f3e3044a4460c5185ff507, type: 3}
+--- !u!1 &3148564426384548524 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1887256723528965817, guid: 1e5113af87f3e3044a4460c5185ff507,
+    type: 3}
+  m_PrefabInstance: {fileID: 3567153632811711509}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3148564426384548527 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1887256723528965818, guid: 1e5113af87f3e3044a4460c5185ff507,
@@ -215,6 +236,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1683382105031885931}
     m_Modifications:
+    - target: {fileID: 168053889903823844, guid: d8e34fd2c2f1a5f409a0915e9b8f59c9,
+        type: 3}
+      propertyPath: m_Name
+      value: Web Manager
+      objectReference: {fileID: 0}
     - target: {fileID: 6447104514974715023, guid: d8e34fd2c2f1a5f409a0915e9b8f59c9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -269,11 +295,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 168053889903823844, guid: d8e34fd2c2f1a5f409a0915e9b8f59c9,
-        type: 3}
-      propertyPath: m_Name
-      value: Web Manager
       objectReference: {fileID: 0}
     - target: {fileID: 2241777920902616802, guid: d8e34fd2c2f1a5f409a0915e9b8f59c9,
         type: 3}
