@@ -53,6 +53,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (InputManager.Instance().GetActionButton1Down() && currentPlayerState == PlayerState.GROUNDED)
+        {
+            AudioManager.Instance.PlayRandomClip(AudioManager.ClipType.FIRE, playerMovement.transform);
+        }
         if (InputManager.Instance().GetActionButton1Held())
         {
             spriteRenderer.sprite = sprites[2];
