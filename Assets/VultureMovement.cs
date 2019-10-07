@@ -114,7 +114,6 @@ public class VultureMovement : EnemyMovement
 
     private MovementPosition GetRandomMovementPositionOfType(MovementPositionType _movementPositionType)
     {
-        
         List<MovementPosition> possiblePositions = movementPositions.Where(x => x.movementPositionType == _movementPositionType && x.movementObj.transform.position != targetDestination).ToList();
 
         int randomPossiblePositionIndex = Random.Range(0, possiblePositions.Count);

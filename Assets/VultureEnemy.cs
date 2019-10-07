@@ -52,6 +52,10 @@ public class VultureEnemy : Enemy
                 enemyMovement.ForceMoveToSpecificPosition(new Vector2(gameObject.transform.position.x, Floor.transform.position.y + 10));
                 enemyMovement.MoveWithinDefinedWonderingBounds();
                 break;
+            case EnemyState.DYING:
+                enemyMovement.ForceMoveToSpecificPosition(new Vector2(gameObject.transform.position.x, Floor.transform.position.y + 10));
+                enemyMovement.MoveWithinDefinedWonderingBounds();
+                break;
             default:
                 break;
         }

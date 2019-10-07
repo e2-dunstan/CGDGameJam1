@@ -8,7 +8,6 @@ public enum BossStage
     STAGE2 = 1,
     STAGE3 = 2,
     STAGE4 = 3,
-    STAGE5 = 4
 }
 
 public class VultureBossManager : MonoBehaviour
@@ -26,6 +25,9 @@ public class VultureBossManager : MonoBehaviour
     [SerializeField] private float timeBetweenShootingHard = 5.0f;
 
     [SerializeField] private int numberOfTimesShot = 0;
+
+    [SerializeField] private GameObject EntranceDoor;
+    [SerializeField] private GameObject ExitDoor;
 
     // Start is called before the first frame update
     void Start()
@@ -46,40 +48,29 @@ public class VultureBossManager : MonoBehaviour
         if(vulture.enemyState == Enemy.EnemyState.STUNNED)
         {
             canAttack = false;
+            timeOnCurrentStage = 0.0f;
+            numberOfTimesShot = 0;
         }
         else
         {
-            canAttack = true;
             timeOnCurrentStage += Time.deltaTime;
         }
 
         
         switch(bossStage)
-        {
+        { 
             case BossStage.STAGE1:
-
+               
                 break;
             case BossStage.STAGE2:
-                if(timeBetweenShootingEasy < (timeOnCurrentStage / numberOfTimesShot)
+                if (timeBetweenShootingEasy < (timeOnCurrentStage / numberOfTimesShot)
                     && canAttack == true)
                 {
                     PromptEasyShoot();
                 }
                 break;
             case BossStage.STAGE3:
-                if (timeBetweenShootingEasy < (timeOnCurrentStage / numberOfTimesShot)
-                    && canAttack == true)
-                {
-                    PromptHardShoot();
-                }
-                break;
-            case BossStage.STAGE4:
-                if(timeBetweenShootingEasy < (timeOnCurrentStage / numberOfTimesShot)
-                    && canAttack == true)
-                {
-                    PromptEasyShoot();
-                }
-                else if (timeBetweenShootingHard < (timeOnCurrentStage / numberOfTimesShot)
+                if (timeBetweenShootingHard < (timeOnCurrentStage / numberOfTimesShot)
                     && canAttack == true)
                 {
                     PromptHardShoot();
@@ -92,20 +83,17 @@ public class VultureBossManager : MonoBehaviour
     {
         switch (vulture.health)
         {
-            case 4:
+            case 2:
                 bossStage = BossStage.STAGE2;
                 vultureMovement.ForceMoveToDefaultPosition();
                 break;
-            case 3:
+            case 1:
                 bossStage = BossStage.STAGE3;
                 vultureMovement.ForceMoveToShootingPosition();
                 break;
-            case 2:
-                bossStage = BossStage.STAGE4;
-                vultureMovement.ForceMoveToShootingPosition();
-                break;
-            case 1:
-                bossStage = BossStage.STAGE5;
+            case 0:
+                //Open door to leave
+                ExitDoor.GetComponent<Door>().OpenDoor();
                 break;
 
         }
