@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
 
     public enum ClipType
     {
-        DEATH, JUMP, WEB, FIRE, IMPACT, POINTS_GAINED
+        DEATH, JUMP, WEB, FIRE, IMPACT, POINTS_GAINED, TAKE_DAMAGE
     }
 
     public AudioClip[] deathSounds;
@@ -19,6 +19,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] jumpSounds;
     public AudioClip[] fireSounds;
     public AudioClip[] pointsGainedSounds;
+    public AudioClip[] takeDamageSounds;
 
     void Awake()
     {
@@ -49,6 +50,9 @@ public class AudioManager : MonoBehaviour
                 break;
             case ClipType.POINTS_GAINED:
                 PlayRandom(pointsGainedSounds, audioSource);
+                break;
+            case ClipType.TAKE_DAMAGE:
+                PlayRandom(takeDamageSounds, audioSource);
                 break;
         }
     }
