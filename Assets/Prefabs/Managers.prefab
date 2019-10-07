@@ -80,7 +80,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b1c611efef3bb944780e79036f6cc661, type: 3}
   - {fileID: 8300000, guid: 79edb984b620742479eddfa79770e208, type: 3}
   jumpSounds:
-  - {fileID: 8300000, guid: ae3dac8ef66e20443b102d2b7cf244cc, type: 3}
+  - {fileID: 8300000, guid: e93a6c7d3cc79764b9d87e0bf0ce98ea, type: 3}
+  - {fileID: 8300000, guid: 63ed58063b48eff42ab8299d9dafeec1, type: 3}
+  - {fileID: 8300000, guid: ed34011a77207f54f80da5fb3340e42a, type: 3}
+  - {fileID: 8300000, guid: bb5a841966c0efb4aa405308ccf596fe, type: 3}
   fireSounds:
   - {fileID: 8300000, guid: 9413988e4c6792e48894c4a8b63dcb23, type: 3}
   - {fileID: 8300000, guid: d9e9f1e2be64d444d8a39e2a6fd7b217, type: 3}
@@ -101,6 +104,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ef66b5396394ff042931371864179535, type: 3}
   - {fileID: 8300000, guid: 739c201d03c75334b9638dec14226f51, type: 3}
   - {fileID: 8300000, guid: 96aad9d3e3325f54391376d258ffb570, type: 3}
+  other:
+  - {fileID: 8300000, guid: 5bc333b17c3acc246a7ca6761c252990, type: 3}
 --- !u!82 &3889901786715727569
 AudioSource:
   m_ObjectHideFlags: 0

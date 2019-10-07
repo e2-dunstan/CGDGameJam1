@@ -21,11 +21,25 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] pointsGainedSounds;
     public AudioClip[] takeDamageSounds;
 
+    public AudioClip[] other;
+
     void Awake()
     {
         if (Instance == null) Instance = this;
 
         thisAudioSource = GetComponent<AudioSource>();
+    }
+
+    public void PlaySpecificClip(AudioClip clip, Transform audioSource)
+    {
+        AudioSource source = audioSource.GetComponent<AudioSource>();
+        if (source == null)
+        {
+            source = audioSource.gameObject.AddComponent<AudioSource>();
+            source.playOnAwake = false;
+        }
+        
+        source.PlayOneShot(clip);
     }
     
 
@@ -63,10 +77,11 @@ public class AudioManager : MonoBehaviour
 
         AudioSource source = audioSource.GetComponent<AudioSource>();
         if (source == null)
+        {
             source = audioSource.gameObject.AddComponent<AudioSource>();
-
-        source.playOnAwake = false;
-        //source.clip = clip;
+            source.playOnAwake = false;
+        }
+        
         source.PlayOneShot(clip);
     }
 }
