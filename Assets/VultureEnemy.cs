@@ -56,7 +56,7 @@ public class VultureEnemy : Enemy
                 break;
         }
 
-        if (enemyState != EnemyState.DYING)
+        if (enemyState != EnemyState.DYING && enemyState != EnemyState.STUNNED)
         {
             animTimeElapsed += Time.deltaTime;
             if (animTimeElapsed > timeBetweenFrames / 2.0f)
@@ -128,6 +128,7 @@ public class VultureEnemy : Enemy
             //Is hit and begins falling
             //CHANGE TO FALLING SPRITE
             enemyState = EnemyState.STUNNED;
+            spriteRenderer.sprite = vultureAnimations[2];
             InvincibleForTime(2);
         }
     }
