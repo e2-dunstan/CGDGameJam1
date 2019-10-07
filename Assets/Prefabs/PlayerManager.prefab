@@ -129,6 +129,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1683382105031885931}
     m_Modifications:
+    - target: {fileID: 1887256723528965817, guid: 1e5113af87f3e3044a4460c5185ff507,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1887256723528965818, guid: 1e5113af87f3e3044a4460c5185ff507,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -184,11 +189,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1887256723528965817, guid: 1e5113af87f3e3044a4460c5185ff507,
-        type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 1887256723528965822, guid: 1e5113af87f3e3044a4460c5185ff507,
         type: 3}
       propertyPath: webManager
@@ -215,6 +215,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1683382105031885931}
     m_Modifications:
+    - target: {fileID: 168053889903823844, guid: d8e34fd2c2f1a5f409a0915e9b8f59c9,
+        type: 3}
+      propertyPath: m_Name
+      value: Web Manager
+      objectReference: {fileID: 0}
     - target: {fileID: 6447104514974715023, guid: d8e34fd2c2f1a5f409a0915e9b8f59c9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -269,11 +274,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 168053889903823844, guid: d8e34fd2c2f1a5f409a0915e9b8f59c9,
-        type: 3}
-      propertyPath: m_Name
-      value: Web Manager
       objectReference: {fileID: 0}
     - target: {fileID: 2241777920902616802, guid: d8e34fd2c2f1a5f409a0915e9b8f59c9,
         type: 3}
