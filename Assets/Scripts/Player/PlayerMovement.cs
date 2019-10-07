@@ -99,6 +99,10 @@ public class PlayerMovement : MonoBehaviour
                 triggerJump = true;
                 jumpRelease = false;
             }
+            else if (playerSingleton.PreviousPlayerState == Player.PlayerState.CLIMBING && playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE)
+            {
+                playerSingleton.ChangePlayerState(Player.PlayerState.AIRBORNE);
+            }
             else if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
             {
                playerSingleton.WebManager.ToggleSwinging();
@@ -197,14 +201,14 @@ public class PlayerMovement : MonoBehaviour
         {
             playerVelocity.y = 0;
             horizontalCapOverride = false;
-            playerSingleton.CurrentPlayerState = Player.PlayerState.GROUNDED;
+            playerSingleton.ChangePlayerState(Player.PlayerState.GROUNDED);
         }
         if (playerSingleton.CurrentPlayerState == Player.PlayerState.GROUNDED && triggerJump)
         {
             AudioManager.Instance.PlayRandomClip(AudioManager.ClipType.JUMP, transform);
             triggerJump = false;
             playerVelocity.y = jumpVelocity;
-            playerSingleton.CurrentPlayerState = Player.PlayerState.AIRBORNE;
+            playerSingleton.ChangePlayerState(Player.PlayerState.AIRBORNE);
         }
         else if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE && jumpRelease && playerVelocity.y > 0)
         {
