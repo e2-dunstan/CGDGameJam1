@@ -19,6 +19,8 @@ public class PlayerCombat : MonoBehaviour
     private InputManager inputSingleton = null;
     private float attackCooldownTimer = 0;
 
+    public GameObject bossEnemy;
+    public bool isInBossScene = false;
     private void Start() 
     {
         playerSingleton = Player.Instance();
@@ -59,12 +61,22 @@ public class PlayerCombat : MonoBehaviour
     private void FireWebProjectile()
     {
         //Right = 1 || Left = -1
-        float directionMultiplier = playerSingleton.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT ? 1 : -1;
+        if (!isInBossScene)
+        {
+            float directionMultiplier = playerSingleton.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT ? 1 : -1;
 
-        WebProjectile projectile = Instantiate(webProjectile, attackTransform.position, Quaternion.identity).GetComponent<WebProjectile>();
-        projectile.SpawnProjectile(new Vector2(projectileSpeed * 10 * directionMultiplier, 0), projectileLifetime, projectileDamage);
+            WebProjectile projectile = Instantiate(webProjectile, attackTransform.position, Quaternion.identity).GetComponent<WebProjectile>();
+            projectile.SpawnProjectile(new Vector2(projectileSpeed * 10 * directionMultiplier, 0), projectileLifetime, projectileDamage);
 
-        attackCooldownTimer = attackCooldownDuration;
+            attackCooldownTimer = attackCooldownDuration;
+        }
+        else
+        {
+            Vector2 relativePos = bossEnemy.transform.position - gameObject.transform.position;
+
+            WebProjectile projectile = Instantiate(webProjectile, attackTransform.position, Quaternion.identity).GetComponent<WebProjectile>();
+            projectile.SpawnProjectile(new Vector2(relativePos.x, relativePos.y), 10, 1);
+        }
     }
 
     private void PunchEnemy()

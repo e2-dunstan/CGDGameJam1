@@ -1011,6 +1011,16 @@ PrefabInstance:
       propertyPath: punchDamage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6307093686063966357, guid: 7f8b084b8ebd6d44a8866406a2300f10,
+        type: 3}
+      propertyPath: bossEnemy
+      value: 
+      objectReference: {fileID: 154898454}
+    - target: {fileID: 6307093686063966357, guid: 7f8b084b8ebd6d44a8866406a2300f10,
+        type: 3}
+      propertyPath: isInBossScene
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f8b084b8ebd6d44a8866406a2300f10, type: 3}
 --- !u!1 &1469685473

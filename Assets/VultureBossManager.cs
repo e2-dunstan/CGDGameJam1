@@ -43,7 +43,16 @@ public class VultureBossManager : MonoBehaviour
             ChangeBossStage();
         }
 
-         timeOnCurrentStage += Time.deltaTime;
+        if(vulture.enemyState == Enemy.EnemyState.STUNNED)
+        {
+            canAttack = false;
+            timeOnCurrentStage += Time.deltaTime;
+        }
+        else
+        {
+            canAttack = true;
+        }
+
         
         switch(bossStage)
         {
