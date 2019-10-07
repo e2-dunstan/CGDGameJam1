@@ -66,17 +66,11 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING && playerSingleton.CurrentPlayerState != Player.PlayerState.CLIMBING)
-
         {
-
             UpdateMovement();
-
             UpdateJump();
-
             ApplyVelocityToRigidbody();
-
             UpdateLastHorizontalInput();
-
         }
     }
 
@@ -105,12 +99,13 @@ public class PlayerMovement : MonoBehaviour
                 triggerJump = true;
                 jumpRelease = false;
             }
-            else if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
-
+            else if (playerSingleton.PreviousPlayerState == Player.PlayerState.CLIMBING && playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE)
             {
-
+                playerSingleton.ChangePlayerState(Player.PlayerState.AIRBORNE);
+            }
+            else if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
+            {
                playerSingleton.WebManager.ToggleSwinging();
-
             }
         }
         else if (inputSingleton.GetActionButton0Up() && playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE)
@@ -163,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         float newXAcceleration = inputHorizontal * movementSpeed * Time.fixedDeltaTime;
-        Debug.Log(inputHorizontal);
+        //Debug.Log(inputHorizontal);
         //If the player is turning around give a boost to the acceleration to stop it feeling sluggish
         newXAcceleration = (playerVelocity.x >= 0) ^ (inputHorizontal < 0) ? newXAcceleration : newXAcceleration * turnModifier;
         playerVelocity.x += newXAcceleration;
@@ -206,13 +201,14 @@ public class PlayerMovement : MonoBehaviour
         {
             playerVelocity.y = 0;
             horizontalCapOverride = false;
-            playerSingleton.CurrentPlayerState = Player.PlayerState.GROUNDED;
+            playerSingleton.ChangePlayerState(Player.PlayerState.GROUNDED);
         }
         if (playerSingleton.CurrentPlayerState == Player.PlayerState.GROUNDED && triggerJump)
         {
+            AudioManager.Instance.PlayRandomClip(AudioManager.ClipType.JUMP, transform);
             triggerJump = false;
             playerVelocity.y = jumpVelocity;
-            playerSingleton.CurrentPlayerState = Player.PlayerState.AIRBORNE;
+            playerSingleton.ChangePlayerState(Player.PlayerState.AIRBORNE);
         }
         else if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE && jumpRelease && playerVelocity.y > 0)
         {
@@ -221,9 +217,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void ApplyVelocityToRigidbody()
+    public void ApplyVelocityToRigidbody()
     {
         rb2d.velocity = playerVelocity;
+    }
+
+    public void SetPlayerVelocity(Vector2 vel)
+    {
+        playerVelocity = vel;
     }
 
     private void UpdateLastHorizontalInput()
@@ -238,8 +239,11 @@ public class PlayerMovement : MonoBehaviour
         playerVelocity = rb2d.velocity;
     }
 
-    public float GetMaxSpeed()
-    {
-        return maxMovementSpeed;
+    public float GetMaxSpeed()
+
+    {
+
+        return maxMovementSpeed;
+
     }
 }

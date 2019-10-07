@@ -16,6 +16,10 @@ public class WallCrawling : MonoBehaviour
     [Range(0.0f, 5.0f)]
     [SerializeField] float webZipSpeed = 1.0f;
     private Vector3[] lineVerts = new Vector3[2];
+    float gravityScale = 0.0f;
+    [SerializeField] Vector2 jumpOffForce = new Vector2(10.0f, 0.0f);
+    bool jumpedOff = false;
+    float countdown = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +32,17 @@ public class WallCrawling : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(jumpedOff)
+        {
+            countdown -= Time.deltaTime;
+
+            if(countdown <= 0.0f)
+            {
+                countdown = 1.0f;
+                jumpedOff = false;
+            }
+        }
+
         var playerPos = player.transform.position;
         if (player.CurrentPlayerState == Player.PlayerState.CLIMBING)
         {
@@ -39,10 +54,32 @@ public class WallCrawling : MonoBehaviour
 
                 if (input.GetActionButton0Down())
                 {
-                    player.CurrentPlayerState = Player.PlayerState.AIRBORNE;
+                    player.ChangePlayerState(Player.PlayerState.AIRBORNE);
                     player.GetComponent<Rigidbody2D>().gravityScale = 3.6f;
-                }
 
+                    Vector2 vel = new Vector2(0.0f, 0.0f);
+                    if (input.GetHorizontalInput() > 0)
+                    {
+                        vel.x = jumpOffForce.x;
+                        vel.y = 200.0f;
+                    }
+                    else if (input.GetHorizontalInput() < 0)
+                    {
+                        vel.x = -jumpOffForce.x;
+                        vel.y = 200.0f;
+                    }
+                    else if (input.GetVerticalInput() < 0)
+                    {
+                        vel.y = jumpOffForce.y;
+                    }
+
+                    player.PlayerMovement.SetPlayerVelocity(vel);
+                    player.PlayerMovement.ApplyVelocityToRigidbody();
+                    player.GetComponent<Rigidbody2D>().velocity = vel;
+                    Debug.Log("Jump Off");
+                    Debug.Log(player.GetComponent<Rigidbody2D>().velocity);
+                    jumpedOff = true;
+                }
             }
             else
             {
@@ -54,6 +91,8 @@ public class WallCrawling : MonoBehaviour
     void WallCrawl()
     {
         player.GetComponent<Rigidbody2D>().velocity = new Vector2(input.GetHorizontalInput() * 30.0f, -input.GetVerticalInput() * 30.0f);
+
+        //Debug.Log(player.GetComponent<Rigidbody2D>().velocity);
 
         if (input.GetHorizontalInput() < 0)
         {
@@ -78,6 +117,8 @@ public class WallCrawling : MonoBehaviour
         if(webZipTime >= 1.0f)
         {
             zipping = false;
+            //player.GetComponent<Collider2D>().enabled = true;
+            building.enabled = true;
             webZipTime = 0.0f;
             //Debug.Log(zipping);
         }
@@ -92,15 +133,12 @@ public class WallCrawling : MonoBehaviour
             webZipPoint = playerPos;
             if (input.GetHorizontalInput() < 0)
             {
- 
                 EnableVerticalWebZip();
-
                 webZipPoint.x = webZipPoint.x - webZipLength;
                 zipping = true;
             }
             else if (input.GetHorizontalInput() > 0)
-            {
-                Debug.Log("hit");   
+            {  
                 EnableVerticalWebZip();
                 webZipPoint.x = webZipPoint.x + webZipLength;
                 zipping = true;
@@ -112,12 +150,14 @@ public class WallCrawling : MonoBehaviour
 
             if (!building.bounds.Contains(new Vector3(webZipPoint.x, webZipPoint.y, 1.0f)))
             {
-                Debug.Log("outside");
                 webZipPoint = playerPos;
                 zipping = false;
                 return false;
             }
             Debug.Log(zipping);
+            //player.GetComponent<Collider2D>().enabled = false;
+            player.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+            building.enabled = false;
             return true;
         }
         return false;
@@ -143,10 +183,13 @@ public class WallCrawling : MonoBehaviour
         if(collision.tag == "Building")
         {
             building = collision;
-            if (input.GetVerticalInput() < 0 && player.CurrentPlayerState != Player.PlayerState.CLIMBING)
+            if ((player.CurrentPlayerState == Player.PlayerState.WEBBING) || (!jumpedOff && input.GetVerticalInput() < 0 && player.CurrentPlayerState != Player.PlayerState.CLIMBING))
             {
-                player.CurrentPlayerState = Player.PlayerState.CLIMBING;
+                Debug.Log("Climb");
+                player.WebManager.ToggleSwinging();
+                player.ChangePlayerState(Player.PlayerState.CLIMBING);
                 player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                gravityScale = player.GetComponent<Rigidbody2D>().gravityScale;
                 player.GetComponent<Rigidbody2D>().gravityScale = 0;
             }
         }
@@ -157,10 +200,11 @@ public class WallCrawling : MonoBehaviour
         if (collision.tag == "Building")
         {
             building = collision;
-            if (input.GetVerticalInput() < 0 && player.CurrentPlayerState != Player.PlayerState.CLIMBING)
+            if (input.GetVerticalInput() < 0 && player.CurrentPlayerState != Player.PlayerState.CLIMBING && !jumpedOff)
             {
-                player.CurrentPlayerState = Player.PlayerState.CLIMBING;
+                player.ChangePlayerState(Player.PlayerState.CLIMBING);
                 player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                gravityScale = player.GetComponent<Rigidbody2D>().gravityScale;
                 player.GetComponent<Rigidbody2D>().gravityScale = 0;
             }
         }
@@ -170,8 +214,8 @@ public class WallCrawling : MonoBehaviour
     {
         if (collision.tag == "Building")
         {
-            player.CurrentPlayerState = Player.PlayerState.AIRBORNE;
-            player.GetComponent<Rigidbody2D>().gravityScale = 3.6f;
+            player.ChangePlayerState(Player.PlayerState.AIRBORNE);
+            player.GetComponent<Rigidbody2D>().gravityScale = gravityScale;
         }
     }
 }

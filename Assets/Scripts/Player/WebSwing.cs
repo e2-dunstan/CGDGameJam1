@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,7 +49,7 @@ public class WebSwing : MonoBehaviour
     private void Update()
     {
         if (!isSwinging) return;
-
+        
         swingDir = UpdateSwingDirection();
 
         lineVerts[0] = webOrigin.position;
@@ -63,7 +64,7 @@ public class WebSwing : MonoBehaviour
 
         playerMovement.PlayerMovementDirection = swingDir;
 
-        if ((swingDir == PlayerMovement.MovementDirection.LEFT && horizontal < 0 
+        if ((swingDir == PlayerMovement.MovementDirection.LEFT && horizontal < 0
             && playerMovement.Rigidbody.velocity.x > -maxSwingSpeed)
             ||
             (swingDir == PlayerMovement.MovementDirection.RIGHT && horizontal > 0
@@ -91,6 +92,8 @@ public class WebSwing : MonoBehaviour
     {
         isSwinging = !isSwinging;
         Update();
+
+        AudioManager.Instance.PlayRandomClip(AudioManager.ClipType.WEB, playerTransform);
 
         if (isSwinging)
         {
@@ -126,7 +129,7 @@ public class WebSwing : MonoBehaviour
 
         springJoint.connectedBody = Player.Instance().PlayerMovement.Rigidbody;
 
-        Player.Instance().CurrentPlayerState = isSwinging ? Player.PlayerState.WEBBING : Player.PlayerState.AIRBORNE;
+        Player.Instance().ChangePlayerState(isSwinging ? Player.PlayerState.WEBBING : Player.PlayerState.AIRBORNE);
         Player.Instance().PlayerMovement.Rigidbody.gravityScale = isSwinging ? 100 : 1;
     }
 
