@@ -126,7 +126,7 @@ public class WebSwing : MonoBehaviour
 
         springJoint.connectedBody = Player.Instance().PlayerMovement.Rigidbody;
 
-        Player.Instance().CurrentPlayerState = isSwinging ? Player.PlayerState.WEBBING : Player.PlayerState.AIRBORNE;
+        Player.Instance().ChangePlayerState(isSwinging ? Player.PlayerState.WEBBING : Player.PlayerState.AIRBORNE);
         Player.Instance().PlayerMovement.Rigidbody.gravityScale = isSwinging ? 100 : 1;
     }
 
