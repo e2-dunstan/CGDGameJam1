@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-
     [SerializeField] public SaveLoadManager saveLoadManager;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject highscorePanel;
@@ -27,6 +26,7 @@ public class GameOver : MonoBehaviour
         ENTER_NAME, NAME_ENTERED, HIGHSCORE
     }
     private GameOverState state = GameOverState.ENTER_NAME;
+
 
     private void Start()
     {
@@ -57,6 +57,8 @@ public class GameOver : MonoBehaviour
 
     private IEnumerator FlashScore()
     {
+        AudioManager.Instance.PlayRandomClip(AudioManager.ClipType.POINTS_GAINED, AudioManager.Instance.transform);
+
         //heh, I know this is gross and could be done in a for loop
         finalScoreText.enabled = true;
         yield return new WaitForSeconds(1.0f);
