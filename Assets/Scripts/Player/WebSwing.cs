@@ -49,6 +49,8 @@ public class WebSwing : MonoBehaviour
     private void Update()
     {
         if (!isSwinging) return;
+
+        if(playerMovement.CheckGrounded()) { ToggleSwinging(); }
         
         swingDir = UpdateSwingDirection();
 
