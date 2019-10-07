@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 704112272637256634}
   - component: {fileID: 1887256723528965822}
   - component: {fileID: 1887256723528965821}
+  - component: {fileID: 2559757008407387663}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -136,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 1887256723528965821}
   webManager: {fileID: 0}
+  playerHealth: {fileID: 2559757008407387663}
   sprites:
   - {fileID: -7219884945398798345, guid: 4ce3cac15e3ef7c44a137c75d3f849c1, type: 3}
   - {fileID: -1919803088508619253, guid: 4ce3cac15e3ef7c44a137c75d3f849c1, type: 3}
@@ -165,3 +167,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1792
   groundedRaycastLength: 0.3
+--- !u!114 &2559757008407387663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887256723528965817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f414650f016a9b4b81e5667252c3c9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLives: 3
+  iFrameDuration: 2
+  deathSceneName: Game Over
