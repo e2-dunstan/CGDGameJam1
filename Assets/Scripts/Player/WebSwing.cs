@@ -48,7 +48,7 @@ public class WebSwing : MonoBehaviour
     private void Update()
     {
         if (!isSwinging) return;
-
+        
         swingDir = UpdateSwingDirection();
 
         lineVerts[0] = webOrigin.position;
@@ -91,6 +91,8 @@ public class WebSwing : MonoBehaviour
     {
         isSwinging = !isSwinging;
         Update();
+
+        AudioManager.Instance.PlayRandomClip(AudioManager.ClipType.WEB, playerTransform);
 
         if (isSwinging)
         {
