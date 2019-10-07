@@ -46,11 +46,11 @@ public class VultureBossManager : MonoBehaviour
         if(vulture.enemyState == Enemy.EnemyState.STUNNED)
         {
             canAttack = false;
-            timeOnCurrentStage += Time.deltaTime;
         }
         else
         {
             canAttack = true;
+            timeOnCurrentStage += Time.deltaTime;
         }
 
         

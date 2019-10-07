@@ -6,14 +6,13 @@ public class WebProjectile : Projectile
 {
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.tag);
 
-            if (other.CompareTag("Enemy"))
-            {
-                other.gameObject.GetComponent<Enemy>().InflictDamage(projectileDamage);
-                Destroy(this.gameObject);
-            }
-            else if(!other.CompareTag("Player"))
+        if (other.CompareTag("Enemy"))
+        {
+           other.gameObject.GetComponent<Enemy>().InflictDamage(projectileDamage);
+           Destroy(this.gameObject);
+        }
+        else if(!other.CompareTag("Player"))
         {
             Destroy(this.gameObject);
         }
