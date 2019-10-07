@@ -15,19 +15,26 @@ public class VultureEnemy : Enemy
 
     public int hardBulletSpeed = 5;
 
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite[] vultureAnimations;
+    private float animTimeElapsed = 0;
+    private float timeBetweenFrames = 0.5f;
+
+
     // Start is called before the first frame update
     void Start()
     {
         player = Player.Instance();
         enemyState = EnemyState.WALKING;
         enemyMovement.spawnPosition = gameObject.transform.position;
+
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
 
     // Update is called once per frame
     void Update()
     { 
-
         switch (enemyState)
         {
             case EnemyState.IDLE:
@@ -47,8 +54,25 @@ public class VultureEnemy : Enemy
                 break;
             default:
                 break;
-
         }
+
+        if (enemyState != EnemyState.DYING)
+        {
+            animTimeElapsed += Time.deltaTime;
+            if (animTimeElapsed > timeBetweenFrames / 2.0f)
+            {
+                spriteRenderer.sprite = vultureAnimations[0];
+                if (animTimeElapsed > timeBetweenFrames)
+                {
+                    animTimeElapsed = 0;
+                }
+            }
+            else
+            {
+                spriteRenderer.sprite = vultureAnimations[1];
+            }
+        }
+
     }
 
     public void EasyShootAttack()
@@ -90,6 +114,7 @@ public class VultureEnemy : Enemy
                 {
                     enemyState = EnemyState.DYING;
                     //Play death animation
+                    spriteRenderer.sprite = vultureAnimations[2];
                 }
                 else
                 {
@@ -116,7 +141,7 @@ public class VultureEnemy : Enemy
                 player.WebManager.ToggleSwinging();
                 Vector2 knockBackVelocity = (enemyMovement.transform.position - player.transform.position) * 15;
                 player.PlayerMovement.Rigidbody.velocity = knockBackVelocity;
-                player.PlayerMovement.ResetVelocity();
+                player.PlayerMovement.Rigidbody.velocity = GetComponent<Rigidbody>().velocity;
                 player.PlayerCombat.TakeDamage(1);
             }
         }

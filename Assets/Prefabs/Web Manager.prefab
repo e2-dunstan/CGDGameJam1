@@ -72,7 +72,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 175.4
+  m_Distance: 9.695891
   m_DampingRatio: 0.5
   m_Frequency: 5
 --- !u!120 &1419080805421686098
@@ -180,8 +180,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 168053889903823844}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c8d14ef8d3516d479b27a8c60065d23, type: 3}
+  m_Script: {fileID: 11500000, guid: c7717e5ee5b942a478c05831d547c082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xOffset: 1
+  xOffset: 25
   disableCollisionsWhenSwinging: 1
