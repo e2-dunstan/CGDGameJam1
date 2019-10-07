@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 103513614}
   - component: {fileID: 103513613}
   - component: {fileID: 103513612}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: 1x1 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -628,7 +628,7 @@ GameObject:
   - component: {fileID: 912110200}
   - component: {fileID: 912110199}
   - component: {fileID: 912110198}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: 1x1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -735,7 +735,7 @@ GameObject:
   - component: {fileID: 1330815478}
   - component: {fileID: 1330815477}
   - component: {fileID: 1330815476}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: 1x1 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -897,6 +897,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307093686063966357, guid: 7f8b084b8ebd6d44a8866406a2300f10,
+        type: 3}
+      propertyPath: punchDamage
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f8b084b8ebd6d44a8866406a2300f10, type: 3}
@@ -1078,7 +1083,7 @@ GameObject:
   - component: {fileID: 1556750026}
   - component: {fileID: 1556750025}
   - component: {fileID: 1556750024}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: 1x1 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1185,7 +1190,7 @@ GameObject:
   - component: {fileID: 1738616486}
   - component: {fileID: 1738616485}
   - component: {fileID: 1738616484}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: 1x1 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1695,12 +1700,12 @@ PrefabInstance:
     - target: {fileID: 359015165863057302, guid: 8afa379dd8384476fa8d229ddc7c7422,
         type: 3}
       propertyPath: maxWaitTimeBetweenRepositioning
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 359015165863057302, guid: 8afa379dd8384476fa8d229ddc7c7422,
         type: 3}
       propertyPath: minWaitTimeBetweenRepositioning
-      value: 0.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1485976589869884168, guid: 8afa379dd8384476fa8d229ddc7c7422,
         type: 3}

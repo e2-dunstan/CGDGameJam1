@@ -7,6 +7,10 @@ public class VultureEnemy : Enemy
     public EnemyMovement enemyMovement;
     public GameObject enemyProjectile;
     private Player player;
+
+    //Prevents vulture being hit twice
+    [SerializeField] private bool canBeHit = true;
+
     [SerializeField] private GameObject Floor;
 
     public int hardBulletSpeed = 5;
@@ -66,13 +70,8 @@ public class VultureEnemy : Enemy
                 enemyMovement.StopMoving();
                 break;
             case EnemyState.STUNNED:
-                enemyMovement.ForceMoveToSpecificPosition(new Vector2(gameObject.transform.position.x, Floor.transform.position.y));
+                enemyMovement.ForceMoveToSpecificPosition(new Vector2(gameObject.transform.position.x, Floor.transform.position.y + 10));
                 enemyMovement.MoveWithinDefinedWonderingBounds();
-
-                if(enemyMovement.hasReachedDestination == true)
-                {
-                    enemyState = EnemyState.WALKING;
-                }
                 break;
             default:
                 break;
@@ -106,23 +105,38 @@ public class VultureEnemy : Enemy
 
     public override void InflictDamage(int _damageAmount)
     {
-        health = health - _damageAmount;
-        //Change enemy colour
 
-        if (health <= 0)
+        //Is grounded and can be damaged
+        if (enemyMovement.hasReachedDestination == true && enemyState == EnemyState.STUNNED)
         {
-            enemyState = EnemyState.DYING;
-            //Play death animation
-        }
-        else
+            if (canBeHit == true)
+            {
+                //Change enemy colour
+                health = health - _damageAmount;
+
+
+                if (health <= 0)
+                {
+                    enemyState = EnemyState.DYING;
+                    //Play death animation
+                }
+                else
+                {
+                    enemyState = EnemyState.WALKING;
+                    InvincibleForTime(2.0f);
+                }
+            }
+        }else if (enemyState != EnemyState.STUNNED)
         {
+            //Is hit and begins falling
             enemyState = EnemyState.STUNNED;
+            InvincibleForTime(2);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.tag == "Player")
         {
             if (player.CurrentPlayerState == Player.PlayerState.WEBBING)
             {
@@ -130,4 +144,17 @@ public class VultureEnemy : Enemy
             }
         }
     }
+
+    private void InvincibleForTime(float _time)
+    {
+        canBeHit = false;
+        StartCoroutine("InvincibilityCoroutine", _time);
+    }
+
+    IEnumerator InvincibilityCoroutine(float _time)
+    {
+        yield return new WaitForSeconds(_time);
+        canBeHit = true;
+    }
+
 }
