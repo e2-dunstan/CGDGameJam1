@@ -66,17 +66,11 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING && playerSingleton.CurrentPlayerState != Player.PlayerState.CLIMBING)
-
         {
-
             UpdateMovement();
-
             UpdateJump();
-
             ApplyVelocityToRigidbody();
-
             UpdateLastHorizontalInput();
-
         }
     }
 
@@ -110,11 +104,8 @@ public class PlayerMovement : MonoBehaviour
                 playerSingleton.ChangePlayerState(Player.PlayerState.AIRBORNE);
             }
             else if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
-
             {
-
                playerSingleton.WebManager.ToggleSwinging();
-
             }
         }
         else if (inputSingleton.GetActionButton0Up() && playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE)
@@ -214,6 +205,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (playerSingleton.CurrentPlayerState == Player.PlayerState.GROUNDED && triggerJump)
         {
+            AudioManager.Instance.PlayRandomClip(AudioManager.ClipType.JUMP, transform);
             triggerJump = false;
             playerVelocity.y = jumpVelocity;
             playerSingleton.ChangePlayerState(Player.PlayerState.AIRBORNE);
