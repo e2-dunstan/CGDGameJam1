@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System;
 
 public class SaveLoadManager : MonoBehaviour
 {
@@ -66,17 +67,24 @@ public class SaveLoadManager : MonoBehaviour
     //    File.WriteAllText(jsonSavePath, jsonData);
     //}
 
-    //private void SaveData()
-    //{
-    //    foreach(var enemy in spawnManager.Enemies)
-    //    {
-    //        gameData.enemyMetaDataList.Add(enemy.GetComponent<EnemyMetaData>());
-    //    }
+    private void SaveData()
+    {
+        foreach (var enemy in spawnManager.Enemies)
+        {
+            gameData.enemyMetaDataList.Add(enemy.GetComponent<EnemyMetaData>());
+        }
 
-    //    string jsonData = JsonUtility.ToJson(gameData, true);
-    //    File.WriteAllText(jsonSavePath, jsonData);
+        string jsonData = JsonUtility.ToJson(gameData, true);
+        File.WriteAllText(jsonSavePath, jsonData);
 
-    //}
+    }
+
+    public void ForceSave()
+    {
+        print("Forcing save of current gamedata");
+        string jsonData = JsonUtility.ToJson(gameData, true);
+        File.WriteAllText(jsonSavePath, jsonData);
+    }
 
     public void LoadData()
     {
@@ -105,4 +113,10 @@ public class SaveLoadManager : MonoBehaviour
             }
         }
     }
+
+    public List<LeaderboardEntry> GetLeaderboardEntries()
+    {
+        return gameData.leaderboardList;
+    }
+
 }

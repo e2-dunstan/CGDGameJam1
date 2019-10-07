@@ -22,7 +22,9 @@ public class Player : MonoBehaviour
 
     private static Player _instance = null;
     private PlayerState currentPlayerState = PlayerState.GROUNDED;
-    public PlayerState CurrentPlayerState { get => currentPlayerState; set => currentPlayerState = value; }
+    private PlayerState previousPlayerState = PlayerState.GROUNDED;
+    public PlayerState CurrentPlayerState { get => currentPlayerState; private set => currentPlayerState = value; }
+    public PlayerState PreviousPlayerState { get => previousPlayerState; private set => previousPlayerState = value; }
 
     private SpriteRenderer spriteRenderer;
 
@@ -55,6 +57,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (InputManager.Instance().GetActionButton1Down() && currentPlayerState == PlayerState.GROUNDED)
+        {
+            AudioManager.Instance.PlayRandomClip(AudioManager.ClipType.IMPACT, playerMovement.transform);
+        }
         if (InputManager.Instance().GetActionButton1Held())
         {
             spriteRenderer.sprite = sprites[2];
@@ -96,5 +102,11 @@ public class Player : MonoBehaviour
         {
             return sprites[0];
         }
+    }
+
+    public void ChangePlayerState(PlayerState state)
+    {
+        PreviousPlayerState = CurrentPlayerState;
+        CurrentPlayerState = state;
     }
 }

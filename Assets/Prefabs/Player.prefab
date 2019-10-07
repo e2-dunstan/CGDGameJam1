@@ -138,6 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 1887256723528965821}
   webManager: {fileID: 0}
+  playerCombat: {fileID: 7351668027740378240}
   sprites:
   - {fileID: -7219884945398798345, guid: 4ce3cac15e3ef7c44a137c75d3f849c1, type: 3}
   - {fileID: -1919803088508619253, guid: 4ce3cac15e3ef7c44a137c75d3f849c1, type: 3}

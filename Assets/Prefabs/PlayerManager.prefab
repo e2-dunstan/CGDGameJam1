@@ -266,6 +266,11 @@ PrefabInstance:
       propertyPath: m_ConnectedRigidBody
       value: 
       objectReference: {fileID: 3148564426384548521}
+    - target: {fileID: 2241777920902616802, guid: d8e34fd2c2f1a5f409a0915e9b8f59c9,
+        type: 3}
+      propertyPath: m_Distance
+      value: 175.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8e34fd2c2f1a5f409a0915e9b8f59c9, type: 3}
 --- !u!4 &7564257582138737949 stripped
@@ -283,6 +288,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c8d14ef8d3516d479b27a8c60065d23, type: 3}
+  m_Script: {fileID: 11500000, guid: c7717e5ee5b942a478c05831d547c082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3567153631499955213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7717e5ee5b942a478c05831d547c082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xOffset: 25
+  disableCollisionsWhenSwinging: 1

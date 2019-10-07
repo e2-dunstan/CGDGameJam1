@@ -1,10 +1,41 @@
 {
-    "enemyMetaDataList": [
+    "enemyMetaDataList": [],
+    "leaderboardList": [
         {
-        "enemyId" : "1",
-        "enemyType" : 1,
-        "spawnPos" : {0,0,0},
-        "enemyMovement" : null
+            "playerName": "BBB",
+            "playerScore": 15
+        },
+        {
+            "playerName": "ABB",
+            "playerScore": 10
+        },
+        {
+            "playerName": "BBD",
+            "playerScore": 5
+        },
+        {
+            "playerName": "DDE",
+            "playerScore": 0
+        },
+        {
+            "playerName": "AAA",
+            "playerScore": 0
+        },
+        {
+            "playerName": "AAA",
+            "playerScore": 0
+        },
+        {
+            "playerName": "BBK",
+            "playerScore": 0
+        },
+        {
+            "playerName": "BBB",
+            "playerScore": 0
+        },
+        {
+            "playerName": "BBB",
+            "playerScore": 0
         }
     ]
 }

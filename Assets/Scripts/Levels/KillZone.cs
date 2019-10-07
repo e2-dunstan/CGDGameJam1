@@ -1,0 +1,20 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class KillZone : MonoBehaviour
+{
+
+    private void FixedUpdate()
+    {
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(collision.gameObject);
+            print("You are dead!");
+        }
+        print("i got a hit");
+    }
+}
