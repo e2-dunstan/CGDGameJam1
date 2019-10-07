@@ -70,11 +70,9 @@ public class Player : MonoBehaviour
                 spriteRenderer.sprite = sprites[1];
                 break;
         }
-
-        Vector3 rot = transform.eulerAngles;
-        if (playerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.LEFT) rot.y = 180;
-        if (playerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT) rot.y = 0;
-        transform.eulerAngles = rot;
+        
+        //Flips sprite based on player direction
+        spriteRenderer.flipX = playerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.LEFT;
     }
 
     private Sprite GetGroundedSprite()
