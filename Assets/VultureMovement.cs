@@ -90,6 +90,7 @@ public class VultureMovement : EnemyMovement
             }
         }
 
+        //If current position = end position
         if (new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)
             != new Vector2(targetDestination.x, targetDestination.y) && hasRandomTargetLocation == true)
         {

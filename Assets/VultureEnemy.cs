@@ -5,7 +5,7 @@ using UnityEngine;
 public class VultureEnemy : Enemy
 {
     public EnemyMovement enemyMovement;
-    public GameObject webProjectile;
+    public GameObject enemyProjectile;
     private GameObject player;
     [SerializeField] private GameObject Floor;
 
@@ -15,7 +15,6 @@ public class VultureEnemy : Enemy
     void Start()
     {
         player = Player.Instance().gameObject;
-        webProjectile.GetComponent<WebProjectile>().isPlayerProjectile = false;
         enemyState = EnemyState.WALKING;
         enemyMovement.spawnPosition = gameObject.transform.position;
     }
@@ -85,25 +84,23 @@ public class VultureEnemy : Enemy
     {
         Vector2 relativePos = player.transform.position - gameObject.transform.position;
 
-        WebProjectile projectile = Instantiate(webProjectile, gameObject.transform.position, Quaternion.identity).GetComponent<WebProjectile>();
+        EnemyProjectile projectile = Instantiate(enemyProjectile, gameObject.transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
         projectile.SpawnProjectile(new Vector2(relativePos.x, relativePos.y), 10, 1);
 
     }
 
     public void HardShootAttack()
     {
-        Vector2 relativePos = player.transform.position - gameObject.transform.position;
-
-        WebProjectile projectile = Instantiate(webProjectile, gameObject.transform.position, Quaternion.identity).GetComponent<WebProjectile>();
+        EnemyProjectile projectile = Instantiate(enemyProjectile, gameObject.transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
         projectile.SpawnProjectile(new Vector2(-5 * hardBulletSpeed, 5 * hardBulletSpeed), 10, 1);
 
-        WebProjectile projectile2 = Instantiate(webProjectile, gameObject.transform.position, Quaternion.identity).GetComponent<WebProjectile>();
+        EnemyProjectile projectile2 = Instantiate(enemyProjectile, gameObject.transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
         projectile2.SpawnProjectile(new Vector2(-5 * hardBulletSpeed, -5 * hardBulletSpeed), 10, 1);
 
-        WebProjectile projectile3 = Instantiate(webProjectile, gameObject.transform.position, Quaternion.identity).GetComponent<WebProjectile>();
+        EnemyProjectile projectile3 = Instantiate(enemyProjectile, gameObject.transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
         projectile3.SpawnProjectile(new Vector2(5 * hardBulletSpeed, -5 * hardBulletSpeed), 10, 1);
 
-        WebProjectile projectile4 = Instantiate(webProjectile, gameObject.transform.position, Quaternion.identity).GetComponent<WebProjectile>();
+        EnemyProjectile projectile4 = Instantiate(enemyProjectile, gameObject.transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
         projectile4.SpawnProjectile(new Vector2(5 * hardBulletSpeed, 5 * hardBulletSpeed), 10, 1);
     }
 

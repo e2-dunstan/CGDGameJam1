@@ -23,7 +23,6 @@ public class PlayerCombat : MonoBehaviour
     {
         playerSingleton = Player.Instance();
         inputSingleton = InputManager.Instance();
-        webProjectile.GetComponent<WebProjectile>().isPlayerProjectile = true;
     }
 
     void Update()
