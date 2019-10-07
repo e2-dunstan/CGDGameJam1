@@ -16,6 +16,7 @@ public class VultureBossManager : MonoBehaviour
     [SerializeField] private VultureEnemy vulture;
     [SerializeField] private VultureMovement vultureMovement;
     [SerializeField] private int currentBossHealth;
+    [SerializeField] private bool canAttack = true;
 
     private BossStage bossStage = BossStage.STAGE1;
 
@@ -42,32 +43,35 @@ public class VultureBossManager : MonoBehaviour
             ChangeBossStage();
         }
 
+         timeOnCurrentStage += Time.deltaTime;
+        
         switch(bossStage)
         {
             case BossStage.STAGE1:
 
                 break;
             case BossStage.STAGE2:
-                timeOnCurrentStage += Time.deltaTime;
-                if(timeBetweenShootingEasy < (timeOnCurrentStage / numberOfTimesShot))
+                if(timeBetweenShootingEasy < (timeOnCurrentStage / numberOfTimesShot)
+                    && canAttack == true)
                 {
                     PromptEasyShoot();
                 }
                 break;
             case BossStage.STAGE3:
-                timeOnCurrentStage += Time.deltaTime;
-                if (timeBetweenShootingEasy < (timeOnCurrentStage / numberOfTimesShot))
+                if (timeBetweenShootingEasy < (timeOnCurrentStage / numberOfTimesShot)
+                    && canAttack == true)
                 {
                     PromptHardShoot();
                 }
                 break;
             case BossStage.STAGE4:
-                timeOnCurrentStage += Time.deltaTime;
-                if(timeBetweenShootingEasy < (timeOnCurrentStage / numberOfTimesShot))
+                if(timeBetweenShootingEasy < (timeOnCurrentStage / numberOfTimesShot)
+                    && canAttack == true)
                 {
                     PromptEasyShoot();
                 }
-                else if (timeBetweenShootingHard < (timeOnCurrentStage / numberOfTimesShot))
+                else if (timeBetweenShootingHard < (timeOnCurrentStage / numberOfTimesShot)
+                    && canAttack == true)
                 {
                     PromptHardShoot();
                 }
@@ -96,6 +100,8 @@ public class VultureBossManager : MonoBehaviour
                 break;
 
         }
+
+        AttackCooldown(2.0f);
     }
 
     private void PromptEasyShoot()
@@ -108,5 +114,17 @@ public class VultureBossManager : MonoBehaviour
     {
         numberOfTimesShot++;
         vulture.HardShootAttack();
+    }
+
+    private void AttackCooldown(float _time)
+    {
+        canAttack = false;
+        StartCoroutine("AttackCooldownCoroutine", _time);
+    }
+
+    IEnumerator AttackCooldownCoroutine(float _time)
+    {
+        yield return new WaitForSeconds(_time);
+        canAttack = true;
     }
 }

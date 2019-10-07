@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     public PlayerMovement PlayerMovement { get => playerMovement; private set => playerMovement = value; }
     [SerializeField] private WebSwing webManager = null;
     public WebSwing WebManager { get => webManager; private set => webManager = value; }
+    [SerializeField] private PlayerCombat playerCombat = null;
+    public PlayerCombat PlayerCombat { get => playerCombat; private set => playerCombat = value; }
 
     private static Player _instance = null;
     private PlayerState currentPlayerState = PlayerState.GROUNDED;

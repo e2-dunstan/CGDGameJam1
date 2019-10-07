@@ -26,34 +26,7 @@ public class VultureEnemy : Enemy
 
     // Update is called once per frame
     void Update()
-    {
-        CheckIfPlayerIsVisible(enemyMovement.targetDestination);
-        CalculateDistanceFromPlayer();
-
-        if (enemyState != EnemyState.STUNNED)
-        {
-            //If Player cannot be seen
-            if (distanceFromPlayer > visionRange && isOnIdleCooldown != true /*&& canSeePlayer == false*/)
-            {
-                enemyState = EnemyState.WALKING;
-            }
-            //If Player can be seen
-            if (distanceFromPlayer <= visionRange && distanceFromPlayer > attackRange /*&& canSeePlayer*/)
-            {
-                enemyState = EnemyState.PERSUING;
-            }
-            //If Player can be seen and enemy can attack
-            else if (distanceFromPlayer <= visionRange && distanceFromPlayer <= attackRange
-                    && isOnAttackCooldown == false && canSeePlayer)
-            {
-                enemyState = EnemyState.ATTACKING;
-            }
-            else if (distanceFromPlayer <= visionRange && distanceFromPlayer <= attackRange
-                    && isOnAttackCooldown == true /*&& canSeePlayer*/)
-            {
-                enemyState = EnemyState.PERSUING;
-            }
-        }
+    { 
 
         switch (enemyState)
         {
@@ -64,10 +37,9 @@ public class VultureEnemy : Enemy
                 enemyMovement.MoveWithinDefinedWonderingBounds();
                 break;
             case EnemyState.PERSUING:
-                enemyMovement.MoveTowardsDestination(gameObject.transform.position + new Vector3(-1, 0));
                 break;
             case EnemyState.ATTACKING:
-                enemyMovement.StopMoving();
+                //Handled by bossmanager for vulture
                 break;
             case EnemyState.STUNNED:
                 enemyMovement.ForceMoveToSpecificPosition(new Vector2(gameObject.transform.position.x, Floor.transform.position.y + 10));
@@ -105,7 +77,6 @@ public class VultureEnemy : Enemy
 
     public override void InflictDamage(int _damageAmount)
     {
-
         //Is grounded and can be damaged
         if (enemyMovement.hasReachedDestination == true && enemyState == EnemyState.STUNNED)
         {
@@ -122,6 +93,7 @@ public class VultureEnemy : Enemy
                 }
                 else
                 {
+                    //CHANGE BACK TO WALKING SPRITE
                     enemyState = EnemyState.WALKING;
                     InvincibleForTime(2.0f);
                 }
@@ -129,6 +101,7 @@ public class VultureEnemy : Enemy
         }else if (enemyState != EnemyState.STUNNED)
         {
             //Is hit and begins falling
+            //CHANGE TO FALLING SPRITE
             enemyState = EnemyState.STUNNED;
             InvincibleForTime(2);
         }
@@ -141,6 +114,10 @@ public class VultureEnemy : Enemy
             if (player.CurrentPlayerState == Player.PlayerState.WEBBING)
             {
                 player.WebManager.ToggleSwinging();
+                Vector2 knockBackVelocity = (enemyMovement.transform.position - player.transform.position) * 15;
+                player.PlayerMovement.Rigidbody.velocity = knockBackVelocity;
+                player.PlayerMovement.ResetVelocity();
+                player.PlayerCombat.TakeDamage(1);
             }
         }
     }

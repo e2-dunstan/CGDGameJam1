@@ -120,6 +120,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &89872523 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6307093686063966357, guid: 7f8b084b8ebd6d44a8866406a2300f10,
+    type: 3}
+  m_PrefabInstance: {fileID: 1335833221}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312055c042f001046824f3305ce5d9ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &103513611
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +589,7 @@ MonoBehaviour:
   vulture: {fileID: 2139406780}
   vultureMovement: {fileID: 3854504534367211646}
   currentBossHealth: 0
+  canAttack: 1
   timeBetweenShootingEasy: 3
   timeBetweenShootingHard: 10
   numberOfTimesShot: 0
@@ -988,6 +1001,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3148564426384548523, guid: 7f8b084b8ebd6d44a8866406a2300f10,
+        type: 3}
+      propertyPath: playerCombat
+      value: 
+      objectReference: {fileID: 89872523}
     - target: {fileID: 6307093686063966357, guid: 7f8b084b8ebd6d44a8866406a2300f10,
         type: 3}
       propertyPath: punchDamage
