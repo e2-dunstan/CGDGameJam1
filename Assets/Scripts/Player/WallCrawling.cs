@@ -41,6 +41,12 @@ public class WallCrawling : MonoBehaviour
                 {
                     player.CurrentPlayerState = Player.PlayerState.AIRBORNE;
                     player.GetComponent<Rigidbody2D>().gravityScale = 3.6f;
+
+                    float vel = player.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.LEFT ? -3.0f : 3.0f;
+                    if (player.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.LEFT)
+                    {
+                        player.GetComponent<Rigidbody2D>().velocity = new Vector2(vel, 3.0f);
+                    }
                 }
 
             }
@@ -78,6 +84,8 @@ public class WallCrawling : MonoBehaviour
         if(webZipTime >= 1.0f)
         {
             zipping = false;
+            //player.GetComponent<Collider2D>().enabled = true;
+            building.enabled = true;
             webZipTime = 0.0f;
             //Debug.Log(zipping);
         }
@@ -118,6 +126,9 @@ public class WallCrawling : MonoBehaviour
                 return false;
             }
             Debug.Log(zipping);
+            //player.GetComponent<Collider2D>().enabled = false;
+            player.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+            building.enabled = false;
             return true;
         }
         return false;
