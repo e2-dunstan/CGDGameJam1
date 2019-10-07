@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class EnemyProjectile : Projectile
 {
-	void OnTriggerEnter2D(Collider2D other)
+    private Player player;
+
+    private void Awake()
+    {
+        player = Player.Instance();
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
 	{
 
 		if (other.CompareTag("Player"))
 		{
             other.gameObject.GetComponent<PlayerCombat>().TakeDamage(1);
-			Destroy(this.gameObject);
+
+            
+                if (player.CurrentPlayerState == Player.PlayerState.WEBBING)
+                {
+                    player.WebManager.ToggleSwinging();
+                }
+            
+
+            Destroy(this.gameObject);
 		}
 
 	}

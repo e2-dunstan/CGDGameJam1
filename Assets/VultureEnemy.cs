@@ -6,7 +6,7 @@ public class VultureEnemy : Enemy
 {
     public EnemyMovement enemyMovement;
     public GameObject enemyProjectile;
-    private GameObject player;
+    private Player player;
     [SerializeField] private GameObject Floor;
 
     public int hardBulletSpeed = 5;
@@ -14,7 +14,7 @@ public class VultureEnemy : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        player = Player.Instance().gameObject;
+        player = Player.Instance();
         enemyState = EnemyState.WALKING;
         enemyMovement.spawnPosition = gameObject.transform.position;
     }
@@ -117,6 +117,17 @@ public class VultureEnemy : Enemy
         else
         {
             enemyState = EnemyState.STUNNED;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (player.CurrentPlayerState == Player.PlayerState.WEBBING)
+            {
+                player.WebManager.ToggleSwinging();
+            }
         }
     }
 }
