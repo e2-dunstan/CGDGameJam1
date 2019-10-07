@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 704112272637256634}
   - component: {fileID: 1887256723528965822}
   - component: {fileID: 1887256723528965821}
-  - component: {fileID: 7351668027740378240}
+  - component: {fileID: 2559757008407387663}
+  - component: {fileID: 7665727859015582159}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -33,7 +34,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 8, y: 16, z: 1}
   m_Children:
-  - {fileID: 3703675329765471569}
+  - {fileID: 2814504002345445714}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -134,11 +135,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a69df7bc6fe237d4fa01b5ec956922d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   playerMovement: {fileID: 1887256723528965821}
   webManager: {fileID: 0}
-  playerCombat: {fileID: 7351668027740378240}
+  playerHealth: {fileID: 2559757008407387663}
   sprites:
   - {fileID: -7219884945398798345, guid: 4ce3cac15e3ef7c44a137c75d3f849c1, type: 3}
   - {fileID: -1919803088508619253, guid: 4ce3cac15e3ef7c44a137c75d3f849c1, type: 3}
@@ -155,8 +156,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2896d1f733cec264eb6731d37b901212, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   movementSpeed: 150
   maxMovementSpeed: 60
   groundBreakingModifier: 500
@@ -168,7 +169,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1792
   groundedRaycastLength: 0.3
---- !u!114 &7351668027740378240
+--- !u!114 &2559757008407387663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887256723528965817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f414650f016a9b4b81e5667252c3c9c, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  maxLives: 3
+  iFrameDuration: 2
+  deathSceneName: Game Over
+--- !u!114 &7665727859015582159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,19 +194,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 312055c042f001046824f3305ce5d9ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   attackCooldownDuration: 0.5
   webProjectile: {fileID: 2846485427533556774, guid: aeb1e973bf6bf8c45bd0579c0e1c5a57,
     type: 3}
-  attackTransform: {fileID: 3703675329765471569}
+  attackTransform: {fileID: 2814504002345445714}
   attackRange: 4
-  punchDamage: 2
+  punchDamage: 1
   projectileSpeed: 15
   projectileDamage: 1
   projectileLifetime: 0.4
   health: 10
---- !u!1 &3834347646374257746
+--- !u!1 &5588796716749585856
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,22 +214,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3703675329765471569}
+  - component: {fileID: 2814504002345445714}
   m_Layer: 0
-  m_Name: AttackTransform
+  m_Name: AttackPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3703675329765471569
+--- !u!4 &2814504002345445714
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3834347646374257746}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 5588796716749585856}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.85, y: 0.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
