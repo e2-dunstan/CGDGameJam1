@@ -10,7 +10,6 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Text lives;
     [SerializeField] private Text scoreElement;
     [SerializeField] private Text timeElement;
-    private int score = 0;
 
     private int minutes = 0;
     private int seconds = 0;
@@ -21,7 +20,6 @@ public class GameUI : MonoBehaviour
         if (Instance == null)
             Instance = this;
     }
-
 
     private void Update()
     {
@@ -42,25 +40,23 @@ public class GameUI : MonoBehaviour
 
             timeElement.text = str;
             timeElapsed = 0;
+            ScoreManager.Instance.UpdateTime(seconds + (minutes * 60));
         }
 
         if (Player.Instance())
         {
             lives.text = Player.Instance().PlayerHealth.GetCurrentLives().ToString();
         }
-    }
-    
 
-    public void AddToScore(int _score)
-    {
-        score += _score;
-        scoreElement.text = score.ToString();
+        if (ScoreManager.Instance)
+        {
+            scoreElement.text = ScoreManager.Instance.GetScore().ToString();
+        }
     }
-
 
     private void ResetUI()
     {
         lives.text = 0.ToString();
-        score = 0;
+        scoreElement.text = 0.ToString();
     }
 }
