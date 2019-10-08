@@ -42,7 +42,6 @@ public class Player : MonoBehaviour
 
     private float runTimeElapsed = 0;
 
-
     private void Awake()
     {
         if (_instance == null) _instance = this;
