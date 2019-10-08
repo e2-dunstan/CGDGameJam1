@@ -43,7 +43,6 @@ public class WallCrawling : MonoBehaviour
                 jumpedOff = false;
             }
         }
-
         if (player.CurrentPlayerState != Player.PlayerState.CLIMBING) return;
 
             var playerPos = player.transform.position;
@@ -58,7 +57,7 @@ public class WallCrawling : MonoBehaviour
                 if (input.GetActionButton0Down())
                 {
                     player.ChangePlayerState(Player.PlayerState.AIRBORNE);
-                    player.GetComponent<Rigidbody2D>().gravityScale = gravityScale;
+                    player.GetComponent<Rigidbody2D>().gravityScale = 3.6f;
 
                     Vector2 vel = new Vector2(0.0f, 0.0f);
                     if (player.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.LEFT)
@@ -77,7 +76,8 @@ public class WallCrawling : MonoBehaviour
                     //player.GetComponent<Rigidbody2D>().velocity = vel;
                     Debug.Log(player.GetComponent<Rigidbody2D>().velocity);
                     Debug.Log(player.CurrentPlayerState);
-                    //Debug.Log(player.PlayerMovement.);
+                    Debug.Log(player.PlayerMovement.PlayerMovementDirection);
+                    Debug.Log(player.GetComponent<Rigidbody2D>().gravityScale);
                     jumpedOff = true;
                 }
             }
@@ -204,6 +204,11 @@ public class WallCrawling : MonoBehaviour
             building = collision;
             if (input.GetVerticalInput() < 0 && player.CurrentPlayerState != Player.PlayerState.CLIMBING && !jumpedOff)
             {
+                Debug.Log("Climb");
+                if (player.CurrentPlayerState == Player.PlayerState.WEBBING)
+                {
+                    player.WebManager.ToggleSwinging();
+                }
                 player.ChangePlayerState(Player.PlayerState.CLIMBING);
                 player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                 gravityScale = player.GetComponent<Rigidbody2D>().gravityScale;

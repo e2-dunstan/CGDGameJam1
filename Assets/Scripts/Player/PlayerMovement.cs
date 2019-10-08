@@ -155,17 +155,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateMovement()
     {
+        Debug.Log(playerVelocity + "_1");
         if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING)
         {
             ApplyHorizontalDrag();
         }
-
+        Debug.Log(playerVelocity + "_2");
         float newXAcceleration = inputHorizontal * movementSpeed * Time.fixedDeltaTime;
         //If the player is turning around give a boost to the acceleration to stop it feeling sluggish
         newXAcceleration = (playerVelocity.x >= 0) ^ (inputHorizontal < 0) ? newXAcceleration : newXAcceleration * turnModifier;
         playerVelocity.x += newXAcceleration;
 
-        if(playerVelocity.x == 0)
+        if (playerVelocity.x == 0)
         {
             //Leave movDir to its previous setting
         }
@@ -177,16 +178,20 @@ public class PlayerMovement : MonoBehaviour
         {
             movDir = MovementDirection.LEFT;
         }
-
+        Debug.Log(playerVelocity + "_3");
         //Cap the speed so it doesnt keep rising exponentially
-        if (playerVelocity.x > maxMovementSpeed)
+        if (Player.Instance().CurrentPlayerState != Player.PlayerState.AIRBORNE)
         {
-            playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : maxMovementSpeed;
+            if (playerVelocity.x > maxMovementSpeed)
+            {
+                playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : maxMovementSpeed;
+            }
+            else if (playerVelocity.x < -maxMovementSpeed)
+            {
+                playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : -maxMovementSpeed;
+            }
         }
-        else if (playerVelocity.x < -maxMovementSpeed)
-        {
-            playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : -maxMovementSpeed;
-        }
+        Debug.Log(playerVelocity + "_4");
     }
 
     private void UpdateJump()
@@ -239,6 +244,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalCapOverride = true;
         horizontalOverrideCap = rb2d.velocity.x;
         playerVelocity = rb2d.velocity;
+        Debug.Log(playerVelocity);
     }
 
     public float GetMaxSpeed()
