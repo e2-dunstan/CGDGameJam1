@@ -53,8 +53,8 @@ public class ScoreManager : MonoBehaviour
     {
         string str_time = "";
         float min = playerTime / 60.0f;
-        float sec = (int)playerTime % 60;
-        str_time = Mathf.FloorToInt(min).ToString() + ":" + Mathf.FloorToInt(sec).ToString();
+        float sec = (int)playerTime % 60;      
+        str_time = Mathf.FloorToInt(min).ToString() + ":" + (sec < 10 ? "0" + Mathf.FloorToInt(sec).ToString() : Mathf.FloorToInt(sec).ToString());
         return str_time;
     }
 

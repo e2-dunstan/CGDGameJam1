@@ -156,6 +156,7 @@ MonoBehaviour:
   attackCooldown: 2
   scoreForKilling: 1000
   banditMovement: {fileID: 3907179888732382499}
+  knockbackMagnitude: 40
   punchAudioClip: {fileID: 8300000, guid: 86fb7e90f4e780c4aa35b90ae1180177, type: 3}
   stunTime: 3
   sprites:

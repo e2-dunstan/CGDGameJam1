@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -258,6 +259,14 @@ public class PlayerMovement : MonoBehaviour
         if(Player.Instance().CurrentPlayerState == Player.PlayerState.NOINPUT)
         {
             Player.Instance().ChangePlayerState(Player.PlayerState.AIRBORNE);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Exit")
+        {
+            SceneManager.LoadScene("Game Over");
         }
     }
 }

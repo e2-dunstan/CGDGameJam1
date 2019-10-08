@@ -61,6 +61,7 @@ public class GameOver : MonoBehaviour
                 {
                     if (SceneManager.GetActiveScene().name == "Game Over")
                     {
+                        ScoreManager.Instance.AddTime(0);
                         SceneManager.LoadScene("MenuScene");
                     }
                 }

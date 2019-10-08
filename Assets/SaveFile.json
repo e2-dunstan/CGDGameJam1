@@ -2,8 +2,20 @@
     "enemyMetaDataList": [],
     "leaderboardList": [
         {
+            "playerName": "A4A",
+            "playerScore": 22000
+        },
+        {
+            "playerName": "9AA",
+            "playerScore": 8000
+        },
+        {
             "playerName": "ABA",
             "playerScore": 6000
+        },
+        {
+            "playerName": "9AA",
+            "playerScore": 2000
         },
         {
             "playerName": "BBB",
@@ -20,6 +32,10 @@
         {
             "playerName": "BBD",
             "playerScore": 5
+        },
+        {
+            "playerName": "AAB",
+            "playerScore": 0
         },
         {
             "playerName": "AAA",

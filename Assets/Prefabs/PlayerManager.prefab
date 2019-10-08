@@ -180,6 +180,11 @@ PrefabInstance:
       propertyPath: webManager
       value: 
       objectReference: {fileID: 2025940383}
+    - target: {fileID: 2559757008407387663, guid: 1e5113af87f3e3044a4460c5185ff507,
+        type: 3}
+      propertyPath: maxLives
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4010234979271128854, guid: 1e5113af87f3e3044a4460c5185ff507,
         type: 3}
       propertyPath: wallClimbLayers.m_Bits
