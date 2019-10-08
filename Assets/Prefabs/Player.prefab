@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1887256723528965821}
   - component: {fileID: 2559757008407387663}
   - component: {fileID: 7665727859015582159}
+  - component: {fileID: 4010234979271128854}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -107,7 +108,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &704112272637256634
 CapsuleCollider2D:
@@ -209,6 +210,22 @@ MonoBehaviour:
   health: 10
   bossEnemy: {fileID: 0}
   isInBossScene: 0
+--- !u!114 &4010234979271128854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887256723528965817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6bfb18f9971bd345ba2c2be8f2eb43e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  building: {fileID: 0}
+  webZipLength: 14.9
+  webZipSpeed: 0.35
+  jumpOffForce: {x: 500, y: 500}
 --- !u!1 &5588796716749585856
 GameObject:
   m_ObjectHideFlags: 0
