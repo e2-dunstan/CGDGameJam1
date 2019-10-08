@@ -22,7 +22,6 @@ public class InputManager : MonoBehaviour
 
     public float GetHorizontalInput()
     {
-        Debug.Log(Input.GetAxisRaw("Horizontal"));
         return Input.GetAxisRaw("Horizontal");
     }
 
