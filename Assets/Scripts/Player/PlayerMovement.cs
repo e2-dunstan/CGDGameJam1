@@ -60,7 +60,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        HandlePlayerInput();
+        if(playerSingleton.CurrentPlayerState != Player.PlayerState.NOINPUT)
+        {
+            HandlePlayerInput();
+        }
     }
 
     private void FixedUpdate()
