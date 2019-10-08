@@ -60,7 +60,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        HandlePlayerInput();
+        if(playerSingleton.CurrentPlayerState != Player.PlayerState.NOINPUT)
+        {
+            HandlePlayerInput();
+        }
     }
 
     private void FixedUpdate()
@@ -74,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private bool CheckGrounded()
+    public bool CheckGrounded()
     {
         /*Changes the point of the raycast depending on direction of movement
         so that if any of the player is on an edge you will be able to jump */
@@ -216,9 +219,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void ApplyVelocityToRigidbody()
+    public void ApplyVelocityToRigidbody()
     {
         rb2d.velocity = playerVelocity;
+    }
+
+    public void SetPlayerVelocity(Vector2 vel)
+    {
+        playerVelocity = vel;
     }
 
     private void UpdateLastHorizontalInput()
@@ -233,8 +241,11 @@ public class PlayerMovement : MonoBehaviour
         playerVelocity = rb2d.velocity;
     }
 
-    public float GetMaxSpeed()
-    {
-        return maxMovementSpeed;
+    public float GetMaxSpeed()
+
+    {
+
+        return maxMovementSpeed;
+
     }
 }
