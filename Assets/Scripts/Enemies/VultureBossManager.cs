@@ -170,7 +170,9 @@ public class VultureBossManager : MonoBehaviour
     {
         hasBegun = true;
         Player.Instance().ChangePlayerState(Player.PlayerState.NOINPUT);
-        Player.Instance().PlayerMovement.SetPlayerVelocity(new Vector2(0, 0));
+        Player.Instance().PlayerMovement.SetPlayerVelocity(Vector2.zero);
+        Player.Instance().PlayerMovement.Rigidbody.velocity = Vector2.zero;
+
 
         EntranceDoor.GetComponent<Door>().CloseDoor();
 
