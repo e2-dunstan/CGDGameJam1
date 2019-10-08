@@ -9,8 +9,11 @@ public class WebProjectile : Projectile
 
         if (other.CompareTag("Enemy"))
         {
-           other.gameObject.GetComponent<Enemy>().InflictDamage(projectileDamage);
-           Destroy(this.gameObject);
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            enemy.InflictDamage(projectileDamage);
+            enemy.StunEnemy();
+
+            Destroy(this.gameObject);
         }
         else if(!other.CompareTag("Player"))
         {

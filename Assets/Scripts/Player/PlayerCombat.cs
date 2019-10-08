@@ -35,12 +35,13 @@ public class PlayerCombat : MonoBehaviour
 
     private void HandleInputs()
     {
+        Debug.Log(inputSingleton.GetVerticalInput());
         //Check for inputs
         if (attackCooldownTimer <= 0)
         {
             if (inputSingleton.GetActionButton1Down())
             {
-                if (inputSingleton.GetVerticalInput() < 0 || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
+                if (inputSingleton.GetVerticalInput() != 0 || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
                 {
                     FireWebProjectile();
                 }
