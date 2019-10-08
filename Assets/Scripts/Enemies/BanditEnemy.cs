@@ -5,7 +5,7 @@ using UnityEngine;
 public class BanditEnemy : Enemy
 {
     public BanditMovement banditMovement;
-    public float knockbackMagnitude = 40.0f;
+    public float knockbackMagnitude = 500.0f;
 
     [SerializeField] private AudioClip punchAudioClip;
     [SerializeField] private float stunTime = 3f;
@@ -248,7 +248,7 @@ public class BanditEnemy : Enemy
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (player.CurrentPlayerState == Player.PlayerState.WEBBING && player.CurrentPlayerState == Player.PlayerState.AIRBORNE)
+            if (player.CurrentPlayerState == Player.PlayerState.WEBBING || player.CurrentPlayerState == Player.PlayerState.AIRBORNE)
             {
                 player.WebManager.ToggleSwinging();
                 Vector2 knockBackVelocity = player.transform.position - gameObject.transform.position;
@@ -257,6 +257,7 @@ public class BanditEnemy : Enemy
                 knockBackVelocity = knockBackVelocity * knockbackMagnitude;
 
                 player.PlayerMovement.Rigidbody.velocity = knockBackVelocity;
+                player.PlayerMovement.CarryOverVelocityFromSwinging(true);
             }
         }
     }
