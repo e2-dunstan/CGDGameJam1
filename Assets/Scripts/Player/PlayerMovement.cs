@@ -241,6 +241,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalCapOverride = true;
         horizontalOverrideCap = rb2d.velocity.x;
         playerVelocity = rb2d.velocity;
+        playerVelocity.y = 0;
     }
 
     public float GetMaxSpeed()
