@@ -7,6 +7,7 @@ public class BanditEnemy : Enemy
     public BanditMovement banditMovement;
     public float knockbackMagnitude = 40.0f;
 
+    [SerializeField] private AudioClip punchAudioClip;
     [SerializeField] private float stunTime = 3f;
 
     private SpriteRenderer spriteRenderer;
@@ -167,7 +168,9 @@ public class BanditEnemy : Enemy
     {
         attackTimer = 0f;
         isOnAttackCooldown = true;
-        
+
+        AudioManager.Instance.PlaySpecificClip(punchAudioClip, transform);
+
         player.PlayerCombat.InflictDamage(1);
     }
 
