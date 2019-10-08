@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyState: 0
-  health: 1000000
+  health: 2
   canSeePlayer: 0
   distanceFromPlayer: 0
   visionRange: 40
@@ -156,7 +156,7 @@ MonoBehaviour:
   attackCooldown: 2
   scoreForKilling: 1000
   banditMovement: {fileID: 3907179888732382499}
-  punchAudioClip: {fileID: 0}
+  punchAudioClip: {fileID: 8300000, guid: 86fb7e90f4e780c4aa35b90ae1180177, type: 3}
   stunTime: 3
   sprites:
   - {fileID: -4976470069784301207, guid: de083c59984a59e409fa53327b2f45e0, type: 3}
