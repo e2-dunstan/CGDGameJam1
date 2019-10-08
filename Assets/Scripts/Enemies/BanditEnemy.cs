@@ -244,21 +244,40 @@ public class BanditEnemy : Enemy
         }
     }
 
-    private void OnCollision(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (player.CurrentPlayerState == Player.PlayerState.WEBBING || player.CurrentPlayerState == Player.PlayerState.AIRBORNE)
+            if(player.CurrentPlayerState == Player.PlayerState.AIRBORNE || player.CurrentPlayerState == Player.PlayerState.WEBBING)
             {
-                player.WebManager.ToggleSwinging();
+                if (player.CurrentPlayerState == Player.PlayerState.WEBBING)
+                {
+                    player.WebManager.ToggleSwinging();
+                }
+
                 Vector2 knockBackVelocity = player.transform.position - gameObject.transform.position;
-                knockBackVelocity = knockBackVelocity.normalized;
-                Debug.Log(knockBackVelocity.x);
+
+                float xNormal = knockBackVelocity.normalized.x;
+                float yNormal = knockBackVelocity.normalized.y * 5;
+
+                if (xNormal >= 0f && xNormal < 1f)
+                {
+                    xNormal = 1f;
+                }
+                else if (xNormal > -1f && xNormal <= 0f)
+                {
+                    xNormal = -1f;
+                }
+
+                knockBackVelocity = new Vector2(xNormal, yNormal);
+                Debug.Log(xNormal + " " + yNormal);
                 knockBackVelocity = knockBackVelocity * knockbackMagnitude;
 
                 player.PlayerMovement.Rigidbody.velocity = knockBackVelocity;
                 player.PlayerMovement.CarryOverVelocityFromSwinging(true);
             }
+
+
         }
     }
 }
