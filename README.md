@@ -32,7 +32,7 @@ Unity version 2019.2.0
 
 - Combat
 - Web swinging
-- Visual feedback (if possible on this platform)
+- Collectibles
 
 #### Macro
 
@@ -41,6 +41,7 @@ Unity version 2019.2.0
 #### Meta
 
 - Speedrun
+- Beat highscore
 
 
 ## Style
