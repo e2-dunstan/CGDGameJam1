@@ -32,18 +32,21 @@ public class WallCrawling : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if(jumpedOff)
         {
             countdown -= Time.deltaTime;
 
             if(countdown <= 0.0f)
             {
-                countdown = 1.0f;
+                countdown = 2.0f;
                 jumpedOff = false;
             }
         }
 
-        var playerPos = player.transform.position;
+        if (player.CurrentPlayerState != Player.PlayerState.CLIMBING) return;
+
+            var playerPos = player.transform.position;
         if (player.CurrentPlayerState == Player.PlayerState.CLIMBING)
         {
             if (!zipping)
@@ -55,29 +58,26 @@ public class WallCrawling : MonoBehaviour
                 if (input.GetActionButton0Down())
                 {
                     player.ChangePlayerState(Player.PlayerState.AIRBORNE);
-                    player.GetComponent<Rigidbody2D>().gravityScale = 3.6f;
+                    player.GetComponent<Rigidbody2D>().gravityScale = gravityScale;
 
                     Vector2 vel = new Vector2(0.0f, 0.0f);
-                    if (input.GetHorizontalInput() > 0)
-                    {
-                        vel.x = jumpOffForce.x;
-                        vel.y = 600.0f;
-                    }
-                    else if (input.GetHorizontalInput() < 0)
+                    if (player.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.LEFT)
                     {
                         vel.x = -jumpOffForce.x;
-                        vel.y = 600.0f;
+                        vel.y = jumpOffForce.y;
                     }
-                    else if (input.GetVerticalInput() < 0)
+                    else if (player.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT)
                     {
+                        vel.x = jumpOffForce.x;
                         vel.y = jumpOffForce.y;
                     }
 
                     player.PlayerMovement.SetPlayerVelocity(vel);
                     player.PlayerMovement.ApplyVelocityToRigidbody();
-                    player.GetComponent<Rigidbody2D>().velocity = vel;
-                    Debug.Log("Jump Off");
+                    //player.GetComponent<Rigidbody2D>().velocity = vel;
                     Debug.Log(player.GetComponent<Rigidbody2D>().velocity);
+                    Debug.Log(player.CurrentPlayerState);
+                    //Debug.Log(player.PlayerMovement.);
                     jumpedOff = true;
                 }
             }
@@ -94,11 +94,11 @@ public class WallCrawling : MonoBehaviour
 
         //Debug.Log(player.GetComponent<Rigidbody2D>().velocity);
 
-        if (input.GetHorizontalInput() < 0)
+        if (player.GetComponent<Rigidbody2D>().velocity.x < 0)
         {
             player.PlayerMovement.PlayerMovementDirection = PlayerMovement.MovementDirection.LEFT;
         }
-        else if (input.GetHorizontalInput() > 0)
+        else if (player.GetComponent<Rigidbody2D>().velocity.x > 0)
         {
             player.PlayerMovement.PlayerMovementDirection = PlayerMovement.MovementDirection.RIGHT;
         }
@@ -117,7 +117,6 @@ public class WallCrawling : MonoBehaviour
         if(webZipTime >= 1.0f)
         {
             zipping = false;
-            //player.GetComponent<Collider2D>().enabled = true;
             building.enabled = true;
             webZipTime = 0.0f;
             //Debug.Log(zipping);
@@ -183,7 +182,7 @@ public class WallCrawling : MonoBehaviour
         if(collision.tag == "Building")
         {
             building = collision;
-            if ((player.CurrentPlayerState == Player.PlayerState.WEBBING) || (!jumpedOff && input.GetVerticalInput() < 0 && player.CurrentPlayerState != Player.PlayerState.CLIMBING))
+            if ((!jumpedOff && input.GetVerticalInput() < 0 && player.CurrentPlayerState != Player.PlayerState.CLIMBING))
             {
                 Debug.Log("Climb");
                 if (player.CurrentPlayerState == Player.PlayerState.WEBBING)
@@ -215,10 +214,14 @@ public class WallCrawling : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Building")
+        if (collision.tag == "Building" && player.CurrentPlayerState == Player.PlayerState.CLIMBING)
         {
             player.ChangePlayerState(Player.PlayerState.AIRBORNE);
             player.GetComponent<Rigidbody2D>().gravityScale = gravityScale;
+            player.PlayerMovement.SetPlayerVelocity(new Vector2(0,0));
+            player.PlayerMovement.ApplyVelocityToRigidbody();
+            Debug.Log(player.GetComponent<Rigidbody2D>().velocity);
+            Debug.Log(player.CurrentPlayerState);
         }
     }
 }
