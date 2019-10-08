@@ -9,6 +9,9 @@ public class VultureEnemy : Enemy
     public EnemyMovement enemyMovement;
     public GameObject enemyProjectile;
 
+    public AudioClip attackAudio;
+    public AudioClip damageTaken;
+        
     //Prevents vulture being hit twice
     [SerializeField] private bool canBeHit = true;
 
@@ -104,6 +107,8 @@ public class VultureEnemy : Enemy
         EnemyProjectile projectile = Instantiate(enemyProjectile, gameObject.transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
         projectile.SpawnProjectile(relativePos, 10, 1);
 
+        AudioManager.Instance.PlaySpecificClip(attackAudio, gameObject.transform);
+
     }
 
     public void HardShootAttack()
@@ -119,6 +124,9 @@ public class VultureEnemy : Enemy
 
         EnemyProjectile projectile4 = Instantiate(enemyProjectile, gameObject.transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
         projectile4.SpawnProjectile(new Vector2(5 * hardBulletSpeed, 5 * hardBulletSpeed), 10, 1);
+
+
+        AudioManager.Instance.PlaySpecificClip(attackAudio, gameObject.transform);
     }
 
     public override void InflictDamage(int _damageAmount)
@@ -142,6 +150,7 @@ public class VultureEnemy : Enemy
                 {
                     //CHANGE BACK TO WALKING SPRITE
                     enemyState = EnemyState.WALKING;
+                    AudioManager.Instance.PlaySpecificClip(damageTaken, gameObject.transform);
                     InvincibleForTime(2.0f);
                 }
             }
@@ -150,6 +159,8 @@ public class VultureEnemy : Enemy
             //Is hit and begins falling
             //CHANGE TO FALLING SPRITE
             enemyState = EnemyState.STUNNED;
+
+            AudioManager.Instance.PlaySpecificClip(damageTaken, gameObject.transform);
             spriteRenderer.sprite = vultureAnimations[2];
             InvincibleForTime(2);
         }

@@ -16,7 +16,7 @@ public class VultureBossManager : MonoBehaviour
     [SerializeField] private VultureMovement vultureMovement;
     [SerializeField] private int currentBossHealth;
     [SerializeField] private bool canAttack = true;
-
+    public AudioClip deathSound;
     private BossStage bossStage = BossStage.STAGE1;
 
     private float timeOnCurrentStage = 0.0f;
@@ -210,6 +210,8 @@ public class VultureBossManager : MonoBehaviour
 
     private void FinishBoss()
     {
+
+        AudioManager.Instance.PlaySpecificClip(deathSound, gameObject.transform);
         Player.Instance().PlayerCombat.isInBossScene = false;
         Player.Instance().WebManager.SetWebSwingOffset(25.0f);
         ScoreManager.Instance.AddScore(6000);

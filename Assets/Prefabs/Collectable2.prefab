@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreAmount: 500
   wonderAmount: 5
+  collectableSound: {fileID: 8300000, guid: ac20c476e98a05e4a8cb41644f8ac946, type: 3}
   movementSpeed: 3
 --- !u!61 &6572165574488065681
 BoxCollider2D:
