@@ -40,7 +40,7 @@ public class PlayerCombat : MonoBehaviour
         {
             if (inputSingleton.GetActionButton1Down())
             {
-                if (inputSingleton.GetVerticalInput() < 0 || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
+                if (inputSingleton.GetVerticalInput() != 0 || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
                 {
                     FireWebProjectile();
                 }

@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public virtual void StunEnemy(float _stunDuration)
+    public virtual void StunEnemy()
     {
 
     }
