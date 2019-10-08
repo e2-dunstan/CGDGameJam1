@@ -35,7 +35,6 @@ public class PlayerCombat : MonoBehaviour
 
     private void HandleInputs()
     {
-        Debug.Log(inputSingleton.GetVerticalInput());
         //Check for inputs
         if (attackCooldownTimer <= 0)
         {
