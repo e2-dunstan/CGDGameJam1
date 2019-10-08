@@ -6,6 +6,8 @@ public class BanditEnemy : Enemy
 {
     public BanditMovement banditMovement;
 
+    [SerializeField] private float stunTime = 3f;
+
     private SpriteRenderer spriteRenderer;
 
     [SerializeField] private Sprite[] sprites;
@@ -42,24 +44,24 @@ public class BanditEnemy : Enemy
     {
         if(enemyState == EnemyState.DYING)
         {
+            ScoreManager.Instance.AddScore(scoreForKilling);
             Destroy(this.gameObject);
+            return;
         }
 
         UpdateTimers();
         CalculateDistanceFromPlayer();
 
-        //if (isStunned == false)
-        //{
+        if(enemyState != EnemyState.STUNNED)
+        { 
+            ProcessMovementStates();
 
-        ProcessMovementStates();
-
-        //If Player can be seen and enemy can attack
-        if (distanceFromPlayer <= attackRange && enemyState == EnemyState.PERSUING)
-        {
-            enemyState = EnemyState.ATTACKING;
+            //If Player can be seen and enemy can attack
+            if (distanceFromPlayer <= attackRange && enemyState == EnemyState.PERSUING)
+            {
+                enemyState = EnemyState.ATTACKING;
+            }
         }
-
-        //}
 
         switch (enemyState)
         {
@@ -91,7 +93,6 @@ public class BanditEnemy : Enemy
                 }
                 break;
             case EnemyState.STUNNED:
-                banditMovement.StopMovingForTime(1.0f);
                 spriteRenderer.sprite = sprites[1];
                 break;
             default:
@@ -131,6 +132,19 @@ public class BanditEnemy : Enemy
                 }
             }
         }
+
+        if(enemyState == EnemyState.STUNNED)
+        {
+            if (stunTimer < stunTime)
+            {
+                stunTimer += Time.deltaTime;
+                if (stunTimer >= stunTime)
+                {
+                    stunTime = 0f;
+                    enemyState = EnemyState.IDLE;
+                }
+            }
+        }
     }
 
     private void CheckReachedDestination()
@@ -140,6 +154,12 @@ public class BanditEnemy : Enemy
             isOnIdleCooldown = true;
             idleTimer = 0f;
         }
+    }
+
+    public override void StunEnemy()
+    {
+        stunTimer = 0;
+        enemyState = EnemyState.STUNNED;
     }
 
     private void AttackPlayer()

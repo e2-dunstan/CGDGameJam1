@@ -149,4 +149,9 @@ public class WebSwing : MonoBehaviour
 
         webOrigin.position = new Vector2(_offset, webOrigin.position.y);
     }
+
+    public void SetWebSwingOffset(float _newOffset)
+    {
+        xOffset = _newOffset;
+    }
 }

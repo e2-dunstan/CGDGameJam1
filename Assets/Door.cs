@@ -12,21 +12,38 @@ public class Door : MonoBehaviour
 
     public float doorSpeed = 1.0f;
 
+    private bool movementInitiated = false;
+
+    private void Start()
+    {
+        positionToMoveTo = startPosition.transform.position;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        door.transform.position = Vector2.MoveTowards(gameObject.transform.position, positionToMoveTo, 1.0f);
+        if (movementInitiated == true)
+        {
+            door.transform.position = Vector2.MoveTowards(door.transform.position, positionToMoveTo, doorSpeed * Time.deltaTime);
+
+            if(door.transform.position == positionToMoveTo)
+            {
+                movementInitiated = false;
+            }
+        }
     }
 
     public void CloseDoor()
     {
         Debug.Log("Closing Door");
         positionToMoveTo = startPosition.transform.position;
+        movementInitiated = true;
     }
 
     public void OpenDoor()
     {
-        Debug.Log("Closing Door");
+        Debug.Log("Open Door");
         positionToMoveTo = endPosition.transform.position;
+        movementInitiated = true;
     }
 }

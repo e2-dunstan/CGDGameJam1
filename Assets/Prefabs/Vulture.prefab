@@ -158,9 +158,11 @@ MonoBehaviour:
   distanceFromPlayer: 0
   visionRange: 1
   isOnIdleCooldown: 0
+  idleCooldown: 3
   isOnAttackCooldown: 0
   attackRange: 4
   attackCooldown: 4
+  scoreForKilling: 1000
   enemyMovement: {fileID: 359015165863057302}
   enemyProjectile: {fileID: 7109776482288774693, guid: 929d3a04b39d942e9ac006f031dbe484,
     type: 3}
@@ -171,6 +173,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0893764e4c82e9c4abf5fa092f69d9f1, type: 3}
   - {fileID: 21300000, guid: 4960f0e538fa0854ca22c535e7beb382, type: 3}
   - {fileID: 21300000, guid: 0093ce7f051d8374f90c238010e8d381, type: 3}
+  knockbackMagnitude: 15
 --- !u!114 &359015165863057302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,8 +186,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d96531a58f9864003895d99eac0e574c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewGizmos: 1
   moveSpeed: 1.5
   spawnPosition: {x: 0, y: 0}
+  wonderingBoundaryXLeft: 1
+  wonderingBoundaryXRight: 1
+  wonderingBoundaryYUp: 1
+  wonderingBoundaryYDown: 1
+  canFly: 1
+  hasRandomTargetLocation: 0
+  randomLocation: {x: 0, y: 0}
+  randomXLocation: 0
+  randomYLocation: 0
   targetDestination: {x: 0, y: 0, z: 0}
   hasReachedDestination: 0
   movementPositions:
@@ -204,13 +217,10 @@ MonoBehaviour:
     movementObj: {fileID: 0}
   - movementPositionType: 1
     movementObj: {fileID: 0}
-  canFly: 1
-  hasRandomTargetLocation: 0
-  randomLocation: {x: 0, y: 0, z: 0}
   randomPositionIndex: 0
   randomShootingPos: 0
   goingToShootingPos: 0
   goingToDefaultPos: 0
-  maxWaitTimeBetweenRepositioning: 14
-  minWaitTimeBetweenRepositioning: 11
+  maxWaitTimeBetweenRepositioning: 3
+  minWaitTimeBetweenRepositioning: 1
   timeBetweenMoving: 0

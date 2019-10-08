@@ -29,53 +29,82 @@ public class VultureBossManager : MonoBehaviour
     [SerializeField] private GameObject EntranceDoor;
     [SerializeField] private GameObject ExitDoor;
 
+    private GameObject player;
+    private float distanceFromPlayer;
+
+    public float distanceEnemyCanShootNearPlayer = 20.0f;
+
+
+    private bool hasBegun = false;
+    private bool hasStartSequenceFinished = false;
+
+    public GameObject entranceCollider;
+
+    public GameUI gameUI;
+
     // Start is called before the first frame update
     void Start()
     {
         currentBossHealth = vulture.health;
+        player = Player.Instance().gameObject;
+        Player.Instance().WebManager.SetWebSwingOffset(5.0f);
+        vulture.enemyState = Enemy.EnemyState.IDLE;
+        canAttack = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-      
-        if(currentBossHealth != vulture.health)
+        if (hasBegun == true && hasStartSequenceFinished == true)
         {
-            currentBossHealth = vulture.health;
-            ChangeBossStage();
-        }
+            if (currentBossHealth != vulture.health)
+            {
+                currentBossHealth = vulture.health;
+                ChangeBossStage();
+            }
 
-        if(vulture.enemyState == Enemy.EnemyState.STUNNED)
-        {
-            canAttack = false;
-            timeOnCurrentStage = 0.0f;
-            numberOfTimesShot = 0;
-        }
-        else
-        {
-            timeOnCurrentStage += Time.deltaTime;
-        }
+            if (vulture.enemyState == Enemy.EnemyState.STUNNED)
+            {
+                canAttack = false;
+                timeOnCurrentStage = 0.0f;
+                numberOfTimesShot = 0;
+            }
+            else
+            {
+                timeOnCurrentStage += Time.deltaTime;
+            }
 
-        
-        switch(bossStage)
-        { 
-            case BossStage.STAGE1:
-               
-                break;
-            case BossStage.STAGE2:
-                if (timeBetweenShootingEasy < (timeOnCurrentStage / numberOfTimesShot)
-                    && canAttack == true)
-                {
-                    PromptEasyShoot();
-                }
-                break;
-            case BossStage.STAGE3:
-                if (timeBetweenShootingHard < (timeOnCurrentStage / numberOfTimesShot)
-                    && canAttack == true)
-                {
-                    PromptHardShoot();
-                }
-                break;
+
+            switch (bossStage)
+            {
+                case BossStage.STAGE1:
+
+                    break;
+                case BossStage.STAGE2:
+                    if (timeBetweenShootingEasy < (timeOnCurrentStage / numberOfTimesShot)
+                        && canAttack == true && CalculateDistanceFromPlayer() > distanceEnemyCanShootNearPlayer)
+                    {
+                        PromptEasyShoot();
+                    }
+                    break;
+                case BossStage.STAGE3:
+                    if (timeBetweenShootingHard < (timeOnCurrentStage / numberOfTimesShot)
+                        && canAttack == true && CalculateDistanceFromPlayer() > distanceEnemyCanShootNearPlayer)
+                    {
+                        vulture.enemyMovement.moveSpeed = 2.5f;
+                        PromptHardShoot();
+                    }
+                    break;
+            }
+
+            CalculateDistanceFromPlayer();
+        }
+        else if(hasBegun != true)
+        {
+            if(entranceCollider.GetComponent<BossEntranceTrigger>().hasBeenTriggered == true)
+            {
+                StartBoss();
+            }
         }
     }
 
@@ -92,9 +121,12 @@ public class VultureBossManager : MonoBehaviour
                 vultureMovement.ForceMoveToShootingPosition();
                 break;
             case 0:
+                bossStage = BossStage.STAGE4;
                 //Open door to leave
                 canAttack = false;
+                vulture.gameObject.GetComponent<Collider2D>().enabled = false;
                 ExitDoor.GetComponent<Door>().OpenDoor();
+                FinishBoss();
                 break;
 
         }
@@ -106,6 +138,14 @@ public class VultureBossManager : MonoBehaviour
     {
         numberOfTimesShot++;
         vulture.EasyShootAttack();
+    }
+
+    private float CalculateDistanceFromPlayer()
+    {
+        //Will remove this gameObject find, using until this is merged with alex's work, then we're implementing something else
+
+        distanceFromPlayer = Vector2.Distance(vulture.gameObject.transform.position, player.transform.position);
+        return distanceFromPlayer;
     }
 
     private void PromptHardShoot()
@@ -124,5 +164,47 @@ public class VultureBossManager : MonoBehaviour
     {
         yield return new WaitForSeconds(_time);
         canAttack = true;
+    }
+
+    private void StartBoss()
+    {
+        hasBegun = true;
+        Player.Instance().ChangePlayerState(Player.PlayerState.NOINPUT);
+        Player.Instance().PlayerMovement.SetPlayerVelocity(new Vector2(0, 0));
+
+        EntranceDoor.GetComponent<Door>().CloseDoor();
+
+        gameUI.bottomText.text = "Ah, Spiderman!";
+
+        StartCoroutine("BeginAfterTime", 2.0f);
+
+    }
+
+    IEnumerator BeginAfterTime(float _time)
+    {
+        yield return new WaitForSeconds(_time);
+        gameUI.bottomText.text = "Welcome to my lair!";
+        yield return new WaitForSeconds(_time);
+        gameUI.bottomText.text = "Shall we begin?!";
+        yield return new WaitForSeconds(_time);
+        gameUI.bottomText.text = "";
+        hasStartSequenceFinished = true;
+        Player.Instance().WebManager.SetWebSwingOffset(5.0f);
+        vulture.enemyState = Enemy.EnemyState.WALKING;
+        Player.Instance().ChangePlayerState(Player.Instance().PreviousPlayerState);
+    }
+
+    private void FinishBoss()
+    {
+
+        gameUI.bottomText.text = "Curse you spiderman!";
+
+        StartCoroutine("FinishAfterTime", 2.0f);
+    }
+
+    IEnumerator FinishAfterTime(float _time)
+    {
+        yield return new WaitForSeconds(_time);
+        gameUI.bottomText.text = "";
     }
 }

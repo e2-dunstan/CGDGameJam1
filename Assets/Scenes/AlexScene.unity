@@ -153,7 +153,7 @@ Transform:
   - {fileID: 1081971560}
   - {fileID: 943300810}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &710401409
 PrefabInstance:
@@ -221,6 +221,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3907179888732382499, guid: e3a5e36fcbe29fb4bb61a66e9f091e90,
+        type: 3}
+      propertyPath: wonderingBoundaryXLeft
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3907179888732382499, guid: e3a5e36fcbe29fb4bb61a66e9f091e90,
+        type: 3}
+      propertyPath: wonderingBoundaryXRight
+      value: 29
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3a5e36fcbe29fb4bb61a66e9f091e90, type: 3}
@@ -840,7 +850,7 @@ PrefabInstance:
     - target: {fileID: 3147301601173398387, guid: 865b1edce7514cb48ad0f6c8ea486b98,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3147301601173398387, guid: 865b1edce7514cb48ad0f6c8ea486b98,
         type: 3}
@@ -907,16 +917,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3147301600871332523, guid: 865b1edce7514cb48ad0f6c8ea486b98,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3147301601630794024, guid: 865b1edce7514cb48ad0f6c8ea486b98,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3147301602731086075, guid: 865b1edce7514cb48ad0f6c8ea486b98,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -926,6 +926,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.10000038
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147301600871332523, guid: 865b1edce7514cb48ad0f6c8ea486b98,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147301601630794024, guid: 865b1edce7514cb48ad0f6c8ea486b98,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 865b1edce7514cb48ad0f6c8ea486b98, type: 3}
@@ -1145,6 +1155,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3889901786715727568, guid: b8ede98b49cfd6d4a94038cbcc3cefe8,
+        type: 3}
+      propertyPath: m_Name
+      value: Managers
+      objectReference: {fileID: 0}
     - target: {fileID: 3889901786715727564, guid: b8ede98b49cfd6d4a94038cbcc3cefe8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1199,11 +1214,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3889901786715727568, guid: b8ede98b49cfd6d4a94038cbcc3cefe8,
-        type: 3}
-      propertyPath: m_Name
-      value: Managers
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8ede98b49cfd6d4a94038cbcc3cefe8, type: 3}
