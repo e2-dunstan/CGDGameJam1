@@ -11,10 +11,12 @@ public class PlayerHealth : MonoBehaviour
 
     private int currentLives = 0;
     private float iFrameTimer = 0.0f;
+    private SpriteRenderer playerSprite;
 
     private void Start()
     {
         currentLives = maxLives;
+        playerSprite = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -41,6 +43,7 @@ public class PlayerHealth : MonoBehaviour
             iFrameTimer = iFrameDuration;
             currentLives--;
             CheckDeath();
+            StartCoroutine("FlickerSprite");
         }
     }
 
@@ -49,6 +52,18 @@ public class PlayerHealth : MonoBehaviour
         if(currentLives == 0)
         {
             SceneManager.LoadScene(deathSceneName);
+        }
+    }
+
+    IEnumerator FlickerSprite()
+    {
+        Color spriteCol = playerSprite.color;
+        int evenFlashes = 8;
+        for (int i = 0; i <= evenFlashes; i++)
+        {
+            spriteCol.a = i % 2 == 0 ? 1.0f : 0.3f;
+            playerSprite.color = spriteCol;
+            yield return new WaitForSeconds(iFrameDuration / evenFlashes);
         }
     }
 }
