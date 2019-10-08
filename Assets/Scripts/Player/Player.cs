@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     //TODO add extra references to player subsystems
     [SerializeField] private PlayerMovement playerMovement = null;
     public PlayerMovement PlayerMovement { get => playerMovement; private set => playerMovement = value; }
+    [SerializeField] private PlayerCombat playerCombat = null;
+    public PlayerCombat PlayerCombat { get => playerCombat; private set => playerCombat = value; }
     [SerializeField] private WebSwing webManager = null;
     public WebSwing WebManager { get => webManager; private set => webManager = value; }
 
@@ -39,7 +41,6 @@ public class Player : MonoBehaviour
      */
 
     private float runTimeElapsed = 0;
-
 
     private void Awake()
     {
@@ -80,11 +81,9 @@ public class Player : MonoBehaviour
                 spriteRenderer.sprite = sprites[1];
                 break;
         }
-
-        Vector3 rot = transform.eulerAngles;
-        if (playerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.LEFT) rot.y = 180;
-        if (playerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT) rot.y = 0;
-        transform.eulerAngles = rot;
+        
+        //Flips sprite based on player direction
+        spriteRenderer.flipX = playerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.LEFT;
     }
 
     private Sprite GetGroundedSprite()

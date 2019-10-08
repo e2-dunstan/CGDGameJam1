@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb2d;
     public Rigidbody2D Rigidbody { get => rb2d; private set => rb2d = value; }
-    private MovementDirection movDir = MovementDirection.LEFT;
+    private MovementDirection movDir = MovementDirection.RIGHT;
     public MovementDirection PlayerMovementDirection { get => movDir; set => movDir = value; }
 
     private CapsuleCollider2D col2d;
@@ -68,7 +68,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING && playerSingleton.CurrentPlayerState != Player.PlayerState.CLIMBING)
+        if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING &&
+            playerSingleton.CurrentPlayerState != Player.PlayerState.CLIMBING &&
+            playerSingleton.CurrentPlayerState != Player.PlayerState.NOINPUT)
         {
             UpdateMovement();
             UpdateJump();
@@ -81,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
     {
         /*Changes the point of the raycast depending on direction of movement
         so that if any of the player is on an edge you will be able to jump */
+
         Vector2 raycastLeft = Vector2.zero;
         Vector2 raycastRight = Vector2.zero;
         raycastLeft.y = raycastRight.y = col2d.bounds.min.y + 0.1f;
@@ -89,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
         //If left or right raycast registers as grounded then the player is grounded
         RaycastHit2D left = Physics2D.Raycast(raycastLeft, Vector2.down, groundedRaycastLength, groundedLayers);
         RaycastHit2D right = Physics2D.Raycast(raycastRight, Vector2.down, groundedRaycastLength, groundedLayers);
+        Debug.Log(left | right);
         return left | right;
     }
 
@@ -159,13 +163,12 @@ public class PlayerMovement : MonoBehaviour
         {
             ApplyHorizontalDrag();
         }
-
         float newXAcceleration = inputHorizontal * movementSpeed * Time.fixedDeltaTime;
         //If the player is turning around give a boost to the acceleration to stop it feeling sluggish
         newXAcceleration = (playerVelocity.x >= 0) ^ (inputHorizontal < 0) ? newXAcceleration : newXAcceleration * turnModifier;
         playerVelocity.x += newXAcceleration;
 
-        if(playerVelocity.x == 0)
+        if (playerVelocity.x == 0)
         {
             //Leave movDir to its previous setting
         }
@@ -177,26 +180,25 @@ public class PlayerMovement : MonoBehaviour
         {
             movDir = MovementDirection.LEFT;
         }
-
         //Cap the speed so it doesnt keep rising exponentially
-        if (playerVelocity.x > maxMovementSpeed)
+        if (Player.Instance().CurrentPlayerState != Player.PlayerState.AIRBORNE)
         {
-            playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : maxMovementSpeed;
-        }
-        else if (playerVelocity.x < -maxMovementSpeed)
-        {
-            playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : -maxMovementSpeed;
+            if (playerVelocity.x > maxMovementSpeed)
+            {
+                playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : maxMovementSpeed;
+            }
+            else if (playerVelocity.x < -maxMovementSpeed)
+            {
+                playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : -maxMovementSpeed;
+            }
         }
     }
 
     private void UpdateJump()
     {
         if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING)
-
         {
-
             ApplyVerticalDrag();
-
         }
 
         if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE && CheckGrounded())
@@ -219,9 +221,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void ApplyVelocityToRigidbody()
+    public void ApplyVelocityToRigidbody()
     {
         rb2d.velocity = playerVelocity;
+    }
+
+    public void SetPlayerVelocity(Vector2 vel)
+    {
+        playerVelocity = vel;
     }
 
     private void UpdateLastHorizontalInput()
@@ -234,10 +241,24 @@ public class PlayerMovement : MonoBehaviour
         horizontalCapOverride = true;
         horizontalOverrideCap = rb2d.velocity.x;
         playerVelocity = rb2d.velocity;
+        playerVelocity.y = 0;
     }
 
-    public float GetMaxSpeed()
-    {
-        return maxMovementSpeed;
+    public float GetMaxSpeed()
+
+    {
+
+        return maxMovementSpeed;
+
+    }
+
+    public IEnumerator DelayRayCast()
+    {
+        // Start function WaitAndPrint as a coroutine
+        yield return new WaitForSeconds(0.3f);
+        if(Player.Instance().CurrentPlayerState == Player.PlayerState.NOINPUT)
+        {
+            Player.Instance().ChangePlayerState(Player.PlayerState.AIRBORNE);
+        }
     }
 }

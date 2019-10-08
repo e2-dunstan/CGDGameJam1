@@ -10,7 +10,7 @@ public class RhinoEnemy : Enemy
     void Start()
     {
         enemyState = EnemyState.WALKING;
-        enemyMovement.spawnPosition = gameObject.transform.position;
+        enemyMovement.spawnPosition = transform.position;
     }
 
 
@@ -23,26 +23,26 @@ public class RhinoEnemy : Enemy
         //if (isStunned == false)
         //{
         //If Player cannot be seen
-            if (distanceFromPlayer > visionRange && isOnIdleCooldown != true /*&& canSeePlayer == false*/)
-            { 
-                enemyState = EnemyState.WALKING;
-            }
-            //If Player can be seen
-            if (distanceFromPlayer <= visionRange && distanceFromPlayer > attackRange /*&& canSeePlayer*/)
-            {
-                enemyState = EnemyState.PERSUING;
-            }
-            //If Player can be seen and enemy can attack
-            else if (distanceFromPlayer <= visionRange && distanceFromPlayer <= attackRange
-                    && isOnAttackCooldown == false && canSeePlayer)
-            {
-                enemyState = EnemyState.ATTACKING;
-            }
-            else if (distanceFromPlayer <= visionRange && distanceFromPlayer <= attackRange
-                    && isOnAttackCooldown == true /*&& canSeePlayer*/)
-            {
-                enemyState = EnemyState.PERSUING;
-            }
+        if (distanceFromPlayer > visionRange && isOnIdleCooldown != true /*&& canSeePlayer == false*/)
+        { 
+            enemyState = EnemyState.WALKING;
+        }
+        //If Player can be seen
+        if (distanceFromPlayer <= visionRange && distanceFromPlayer > attackRange /*&& canSeePlayer*/)
+        {
+            enemyState = EnemyState.PERSUING;
+        }
+        //If Player can be seen and enemy can attack
+        else if (distanceFromPlayer <= visionRange && distanceFromPlayer <= attackRange
+                && isOnAttackCooldown == false && canSeePlayer)
+        {
+            enemyState = EnemyState.ATTACKING;
+        }
+        else if (distanceFromPlayer <= visionRange && distanceFromPlayer <= attackRange
+                && isOnAttackCooldown == true /*&& canSeePlayer*/)
+        {
+            enemyState = EnemyState.PERSUING;
+        }
         //}
 
         switch (enemyState)

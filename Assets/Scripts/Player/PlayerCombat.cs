@@ -19,6 +19,8 @@ public class PlayerCombat : MonoBehaviour
     private InputManager inputSingleton = null;
     private float attackCooldownTimer = 0;
 
+    public GameObject bossEnemy;
+    public bool isInBossScene = false;
     private void Start() 
     {
         playerSingleton = Player.Instance();
@@ -38,7 +40,7 @@ public class PlayerCombat : MonoBehaviour
         {
             if (inputSingleton.GetActionButton1Down())
             {
-                if (inputSingleton.GetVerticalInput() < 0 || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
+                if (inputSingleton.GetVerticalInput() != 0 || playerSingleton.CurrentPlayerState == Player.PlayerState.WEBBING)
                 {
                     FireWebProjectile();
                 }
@@ -58,13 +60,46 @@ public class PlayerCombat : MonoBehaviour
 
     private void FireWebProjectile()
     {
+        float directionMultiplier = 0.0f;
+
         //Right = 1 || Left = -1
-        float directionMultiplier = playerSingleton.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT ? 1 : -1;
+        if (!isInBossScene)
+        {
+            directionMultiplier = playerSingleton.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT ? 1 : -1;
 
-        WebProjectile projectile = Instantiate(webProjectile, attackTransform.position, Quaternion.identity).GetComponent<WebProjectile>();
-        projectile.SpawnProjectile(new Vector2(projectileSpeed * 10 * directionMultiplier, 0), projectileLifetime, projectileDamage);
+            WebProjectile projectile = Instantiate(webProjectile, attackTransform.position, Quaternion.identity).GetComponent<WebProjectile>();
+            projectile.SpawnProjectile(new Vector2(projectileSpeed * 10 * directionMultiplier, 0), projectileLifetime, projectileDamage);
 
-        attackCooldownTimer = attackCooldownDuration;
+            attackCooldownTimer = attackCooldownDuration;
+        }
+        else
+        {
+            directionMultiplier = playerSingleton.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT ? 1 : -1;
+
+            Vector2 relativePos = bossEnemy.transform.position - gameObject.transform.position;
+
+            
+                if (relativePos.x <= 0 && relativePos.y < 20 && directionMultiplier <= 0.5f)
+                {
+                    WebProjectile projectile = Instantiate(webProjectile, attackTransform.position, Quaternion.identity).GetComponent<WebProjectile>();
+                    projectile.SpawnProjectile(new Vector2(relativePos.x, relativePos.y), 10, 1);
+                }
+                else if (relativePos.x >= 0 && relativePos.y < 20 && directionMultiplier >= 0.5f)
+                {
+                    WebProjectile projectile = Instantiate(webProjectile, attackTransform.position, Quaternion.identity).GetComponent<WebProjectile>();
+                    projectile.SpawnProjectile(new Vector2(relativePos.x, relativePos.y), 10, 1);
+                }
+                else
+                {
+                    directionMultiplier = playerSingleton.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT ? 1 : -1;
+
+                    WebProjectile projectile = Instantiate(webProjectile, attackTransform.position, Quaternion.identity).GetComponent<WebProjectile>();
+                    projectile.SpawnProjectile(new Vector2(projectileSpeed * 10 * directionMultiplier, 0), projectileLifetime, projectileDamage);
+
+                    attackCooldownTimer = attackCooldownDuration;
+                }
+    
+        }
     }
 
     private void PunchEnemy()
@@ -99,8 +134,8 @@ public class PlayerCombat : MonoBehaviour
         Gizmos.DrawWireSphere(attackTransform.position, attackRange);
     }
     
-    public void TakeDamage(int _damage)
+    public void InflictDamage(int _damage)
     {
-        health -= _damage;
+        Player.Instance().PlayerHealth.TakeDamage();
     }
 }

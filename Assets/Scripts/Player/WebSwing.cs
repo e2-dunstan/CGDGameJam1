@@ -93,6 +93,13 @@ public class WebSwing : MonoBehaviour
     public void ToggleSwinging()
     {
         isSwinging = !isSwinging;
+
+        if (isSwinging)
+        {
+            playerMovement.Rigidbody.velocity = playerMovement.PlayersVelocity;
+        }
+
+        UpdateWebOrigin();
         Update();
 
         AudioManager.Instance.PlayRandomClip(AudioManager.ClipType.WEB, playerTransform);
@@ -100,17 +107,16 @@ public class WebSwing : MonoBehaviour
         if (isSwinging)
         {
             initialSwingPos = springJoint.distance;
-            UpdateWebOrigin();
             Player.Instance().gameObject.layer = disableCollisionsWhenSwinging ? 11 : 0;
         }
         else
         {
             springJoint.autoConfigureDistance = true;
             Player.Instance().gameObject.layer = 0;
-            Player.Instance().PlayerMovement.CarryOverVelocityFromSwinging();
+            playerMovement.CarryOverVelocityFromSwinging();
         }
 
-        Player.Instance().PlayerMovement.Rigidbody.drag = isSwinging ? 0f : 0.1f;
+        playerMovement.Rigidbody.drag = isSwinging ? 0f : 0.1f;
         
         UpdateSwinging();
     }
@@ -148,5 +154,10 @@ public class WebSwing : MonoBehaviour
         _offset += playerTransform.position.x;
 
         webOrigin.position = new Vector2(_offset, webOrigin.position.y);
+    }
+
+    public void SetWebSwingOffset(float _newOffset)
+    {
+        xOffset = _newOffset;
     }
 }

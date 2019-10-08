@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 629372263773753840}
   - component: {fileID: 629372263773753743}
   - component: {fileID: 6538363755992884406}
-  - component: {fileID: -1633613612626066094}
   - component: {fileID: 4480425636165849717}
   m_Layer: 0
   m_Name: TestEnemy1
@@ -48,12 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyState: 1
+  health: 5
   canSeePlayer: 0
-  distanceFromPlayer: 136.8285
-  visionRange: 15
+  distanceFromPlayer: 0
+  visionRange: 40
   isOnIdleCooldown: 0
   isOnAttackCooldown: 0
-  attackRange: 4
+  attackRange: 10
   attackCooldown: 4
   enemyMovement: {fileID: 6538363755992884406}
 --- !u!114 &6538363755992884406
@@ -68,30 +68,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b31a5e7fa360924a9a967cf13bb7b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.3
+  moveSpeed: 2
   spawnPosition: {x: 0, y: 0}
   targetDestination: {x: -60.521393, y: 132.8274}
   wonderingBoundaryXLeft: 100
   wonderingBoundaryXRight: 100
-  wonderingBoundaryYUp: 300
+  wonderingBoundaryYUp: 100
   wonderingBoundaryYDown: 100
-  canFly: 0
+  canFly: 1
   hasRandomTargetLocation: 1
   randomLocation: {x: 0, y: 0}
   randomXLocation: -60.521393
   randomYLocation: 132.8274
---- !u!114 &-1633613612626066094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629372263773753741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4d5d59f6fc5140c9827f994cb0e99df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &4480425636165849717
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -22,11 +22,18 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float visionRange = 1.0f;
      
     [SerializeField] protected bool isOnIdleCooldown = false;
+    [SerializeField] protected float idleCooldown = 3.0f;
     [SerializeField] protected bool isOnAttackCooldown = false;
     [SerializeField] protected float attackRange = 4.0f;
-    [SerializeField] protected float attackCooldown = 4.0f;
+    [SerializeField] protected float attackCooldown = 2.0f;
 
-    GameObject player;
+    protected float attackTimer = 0f;
+    protected float idleTimer = 0f;
+    protected float stunTimer = 0f;
+
+    protected Player player;
+
+    public int scoreForKilling = 1000;
 
     public virtual void InflictDamage(int _damageAmount)
     {
@@ -38,6 +45,16 @@ public class Enemy : MonoBehaviour
             enemyState = EnemyState.DYING;
             //Play death animation
         }
+    }
+
+    public virtual void StunEnemy()
+    {
+
+    }
+
+    public virtual void KnockbackEnemy()
+    {
+        
     }
 
     ///<summary> 
@@ -73,7 +90,7 @@ public class Enemy : MonoBehaviour
     protected virtual void CalculateDistanceFromPlayer()
     {
         //Will remove this gameObject find, using until this is merged with alex's work, then we're implementing something else
-        player = Player.Instance().gameObject;
+        player = Player.Instance();
 
         distanceFromPlayer = Vector2.Distance(gameObject.transform.position, player.transform.position);
     }

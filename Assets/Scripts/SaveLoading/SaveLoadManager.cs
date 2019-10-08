@@ -11,12 +11,16 @@ public class SaveLoadManager : MonoBehaviour
 {
 
     public static SaveLoadManager saveLoadManager;
+    private int highScore = 0;
+    public int HighScore { get => highScore; set => highScore = value; }
     private string jsonSavePath;
     public GameData gameData;
     public SpawnManager spawnManager;
-    public PrefabIdentifiers prefabs;
+    private PrefabIdentifiers prefabs;
 
-    public List<PrefabIdentifier> instantiateableObjects = new List<PrefabIdentifier>();
+    private List<PrefabIdentifier> instantiateableObjects = new List<PrefabIdentifier>();
+
+    public GameObject mainMenuHighScoreText;
 
     void Awake()
     {
@@ -111,6 +115,13 @@ public class SaveLoadManager : MonoBehaviour
 
                     break;
             }
+        }
+
+        highScore = gameData.leaderboardList.First().playerScore;
+
+        if(mainMenuHighScoreText != null)
+        {
+            mainMenuHighScoreText.GetComponent<Text>().text = "High Score: " + highScore;
         }
     }
 
