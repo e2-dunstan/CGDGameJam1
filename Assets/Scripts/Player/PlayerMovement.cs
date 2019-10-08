@@ -219,9 +219,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void ApplyVelocityToRigidbody()
+    public void ApplyVelocityToRigidbody()
     {
         rb2d.velocity = playerVelocity;
+    }
+
+    public void SetPlayerVelocity(Vector2 vel)
+    {
+        playerVelocity = vel;
     }
 
     private void UpdateLastHorizontalInput()
@@ -236,8 +241,11 @@ public class PlayerMovement : MonoBehaviour
         playerVelocity = rb2d.velocity;
     }
 
-    public float GetMaxSpeed()
-    {
-        return maxMovementSpeed;
+    public float GetMaxSpeed()
+
+    {
+
+        return maxMovementSpeed;
+
     }
 }

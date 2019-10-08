@@ -4,35 +4,92 @@ using UnityEngine;
 
 public class ScreenTransition : MonoBehaviour
 {
-    private Camera mainCamera;
     private Transform playerTransform;
+    private Camera mainCamera;
+    private ScreenManager sm;
 
-    [Header("New positions")]
-
-    [Tooltip("Where the camera moves after the screen transition")]
-    [SerializeField] private Transform newCameraPosition;
-    private Vector3 newScreenView;
-
-    [Tooltip("Where the player moves after the screen transition.")]
-    [SerializeField] private Transform newPlayerPosition;
-    private Vector2 entryPoint;
+    enum boundaryType
+    {
+        NULL,
+        ENTRANCE,
+        EXIT, 
+        KILL
+    }
+    [SerializeField] boundaryType boundary;
 
     private void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        sm = GameObject.FindGameObjectWithTag("GameController").GetComponent<ScreenManager>();
     }
 
+    //Move the screen back if entrance, forward if exit
     private void OnTriggerEnter2D(Collider2D _col)
     {
         if (_col.gameObject.CompareTag("Player"))
         {
-
             playerTransform = _col.gameObject.transform;
-            entryPoint = new Vector2(newPlayerPosition.position.x, playerTransform.position.y);
+            switch (boundary)
+            {
+                case boundaryType.ENTRANCE:
+                    sm.currentScreen--;
+                    print("Hit Entrance");
+                    break;
 
-            newScreenView = new Vector3(newCameraPosition.position.x, newCameraPosition.transform.position.y, mainCamera.transform.position.z);
-            _col.gameObject.transform.position = entryPoint;
-            mainCamera.transform.position = newScreenView;
+                case boundaryType.EXIT:
+                    sm.currentScreen++;
+                    print("Hit Exit");
+                    break;
+            }
+            print("Screen" + sm.currentScreen);
+            MovePlayerAndCamera();
         }
+    }
+
+    //Set the new position of the player to the new level
+    private void SetPlayerPosition()
+    {
+        switch (boundary)
+        {
+            case boundaryType.ENTRANCE:
+                Player.Instance().transform.position = new Vector2(
+                sm.screenPlayerEnd[sm.currentScreen].position.x,
+                Player.Instance().transform.position.y
+                );
+                break;
+
+            case boundaryType.EXIT:
+                Player.Instance().transform.position = new Vector2(
+                sm.screenPlayerSpawn[sm.currentScreen].position.x,
+                Player.Instance().transform.position.y
+                );
+                break;
+
+            case boundaryType.KILL:
+                Player.Instance().PlayerMovement.SetPlayerVelocity(new Vector2(0, 0));
+                Player.Instance().transform.position = new Vector2(
+                sm.screenPlayerSpawn[sm.currentScreen].position.x,
+                sm.screenPlayerSpawn[sm.currentScreen].position.y
+                );
+
+                break;
+        }
+
+        
+    }
+
+    //Set the new position of the camera to the new level
+    private void SetCameraPoint()
+    {
+        mainCamera.transform.position = new Vector3(
+            sm.screenCameraPosition[sm.currentScreen].position.x,
+            sm.screenCameraPosition[sm.currentScreen].position.y,
+            mainCamera.transform.position.z
+            );
+    }
+    private void MovePlayerAndCamera()
+    {
+        SetPlayerPosition();
+        SetCameraPoint();
     }
 }
