@@ -235,12 +235,15 @@ public class PlayerMovement : MonoBehaviour
         lastHorizontalInput = inputSingleton.GetHorizontalInput();
     }
 
-    public void CarryOverVelocityFromSwinging()
+    public void CarryOverVelocityFromSwinging(bool keepYVelocity)
     {
         horizontalCapOverride = true;
         horizontalOverrideCap = rb2d.velocity.x;
         playerVelocity = rb2d.velocity;
-        playerVelocity.y = 0;
+        if (!keepYVelocity)
+        {
+            playerVelocity.y = 0;
+        }
     }
 
     public float GetMaxSpeed()
