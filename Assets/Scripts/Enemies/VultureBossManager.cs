@@ -34,7 +34,7 @@ public class VultureBossManager : MonoBehaviour
 
     public float distanceEnemyCanShootNearPlayer = 20.0f;
 
-    private float timeStunned = 0.0f;
+    public float timeStunned = 0.0f;
 
     public float timeTillResumeFromStunned = 2.0f;
 
@@ -75,9 +75,9 @@ public class VultureBossManager : MonoBehaviour
                 if(timeStunned >= timeTillResumeFromStunned)
                 {
                     canAttack = true;
-                    timeStunned = 0.0f;
                     vulture.enemyState = Enemy.EnemyState.WALKING;
                     vultureMovement.ForceMoveToDefaultPosition();
+                    timeStunned = 0.0f;
                 }
             }
             else
@@ -102,7 +102,6 @@ public class VultureBossManager : MonoBehaviour
                     if (timeBetweenShootingHard < (timeOnCurrentStage / numberOfTimesShot)
                         && canAttack == true && CalculateDistanceFromPlayer() > distanceEnemyCanShootNearPlayer)
                     {
-                        vulture.enemyMovement.moveSpeed = 2.5f;
                         PromptHardShoot();
                     }
                     break;

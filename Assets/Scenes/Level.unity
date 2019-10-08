@@ -2802,6 +2802,16 @@ PrefabInstance:
       propertyPath: timeTillResumeFromStunned
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1641830541578904600, guid: 5938f449300434385a7c75c27adaa865,
+        type: 3}
+      propertyPath: timeBetweenShootingEasy
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641830541578904600, guid: 5938f449300434385a7c75c27adaa865,
+        type: 3}
+      propertyPath: distanceEnemyCanShootNearPlayer
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 1641830542193044227, guid: 5938f449300434385a7c75c27adaa865,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5206,7 +5216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458881f102d173149a2593fb7f573485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentScreen: 0
+  currentScreen: 5
   screenCameraPosition:
   - {fileID: 1160994208}
   - {fileID: 883321914}
