@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class GameOver : MonoBehaviour
         finalScoreText.enabled = false;
 
         score = ScoreManager.Instance.GetFinalScore();
+        scoreText.text = "Score: " + ScoreManager.Instance.GetScore().ToString();
+        timeText.text = "Time: " + ScoreManager.Instance.GetFinalTime();
+        saveLoadManager = SaveLoadManager.Instance;
     }
     
     private void Update()
@@ -53,6 +57,13 @@ public class GameOver : MonoBehaviour
                 state = GameOverState.HIGHSCORE;
                 break;
             case GameOverState.HIGHSCORE:
+                if (InputManager.Instance().GetActionButton0Down())
+                {
+                    if (SceneManager.GetActiveScene().name == "Game Over")
+                    {
+                        SceneManager.LoadScene("MenuScene");
+                    }
+                }
                 break;
         }
     }

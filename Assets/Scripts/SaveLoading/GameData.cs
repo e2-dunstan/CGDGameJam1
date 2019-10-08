@@ -22,6 +22,6 @@ public class GameData
     {
         int insertionIndex = leaderboardList.FindIndex(x => x.playerScore <= _leaderboardEntry.playerScore);
 
-        leaderboardList.Insert(insertionIndex + 1, _leaderboardEntry);
+        leaderboardList.Insert(insertionIndex, _leaderboardEntry);
     }
 }

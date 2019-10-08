@@ -9,6 +9,7 @@ public class ScoreManager : MonoBehaviour
     public int averageTimeInSeconds = 180;
     private int _score = 0;
     private int _time = 0;
+    private float playerTime = 0.0f; 
 
     void Awake()
     {
@@ -26,6 +27,16 @@ public class ScoreManager : MonoBehaviour
         return _score;
     }
 
+    public void AddTime(float time)
+    {
+        playerTime = time;
+    }
+
+    public float GetTime()
+    {
+        return playerTime;
+    }
+
     public void ResetScore()
     {
         _score = 0;
@@ -36,6 +47,15 @@ public class ScoreManager : MonoBehaviour
         int bonusMultiplier = _time < averageTimeInSeconds ? 1 - (_time / averageTimeInSeconds) : 0;
 
         return _score + (bonusMultiplier * _score);
+    }
+
+    public string GetFinalTime()
+    {
+        string str_time = "";
+        float min = playerTime / 60.0f;
+        float sec = (int)playerTime % 60;
+        str_time = Mathf.FloorToInt(min).ToString() + ":" + Mathf.FloorToInt(sec).ToString();
+        return str_time;
     }
 
     public void UpdateTime(int currentTime)

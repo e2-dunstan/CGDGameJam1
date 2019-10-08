@@ -2,6 +2,10 @@
     "enemyMetaDataList": [],
     "leaderboardList": [
         {
+            "playerName": "ABA",
+            "playerScore": 6000
+        },
+        {
             "playerName": "BBB",
             "playerScore": 2000
         },
@@ -18,7 +22,55 @@
             "playerScore": 5
         },
         {
+            "playerName": "AAA",
+            "playerScore": 0
+        },
+        {
+            "playerName": "A9A",
+            "playerScore": 0
+        },
+        {
+            "playerName": "A9A",
+            "playerScore": 0
+        },
+        {
             "playerName": "DDE",
+            "playerScore": 0
+        },
+        {
+            "playerName": "AAA",
+            "playerScore": 0
+        },
+        {
+            "playerName": "A99",
+            "playerScore": 0
+        },
+        {
+            "playerName": "AA9",
+            "playerScore": 0
+        },
+        {
+            "playerName": "A99",
+            "playerScore": 0
+        },
+        {
+            "playerName": "AAA",
+            "playerScore": 0
+        },
+        {
+            "playerName": "AAA",
+            "playerScore": 0
+        },
+        {
+            "playerName": "AAA",
+            "playerScore": 0
+        },
+        {
+            "playerName": "AAA",
+            "playerScore": 0
+        },
+        {
+            "playerName": "BAA",
             "playerScore": 0
         },
         {
