@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
 
     public enum ClipType
     {
-        DEATH, JUMP, WEB, FIRE, IMPACT, POINTS_GAINED, TAKE_DAMAGE
+        DEATH, JUMP, WEB, FIRE, IMPACT, POINTS_GAINED, TAKE_DAMAGE, MENU
     }
 
     public AudioClip[] deathSounds;
@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] fireSounds;
     public AudioClip[] pointsGainedSounds;
     public AudioClip[] takeDamageSounds;
+    public AudioClip[] menuSounds;
 
     public AudioClip[] other;
 
