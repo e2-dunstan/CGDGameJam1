@@ -19,6 +19,8 @@ public class PlayerCombat : MonoBehaviour
     private InputManager inputSingleton = null;
     private float attackCooldownTimer = 0;
 
+    public AudioClip webShootAudio;
+
     public bool isInBossScene = false;
     private void Start() 
     {
@@ -64,6 +66,9 @@ public class PlayerCombat : MonoBehaviour
         //Right = 1 || Left = -1
         if (!isInBossScene)
         {
+
+            AudioManager.Instance.PlaySpecificClip(webShootAudio, gameObject.transform);
+
             directionMultiplier = playerSingleton.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT ? 1 : -1;
 
             WebProjectile projectile = Instantiate(webProjectile, attackTransform.position, Quaternion.identity).GetComponent<WebProjectile>();
@@ -73,6 +78,8 @@ public class PlayerCombat : MonoBehaviour
         }
         else
         {
+
+            AudioManager.Instance.PlaySpecificClip(webShootAudio, gameObject.transform);
             directionMultiplier = playerSingleton.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT ? 1 : -1;
 
             GameObject bossEnemy = VultureEnemy.Instance().gameObject;

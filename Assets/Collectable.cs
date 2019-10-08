@@ -17,6 +17,7 @@ public class Collectable : MonoBehaviour
     private bool isMoving = false;
     private Vector2 movingToTransform;
 
+    public AudioClip collectableSound;
     MovingTo movingTo = MovingTo.UP;
 
     public float movementSpeed = 3.0f;
@@ -51,8 +52,18 @@ public class Collectable : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            ScoreManager.Instance.AddScore(300);
-            Destroy(this.gameObject);
+
+            AudioManager.Instance.PlaySpecificClip(collectableSound, gameObject.transform);
+            ScoreManager.Instance.AddScore(scoreAmount);
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            StartCoroutine("DestroyAfterTime", 0.4f);
+            
         }
+    }
+
+    IEnumerator DestroyAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(this.gameObject);
     }
 }

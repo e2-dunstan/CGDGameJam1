@@ -208,7 +208,7 @@ MonoBehaviour:
   projectileDamage: 1
   projectileLifetime: 0.4
   health: 10
-  bossEnemy: {fileID: 0}
+  webShootAudio: {fileID: 8300000, guid: 9413988e4c6792e48894c4a8b63dcb23, type: 3}
   isInBossScene: 0
 --- !u!114 &4010234979271128854
 MonoBehaviour:
@@ -226,6 +226,10 @@ MonoBehaviour:
   webZipLength: 14.9
   webZipSpeed: 0.35
   jumpOffForce: {x: 500, y: 500}
+  wallClimbLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  wallClimbRaycastLength: 10
 --- !u!1 &5588796716749585856
 GameObject:
   m_ObjectHideFlags: 0
