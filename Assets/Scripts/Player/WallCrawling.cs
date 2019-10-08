@@ -56,7 +56,7 @@ public class WallCrawling : MonoBehaviour
 
                 if (input.GetActionButton0Down())
                 {
-                    player.ChangePlayerState(Player.PlayerState.AIRBORNE);
+                    player.ChangePlayerState(Player.PlayerState.NOINPUT);
                     player.GetComponent<Rigidbody2D>().gravityScale = 3.6f;
 
                     Vector2 vel = new Vector2(0.0f, 0.0f);
@@ -73,6 +73,7 @@ public class WallCrawling : MonoBehaviour
 
                     player.PlayerMovement.SetPlayerVelocity(vel);
                     player.PlayerMovement.ApplyVelocityToRigidbody();
+                    StartCoroutine(player.PlayerMovement.DelayRayCast());
                     //player.GetComponent<Rigidbody2D>().velocity = vel;
                     Debug.Log(player.GetComponent<Rigidbody2D>().velocity);
                     Debug.Log(player.CurrentPlayerState);
