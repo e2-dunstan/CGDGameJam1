@@ -169,6 +169,8 @@ public class VultureBossManager : MonoBehaviour
     private void StartBoss()
     {
         hasBegun = true;
+        Player.Instance().ChangePlayerState(Player.PlayerState.NOINPUT);
+        Player.Instance().PlayerMovement.SetPlayerVelocity(new Vector2(0, 0));
 
         EntranceDoor.GetComponent<Door>().CloseDoor();
 
@@ -189,6 +191,7 @@ public class VultureBossManager : MonoBehaviour
         hasStartSequenceFinished = true;
         Player.Instance().WebManager.SetWebSwingOffset(5.0f);
         vulture.enemyState = Enemy.EnemyState.WALKING;
+        Player.Instance().ChangePlayerState(Player.Instance().PreviousPlayerState);
     }
 
     private void FinishBoss()
