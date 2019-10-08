@@ -92,7 +92,6 @@ public class PlayerMovement : MonoBehaviour
         //If left or right raycast registers as grounded then the player is grounded
         RaycastHit2D left = Physics2D.Raycast(raycastLeft, Vector2.down, groundedRaycastLength, groundedLayers);
         RaycastHit2D right = Physics2D.Raycast(raycastRight, Vector2.down, groundedRaycastLength, groundedLayers);
-        Debug.Log(left | right);
         return left | right;
     }
 
@@ -181,17 +180,14 @@ public class PlayerMovement : MonoBehaviour
             movDir = MovementDirection.LEFT;
         }
         //Cap the speed so it doesnt keep rising exponentially
-        if (Player.Instance().CurrentPlayerState != Player.PlayerState.AIRBORNE)
-        {
-            if (playerVelocity.x > maxMovementSpeed)
-            {
-                playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : maxMovementSpeed;
-            }
-            else if (playerVelocity.x < -maxMovementSpeed)
-            {
-                playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : -maxMovementSpeed;
-            }
-        }
+       if (playerVelocity.x > maxMovementSpeed)
+       {
+           playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : maxMovementSpeed;
+       }
+       else if (playerVelocity.x < -maxMovementSpeed)
+       {
+           playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : -maxMovementSpeed;
+       }
     }
 
     private void UpdateJump()
@@ -236,12 +232,15 @@ public class PlayerMovement : MonoBehaviour
         lastHorizontalInput = inputSingleton.GetHorizontalInput();
     }
 
-    public void CarryOverVelocityFromSwinging()
+    public void CarryOverVelocityFromSwinging(bool keepYVelocity)
     {
         horizontalCapOverride = true;
         horizontalOverrideCap = rb2d.velocity.x;
         playerVelocity = rb2d.velocity;
-        playerVelocity.y = 0;
+        if (!keepYVelocity)
+        {
+            playerVelocity.y = 0;
+        }
     }
 
     public float GetMaxSpeed()
