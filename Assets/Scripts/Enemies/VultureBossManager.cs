@@ -74,6 +74,7 @@ public class VultureBossManager : MonoBehaviour
 
                 if(timeStunned >= timeTillResumeFromStunned)
                 {
+                    canAttack = true;
                     timeStunned = 0.0f;
                     vulture.enemyState = Enemy.EnemyState.WALKING;
                     vultureMovement.ForceMoveToDefaultPosition();
