@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb2d;
     public Rigidbody2D Rigidbody { get => rb2d; private set => rb2d = value; }
-    private MovementDirection movDir = MovementDirection.LEFT;
+    private MovementDirection movDir = MovementDirection.RIGHT;
     public MovementDirection PlayerMovementDirection { get => movDir; set => movDir = value; }
 
     private CapsuleCollider2D col2d;
