@@ -19,7 +19,7 @@ public class VultureEnemy : Enemy
     private float animTimeElapsed = 0;
     private float timeBetweenFrames = 0.5f;
 
-    public float knockbackMagnitude = 10.0f;
+    public float knockbackMagnitude = 40.0f;
 
     public float easyBulletSpeed = 10.0f;
     public float hardBulletSpeed = 5.0f;
@@ -70,7 +70,6 @@ public class VultureEnemy : Enemy
             case EnemyState.DYING:
                 enemyMovement.ForceMoveToSpecificPosition(new Vector2(gameObject.transform.position.x, Floor.transform.position.y + 10));
                 enemyMovement.MoveWithinDefinedWonderingBounds();
-                ScoreManager.Instance.AddScore(scoreForKilling);
                 break;
             default:
                 break;
@@ -160,14 +159,33 @@ public class VultureEnemy : Enemy
     {
         if (other.gameObject.tag == "Player")
         {
-            if (player.CurrentPlayerState == Player.PlayerState.WEBBING)
+            if (player.CurrentPlayerState == Player.PlayerState.AIRBORNE || player.CurrentPlayerState == Player.PlayerState.WEBBING)
             {
-                player.WebManager.ToggleSwinging();
+                if (player.CurrentPlayerState == Player.PlayerState.WEBBING)
+                {
+                    player.WebManager.ToggleSwinging();
+                }
+
                 Vector2 knockBackVelocity = player.transform.position - gameObject.transform.position;
-                knockBackVelocity = knockBackVelocity.normalized;
+
+                float xNormal = knockBackVelocity.normalized.x;
+                float yNormal = knockBackVelocity.normalized.y * 5;
+
+                if (xNormal >= 0f && xNormal < 1f)
+                {
+                    xNormal = 1f;
+                }
+                else if (xNormal > -1f && xNormal <= 0f)
+                {
+                    xNormal = -1f;
+                }
+
+                knockBackVelocity = new Vector2(xNormal, yNormal);
+                Debug.Log(xNormal + " " + yNormal);
                 knockBackVelocity = knockBackVelocity * knockbackMagnitude;
-                
+
                 player.PlayerMovement.Rigidbody.velocity = knockBackVelocity;
+                player.PlayerMovement.CarryOverVelocityFromSwinging(true);
             }
         }
     }

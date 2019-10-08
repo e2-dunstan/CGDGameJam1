@@ -34,6 +34,9 @@ public class VultureBossManager : MonoBehaviour
 
     public float distanceEnemyCanShootNearPlayer = 20.0f;
 
+    private float timeStunned = 0.0f;
+
+    public float timeTillResumeFromStunned = 2.0f;
 
     private bool hasBegun = false;
     private bool hasStartSequenceFinished = false;
@@ -67,6 +70,14 @@ public class VultureBossManager : MonoBehaviour
                 canAttack = false;
                 timeOnCurrentStage = 0.0f;
                 numberOfTimesShot = 0;
+                timeStunned = timeStunned + Time.deltaTime;
+
+                if(timeStunned >= timeTillResumeFromStunned)
+                {
+                    timeStunned = 0.0f;
+                    vulture.enemyState = Enemy.EnemyState.WALKING;
+                    vultureMovement.ForceMoveToDefaultPosition();
+                }
             }
             else
             {
@@ -201,6 +212,7 @@ public class VultureBossManager : MonoBehaviour
     {
         Player.Instance().PlayerCombat.isInBossScene = false;
         Player.Instance().WebManager.SetWebSwingOffset(25.0f);
+        ScoreManager.Instance.AddScore(6000);
 
         gameUI.bottomText.text = "Curse you spiderman!";
 
