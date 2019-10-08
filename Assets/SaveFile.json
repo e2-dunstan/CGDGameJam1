@@ -3,7 +3,11 @@
     "leaderboardList": [
         {
             "playerName": "BBB",
-            "playerScore": 15
+            "playerScore": 2000
+        },
+        {
+            "playerName": "888",
+            "playerScore": 1800
         },
         {
             "playerName": "ABB",
