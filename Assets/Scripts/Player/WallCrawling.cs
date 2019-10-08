@@ -61,12 +61,12 @@ public class WallCrawling : MonoBehaviour
                     if (input.GetHorizontalInput() > 0)
                     {
                         vel.x = jumpOffForce.x;
-                        vel.y = 200.0f;
+                        vel.y = 600.0f;
                     }
                     else if (input.GetHorizontalInput() < 0)
                     {
                         vel.x = -jumpOffForce.x;
-                        vel.y = 200.0f;
+                        vel.y = 600.0f;
                     }
                     else if (input.GetVerticalInput() < 0)
                     {
@@ -186,7 +186,10 @@ public class WallCrawling : MonoBehaviour
             if ((player.CurrentPlayerState == Player.PlayerState.WEBBING) || (!jumpedOff && input.GetVerticalInput() < 0 && player.CurrentPlayerState != Player.PlayerState.CLIMBING))
             {
                 Debug.Log("Climb");
-                player.WebManager.ToggleSwinging();
+                if (player.CurrentPlayerState == Player.PlayerState.WEBBING)
+                { 
+                    player.WebManager.ToggleSwinging();
+                }
                 player.ChangePlayerState(Player.PlayerState.CLIMBING);
                 player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                 gravityScale = player.GetComponent<Rigidbody2D>().gravityScale;
