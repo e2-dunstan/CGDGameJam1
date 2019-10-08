@@ -20,6 +20,11 @@ public class WallCrawling : MonoBehaviour
     [SerializeField] Vector2 jumpOffForce = new Vector2(10.0f, 0.0f);
     bool jumpedOff = false;
     float countdown = 1.0f;
+    [Tooltip("Determines which layers count as floor for the CheckGrounded() raycast")]
+    [SerializeField] private LayerMask wallClimbLayers;
+    [Tooltip("Determines the length of the raycast shot from the base of the player to check grounded status")]
+    [SerializeField] private float wallClimbRaycastLength = 10.0f;
+    private CapsuleCollider2D col2d;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +32,7 @@ public class WallCrawling : MonoBehaviour
         player = Player.Instance();
         input = InputManager.Instance();
         lineRenderer = GetComponent<LineRenderer>();
+        col2d = GetComponent<CapsuleCollider2D>();
     }
 
     // Update is called once per frame
@@ -52,21 +58,37 @@ public class WallCrawling : MonoBehaviour
             {
                 WallCrawl();
 
-                EnableWebZip(playerPos);
+                //EnableWebZip(playerPos);
 
                 if (input.GetActionButton0Down())
                 {
                     player.ChangePlayerState(Player.PlayerState.NOINPUT);
                     player.GetComponent<Rigidbody2D>().gravityScale = 3.6f;
 
-                    Vector2 vel = new Vector2(0.0f, 0.0f);
-                    if (player.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.LEFT)
+                    Vector2 vel = Vector2.zero;
+
+                    Vector2 raycastLeft = Vector2.zero;
+                    Vector2 raycastRight = Vector2.zero;
+                    raycastLeft.y = raycastRight.y = col2d.bounds.min.y + 0.1f;
+                    raycastRight.x = col2d.bounds.max.x;
+                    raycastLeft.x = col2d.bounds.min.x;
+                    //If left or right raycast registers as grounded then the player is grounded
+                    RaycastHit2D left = Physics2D.Raycast(raycastLeft, Vector2.left, wallClimbRaycastLength, wallClimbLayers);
+                    RaycastHit2D right = Physics2D.Raycast(raycastRight, Vector2.right, wallClimbRaycastLength, wallClimbLayers);
+
+                    //Debug.DrawRay(raycastLeft, Vector2.left * groundedRaycastLength, left ? Color.green : Color.red, 10);
+                    //Debug.DrawRay(raycastRight, Vector2.right* groundedRaycastLength, right ? Color.green : Color.red, 10);
+                    if (right)
                     {
+                        Debug.Log(right.collider.gameObject.name);
+                        player.PlayerMovement.PlayerMovementDirection = PlayerMovement.MovementDirection.LEFT;
                         vel.x = -jumpOffForce.x;
                         vel.y = jumpOffForce.y;
                     }
-                    else if (player.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT)
+                    else if (left)
                     {
+                        Debug.Log(left.collider.gameObject.name);
+                        player.PlayerMovement.PlayerMovementDirection = PlayerMovement.MovementDirection.RIGHT;
                         vel.x = jumpOffForce.x;
                         vel.y = jumpOffForce.y;
                     }
@@ -74,17 +96,16 @@ public class WallCrawling : MonoBehaviour
                     player.PlayerMovement.SetPlayerVelocity(vel);
                     player.PlayerMovement.ApplyVelocityToRigidbody();
                     StartCoroutine(player.PlayerMovement.DelayRayCast());
-                    //player.GetComponent<Rigidbody2D>().velocity = vel;
-                    Debug.Log(player.GetComponent<Rigidbody2D>().velocity);
-                    Debug.Log(player.CurrentPlayerState);
-                    Debug.Log(player.PlayerMovement.PlayerMovementDirection);
-                    Debug.Log(player.GetComponent<Rigidbody2D>().gravityScale);
+                    //Debug.Log(player.GetComponent<Rigidbody2D>().velocity);
+                    //Debug.Log(player.CurrentPlayerState);
+                    //Debug.Log(player.PlayerMovement.PlayerMovementDirection);
+                    //Debug.Log(player.GetComponent<Rigidbody2D>().gravityScale);
                     jumpedOff = true;
                 }
             }
             else
             {
-                WebZip();
+                //WebZip();
             }
         }
     }
@@ -92,8 +113,6 @@ public class WallCrawling : MonoBehaviour
     void WallCrawl()
     {
         player.GetComponent<Rigidbody2D>().velocity = new Vector2(input.GetHorizontalInput() * 30.0f, -input.GetVerticalInput() * 30.0f);
-
-        //Debug.Log(player.GetComponent<Rigidbody2D>().velocity);
 
         if (player.GetComponent<Rigidbody2D>().velocity.x < 0)
         {
@@ -120,13 +139,11 @@ public class WallCrawling : MonoBehaviour
             zipping = false;
             building.enabled = true;
             webZipTime = 0.0f;
-            //Debug.Log(zipping);
         }
     }
 
     bool EnableWebZip(Vector3 playerPos)
     {
-       // Debug.Log("func");
         if (input.GetActionButton1Down())
         {
             Debug.Log("E");
@@ -154,8 +171,6 @@ public class WallCrawling : MonoBehaviour
                 zipping = false;
                 return false;
             }
-            Debug.Log(zipping);
-            //player.GetComponent<Collider2D>().enabled = false;
             player.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
             building.enabled = false;
             return true;
@@ -185,7 +200,6 @@ public class WallCrawling : MonoBehaviour
             building = collision;
             if ((!jumpedOff && input.GetVerticalInput() < 0 && player.CurrentPlayerState != Player.PlayerState.CLIMBING))
             {
-                Debug.Log("Climb");
                 if (player.CurrentPlayerState == Player.PlayerState.WEBBING)
                 { 
                     player.WebManager.ToggleSwinging();

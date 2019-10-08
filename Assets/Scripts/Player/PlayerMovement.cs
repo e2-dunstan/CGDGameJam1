@@ -92,7 +92,6 @@ public class PlayerMovement : MonoBehaviour
         //If left or right raycast registers as grounded then the player is grounded
         RaycastHit2D left = Physics2D.Raycast(raycastLeft, Vector2.down, groundedRaycastLength, groundedLayers);
         RaycastHit2D right = Physics2D.Raycast(raycastRight, Vector2.down, groundedRaycastLength, groundedLayers);
-        Debug.Log(left | right);
         return left | right;
     }
 
