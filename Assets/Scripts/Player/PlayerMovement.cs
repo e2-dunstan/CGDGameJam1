@@ -192,11 +192,8 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateJump()
     {
         if (playerSingleton.CurrentPlayerState != Player.PlayerState.WEBBING)
-
         {
-
             ApplyVerticalDrag();
-
         }
 
         if (playerSingleton.CurrentPlayerState == Player.PlayerState.AIRBORNE && CheckGrounded())
@@ -239,6 +236,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalCapOverride = true;
         horizontalOverrideCap = rb2d.velocity.x;
         playerVelocity = rb2d.velocity;
+        playerVelocity.y = 0;
     }
 
     public float GetMaxSpeed()
