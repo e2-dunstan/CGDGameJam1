@@ -8781,6 +8781,27 @@ PrefabInstance:
       propertyPath: m_FontData.m_BestFit
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4864812924609521484, guid: 865b1edce7514cb48ad0f6c8ea486b98,
+        type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864812924609521484, guid: 865b1edce7514cb48ad0f6c8ea486b98,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864812924609521484, guid: 865b1edce7514cb48ad0f6c8ea486b98,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 6c7fdc62e101ebe49bb92552fdc1569b,
+        type: 3}
+    - target: {fileID: 4864812924609521484, guid: 865b1edce7514cb48ad0f6c8ea486b98,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 865b1edce7514cb48ad0f6c8ea486b98, type: 3}
 --- !u!1001 &1991272196
