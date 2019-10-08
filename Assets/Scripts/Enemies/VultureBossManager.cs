@@ -47,7 +47,6 @@ public class VultureBossManager : MonoBehaviour
     {
         currentBossHealth = vulture.health;
         player = Player.Instance().gameObject;
-        Player.Instance().WebManager.SetWebSwingOffset(5.0f);
         vulture.enemyState = Enemy.EnemyState.IDLE;
         canAttack = false;
     }
@@ -173,6 +172,8 @@ public class VultureBossManager : MonoBehaviour
         Player.Instance().PlayerMovement.SetPlayerVelocity(Vector2.zero);
         Player.Instance().PlayerMovement.Rigidbody.velocity = Vector2.zero;
 
+        Player.Instance().PlayerCombat.isInBossScene = true;
+        Player.Instance().WebManager.SetWebSwingOffset(5.0f);
 
         EntranceDoor.GetComponent<Door>().CloseDoor();
 
@@ -198,6 +199,8 @@ public class VultureBossManager : MonoBehaviour
 
     private void FinishBoss()
     {
+        Player.Instance().PlayerCombat.isInBossScene = false;
+        Player.Instance().WebManager.SetWebSwingOffset(25.0f);
 
         gameUI.bottomText.text = "Curse you spiderman!";
 

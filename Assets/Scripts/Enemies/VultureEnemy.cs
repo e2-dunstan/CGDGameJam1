@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class VultureEnemy : Enemy
 {
+    public static VultureEnemy _instance = null;
+
     public EnemyMovement enemyMovement;
     public GameObject enemyProjectile;
-    private Player player;
 
     //Prevents vulture being hit twice
     [SerializeField] private bool canBeHit = true;
@@ -32,6 +33,19 @@ public class VultureEnemy : Enemy
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
+    private void Awake()
+    {
+        if (_instance == null) _instance = this;
+    }
+
+    public static VultureEnemy Instance()
+    {
+        if (_instance == null)
+        {
+            _instance = new VultureEnemy();
+        }
+        return _instance;
+    }
 
     // Update is called once per frame
     void Update()
