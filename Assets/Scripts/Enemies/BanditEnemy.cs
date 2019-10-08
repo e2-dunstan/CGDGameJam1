@@ -42,6 +42,7 @@ public class BanditEnemy : Enemy
     {
         if(enemyState == EnemyState.DYING)
         {
+            ScoreManager.Instance.AddScore(scoreForKilling);
             Destroy(this.gameObject);
         }
 

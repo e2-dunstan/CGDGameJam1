@@ -33,6 +33,8 @@ public class Enemy : MonoBehaviour
 
     protected Player player;
 
+    public int scoreForKilling = 1000;
+
     public virtual void InflictDamage(int _damageAmount)
     {
         health = health - _damageAmount;

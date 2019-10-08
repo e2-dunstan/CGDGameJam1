@@ -10,6 +10,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Text lives;
     [SerializeField] private Text scoreElement;
     [SerializeField] private Text timeElement;
+    [SerializeField] public Text bottomText;
 
     private int minutes = 0;
     private int seconds = 0;

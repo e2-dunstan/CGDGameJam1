@@ -14,9 +14,9 @@ public class SaveLoadManager : MonoBehaviour
     private string jsonSavePath;
     public GameData gameData;
     public SpawnManager spawnManager;
-    public PrefabIdentifiers prefabs;
+    private PrefabIdentifiers prefabs;
 
-    public List<PrefabIdentifier> instantiateableObjects = new List<PrefabIdentifier>();
+    private List<PrefabIdentifier> instantiateableObjects = new List<PrefabIdentifier>();
 
     void Awake()
     {
