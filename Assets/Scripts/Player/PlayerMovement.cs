@@ -180,17 +180,14 @@ public class PlayerMovement : MonoBehaviour
             movDir = MovementDirection.LEFT;
         }
         //Cap the speed so it doesnt keep rising exponentially
-        if (Player.Instance().CurrentPlayerState != Player.PlayerState.AIRBORNE)
-        {
-            if (playerVelocity.x > maxMovementSpeed)
-            {
-                playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : maxMovementSpeed;
-            }
-            else if (playerVelocity.x < -maxMovementSpeed)
-            {
-                playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : -maxMovementSpeed;
-            }
-        }
+       if (playerVelocity.x > maxMovementSpeed)
+       {
+           playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : maxMovementSpeed;
+       }
+       else if (playerVelocity.x < -maxMovementSpeed)
+       {
+           playerVelocity.x = horizontalCapOverride ? horizontalOverrideCap : -maxMovementSpeed;
+       }
     }
 
     private void UpdateJump()

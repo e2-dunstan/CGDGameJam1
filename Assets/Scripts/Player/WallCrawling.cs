@@ -93,13 +93,9 @@ public class WallCrawling : MonoBehaviour
                         vel.y = jumpOffForce.y;
                     }
 
-                    player.PlayerMovement.SetPlayerVelocity(vel);
-                    player.PlayerMovement.ApplyVelocityToRigidbody();
+                    player.PlayerMovement.Rigidbody.velocity = vel;
+                    player.PlayerMovement.CarryOverVelocityFromSwinging(true);
                     StartCoroutine(player.PlayerMovement.DelayRayCast());
-                    //Debug.Log(player.GetComponent<Rigidbody2D>().velocity);
-                    //Debug.Log(player.CurrentPlayerState);
-                    //Debug.Log(player.PlayerMovement.PlayerMovementDirection);
-                    //Debug.Log(player.GetComponent<Rigidbody2D>().gravityScale);
                     jumpedOff = true;
                 }
             }
