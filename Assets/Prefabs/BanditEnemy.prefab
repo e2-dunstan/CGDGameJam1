@@ -152,9 +152,11 @@ MonoBehaviour:
   isOnIdleCooldown: 0
   idleCooldown: 2
   isOnAttackCooldown: 0
-  attackRange: 10
+  attackRange: 15
   attackCooldown: 2
+  scoreForKilling: 1000
   banditMovement: {fileID: 3907179888732382499}
+  stunTime: 3
   sprites:
   - {fileID: -4976470069784301207, guid: de083c59984a59e409fa53327b2f45e0, type: 3}
   - {fileID: 4498157542350301121, guid: de083c59984a59e409fa53327b2f45e0, type: 3}
