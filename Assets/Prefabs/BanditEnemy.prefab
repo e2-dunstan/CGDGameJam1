@@ -78,7 +78,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 2
   m_Size: {x: 8, y: 16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -105,7 +105,7 @@ BoxCollider2D:
     oldSize: {x: 8, y: 16}
     newSize: {x: 8, y: 16}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
@@ -156,6 +156,7 @@ MonoBehaviour:
   attackCooldown: 2
   scoreForKilling: 1000
   banditMovement: {fileID: 3907179888732382499}
+  punchAudioClip: {fileID: 0}
   stunTime: 3
   sprites:
   - {fileID: -4976470069784301207, guid: de083c59984a59e409fa53327b2f45e0, type: 3}
