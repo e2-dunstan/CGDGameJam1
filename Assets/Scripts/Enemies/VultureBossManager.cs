@@ -34,6 +34,9 @@ public class VultureBossManager : MonoBehaviour
 
     public float distanceEnemyCanShootNearPlayer = 20.0f;
 
+    public float timeStunned = 0.0f;
+
+    public float timeTillResumeFromStunned = 2.0f;
 
     private bool hasBegun = false;
     private bool hasStartSequenceFinished = false;
@@ -47,7 +50,6 @@ public class VultureBossManager : MonoBehaviour
     {
         currentBossHealth = vulture.health;
         player = Player.Instance().gameObject;
-        Player.Instance().WebManager.SetWebSwingOffset(5.0f);
         vulture.enemyState = Enemy.EnemyState.IDLE;
         canAttack = false;
     }
@@ -68,6 +70,15 @@ public class VultureBossManager : MonoBehaviour
                 canAttack = false;
                 timeOnCurrentStage = 0.0f;
                 numberOfTimesShot = 0;
+                timeStunned = timeStunned + Time.deltaTime;
+
+                if(timeStunned >= timeTillResumeFromStunned)
+                {
+                    canAttack = true;
+                    vulture.enemyState = Enemy.EnemyState.WALKING;
+                    vultureMovement.ForceMoveToDefaultPosition();
+                    timeStunned = 0.0f;
+                }
             }
             else
             {
@@ -91,7 +102,6 @@ public class VultureBossManager : MonoBehaviour
                     if (timeBetweenShootingHard < (timeOnCurrentStage / numberOfTimesShot)
                         && canAttack == true && CalculateDistanceFromPlayer() > distanceEnemyCanShootNearPlayer)
                     {
-                        vulture.enemyMovement.moveSpeed = 2.5f;
                         PromptHardShoot();
                     }
                     break;
@@ -170,7 +180,11 @@ public class VultureBossManager : MonoBehaviour
     {
         hasBegun = true;
         Player.Instance().ChangePlayerState(Player.PlayerState.NOINPUT);
-        Player.Instance().PlayerMovement.SetPlayerVelocity(new Vector2(0, 0));
+        Player.Instance().PlayerMovement.SetPlayerVelocity(Vector2.zero);
+        Player.Instance().PlayerMovement.Rigidbody.velocity = Vector2.zero;
+
+        Player.Instance().PlayerCombat.isInBossScene = true;
+        Player.Instance().WebManager.SetWebSwingOffset(5.0f);
 
         EntranceDoor.GetComponent<Door>().CloseDoor();
 
@@ -196,6 +210,9 @@ public class VultureBossManager : MonoBehaviour
 
     private void FinishBoss()
     {
+        Player.Instance().PlayerCombat.isInBossScene = false;
+        Player.Instance().WebManager.SetWebSwingOffset(25.0f);
+        ScoreManager.Instance.AddScore(6000);
 
         gameUI.bottomText.text = "Curse you spiderman!";
 

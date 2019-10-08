@@ -19,7 +19,6 @@ public class PlayerCombat : MonoBehaviour
     private InputManager inputSingleton = null;
     private float attackCooldownTimer = 0;
 
-    public GameObject bossEnemy;
     public bool isInBossScene = false;
     private void Start() 
     {
@@ -76,15 +75,16 @@ public class PlayerCombat : MonoBehaviour
         {
             directionMultiplier = playerSingleton.PlayerMovement.PlayerMovementDirection == PlayerMovement.MovementDirection.RIGHT ? 1 : -1;
 
+            GameObject bossEnemy = VultureEnemy.Instance().gameObject;
             Vector2 relativePos = bossEnemy.transform.position - gameObject.transform.position;
 
             
-                if (relativePos.x <= 0 && relativePos.y < 20 && directionMultiplier <= 0.5f)
+                if (relativePos.x <= 0 && relativePos.y < 25 && directionMultiplier <= 0.5f)
                 {
                     WebProjectile projectile = Instantiate(webProjectile, attackTransform.position, Quaternion.identity).GetComponent<WebProjectile>();
                     projectile.SpawnProjectile(new Vector2(relativePos.x, relativePos.y), 10, 1);
                 }
-                else if (relativePos.x >= 0 && relativePos.y < 20 && directionMultiplier >= 0.5f)
+                else if (relativePos.x >= 0 && relativePos.y < 25 && directionMultiplier >= 0.5f)
                 {
                     WebProjectile projectile = Instantiate(webProjectile, attackTransform.position, Quaternion.identity).GetComponent<WebProjectile>();
                     projectile.SpawnProjectile(new Vector2(relativePos.x, relativePos.y), 10, 1);

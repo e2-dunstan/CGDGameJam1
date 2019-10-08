@@ -59,10 +59,20 @@ public class ScreenTransition : MonoBehaviour
                 break;
 
             case boundaryType.EXIT:
-                Player.Instance().transform.position = new Vector2(
-                sm.screenPlayerSpawn[sm.currentScreen].position.x,
-                Player.Instance().transform.position.y
-                );
+
+                if (sm.currentScreen != 6)
+                {
+                    Player.Instance().transform.position = new Vector2(
+                    sm.screenPlayerSpawn[sm.currentScreen].position.x,
+                    Player.Instance().transform.position.y
+                    );
+                }
+                else
+                {
+                    Debug.Log("Hit");
+                    Player.Instance().transform.position = sm.screenPlayerSpawn[sm.currentScreen].position;
+                }
+
                 break;
 
             case boundaryType.KILL:

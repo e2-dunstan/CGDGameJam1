@@ -555,5 +555,10 @@ PrefabInstance:
       propertyPath: health
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3907179888732382498, guid: e3a5e36fcbe29fb4bb61a66e9f091e90,
+        type: 3}
+      propertyPath: knockbackMagnitude
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3a5e36fcbe29fb4bb61a66e9f091e90, type: 3}
