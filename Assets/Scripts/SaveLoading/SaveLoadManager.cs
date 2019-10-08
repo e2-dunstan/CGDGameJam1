@@ -10,7 +10,7 @@ using System;
 public class SaveLoadManager : MonoBehaviour
 {
 
-    public static SaveLoadManager saveLoadManager;
+    public static SaveLoadManager Instance;
     private int highScore = 0;
     public int HighScore { get => highScore; set => highScore = value; }
     private string jsonSavePath;
@@ -24,16 +24,9 @@ public class SaveLoadManager : MonoBehaviour
 
     void Awake()
     {
-        if (saveLoadManager == null)
-        {
-            saveLoadManager = this;
-        }
-        else if (saveLoadManager != this)
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
+        if (Instance == null) Instance = this;
+        else if (Instance != this) Destroy(gameObject);
+      
     }
 
     void OnEnable()
@@ -116,13 +109,6 @@ public class SaveLoadManager : MonoBehaviour
                     break;
             }
         }
-
-        highScore = gameData.leaderboardList.First().playerScore;
-
-        if(mainMenuHighScoreText != null)
-        {
-            mainMenuHighScoreText.GetComponent<Text>().text = "High Score: " + highScore;
-        }
     }
 
     public List<LeaderboardEntry> GetLeaderboardEntries()
@@ -130,4 +116,8 @@ public class SaveLoadManager : MonoBehaviour
         return gameData.leaderboardList;
     }
 
+    public int GetHighScore()
+    {
+       return gameData.leaderboardList.First().playerScore;
+    }
 }

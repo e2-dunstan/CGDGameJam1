@@ -71,7 +71,7 @@ public class ScreenTransition : MonoBehaviour
                 sm.screenPlayerSpawn[sm.currentScreen].position.x,
                 sm.screenPlayerSpawn[sm.currentScreen].position.y
                 );
-
+                Player.Instance().PlayerHealth.TakeDamage();
                 break;
         }
 
