@@ -136,6 +136,6 @@ public class PlayerCombat : MonoBehaviour
     
     public void InflictDamage(int _damage)
     {
-        health -= _damage;
+        Player.Instance().PlayerHealth.TakeDamage();
     }
 }

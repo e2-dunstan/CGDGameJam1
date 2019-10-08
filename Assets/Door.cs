@@ -11,6 +11,7 @@ public class Door : MonoBehaviour
     [SerializeField] private GameObject door;
 
     public float doorSpeed = 1.0f;
+
     // Update is called once per frame
     void Update()
     {
@@ -19,12 +20,13 @@ public class Door : MonoBehaviour
 
     public void CloseDoor()
     {
-
+        Debug.Log("Closing Door");
         positionToMoveTo = startPosition.transform.position;
     }
 
     public void OpenDoor()
     {
+        Debug.Log("Closing Door");
         positionToMoveTo = endPosition.transform.position;
     }
 }

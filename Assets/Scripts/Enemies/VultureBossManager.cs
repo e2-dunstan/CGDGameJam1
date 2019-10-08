@@ -93,6 +93,7 @@ public class VultureBossManager : MonoBehaviour
                 break;
             case 0:
                 //Open door to leave
+                canAttack = false;
                 ExitDoor.GetComponent<Door>().OpenDoor();
                 break;
 
