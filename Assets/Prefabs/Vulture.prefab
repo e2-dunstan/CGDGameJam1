@@ -166,6 +166,8 @@ MonoBehaviour:
   enemyMovement: {fileID: 5870626175775237506}
   enemyProjectile: {fileID: 7109776482288774693, guid: 929d3a04b39d942e9ac006f031dbe484,
     type: 3}
+  attackAudio: {fileID: 8300000, guid: 9bc05f1a945d48c4186be8df4b9b6f0b, type: 3}
+  damageTaken: {fileID: 8300000, guid: 96aad9d3e3325f54391376d258ffb570, type: 3}
   canBeHit: 1
   Floor: {fileID: 0}
   vultureAnimations:
