@@ -39,7 +39,7 @@ public class WallCrawling : MonoBehaviour
 
             if(countdown <= 0.0f)
             {
-                countdown = 2.0f;
+                countdown = 1.0f;
                 jumpedOff = false;
             }
         }
