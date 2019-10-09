@@ -12,11 +12,21 @@ Milestones of progression.
 Need to focus on the priorities in future projects.
 Level delayed combination of features.
 Branches were used. More Develop pulling may have been beneficial.
+More granular issues, instead of player combat punching, web shot etc.
+Look into use git project cards for better management. Maybe a big issue then multiple cards for each issue.
 
 ### Communication
 
 Outline mechanics being implemented clearer. Visualise what is in progress as well as communicating on Slack.
-Regular meetings.
+Regular meetings and set a hard time in slack for all people to follow.
+Shouldve nmade prefabs of individual mechanics for the level developer to split up a load of work.
+Plan out level design on paper first and agree on it.
+When discussing mechanics confirm exactly how they'll work in the game. eg wall climbing was different in the first place due to lack of communication.
+
+### Code
+Clear names for functions and variables for better legibility.
+Comments in code to assist that.
+If systems are working together then sit down together and explain the system in simple terms.
 
 ##
 ## The Game
@@ -34,13 +44,22 @@ Highscore system (is this local or online? Possible improvement there)
 
 ### Difficulty Loop
 
-Level
-Combat
-Boss fight
+Level - More web swinging sections. More people on the level next time as the level is core to the gameplay.
+Combat - Different variety of enemies. Maybe change punch into a combo that included the web into it. Limitations hurt feedback to player aka when hitting the enemies
+Boss fight - Boss fight couldve been more adaptive maybe based on player score / time.
 
 ### Feedback
 
 Playtesting, feedback form
 Controls
+
+### Micro macro meta improvements
+Micro: Maybe add a slight bit of momentum to swinging if your stationary. Player felt slipery. Webbing to wall climbing felt a bit clunky at times. 
+Macro: Variation of enemies could've been better and couldve been placed in better places, Some enemies obstructed clear path of movement which made an unreasonable spike of difficulty. Didn't have time to implement the swinging gauntlet 
+Meta: Reasonbly well with the restriction had. We shouldve also saved times as well as scores to encourage speed runs.
+
+### Playtest
+Small sample size for playtesting, in the future have more people play.
+
 
 ` insert screenshots here `
