@@ -88,7 +88,7 @@ public class VultureMovement : EnemyMovement
         if (new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)
             != new Vector2(targetDestination.x, targetDestination.y) && hasRandomTargetLocation == true)
         {
-            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, targetDestination, moveSpeed);
+            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, targetDestination, moveSpeed * 50 * Time.deltaTime);
         }
         else
         {
@@ -120,7 +120,7 @@ public class VultureMovement : EnemyMovement
     public override void MoveTowardsDestination(Vector2 _targetDestination)
     {
         targetDestination = _targetDestination;
-        gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, _targetDestination, moveSpeed);
+        gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, _targetDestination, moveSpeed * 50 * Time.deltaTime);
     }
 
     public void ForceMoveToShootingPosition()

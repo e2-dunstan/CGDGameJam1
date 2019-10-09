@@ -73,7 +73,7 @@ public class BanditMovement : EnemyMovement
         if(gameObject.transform.position != new Vector3(randomXLocation, randomYLocation, 0) && hasRandomTargetLocation == true)
         {
             targetDestination = new Vector2(randomXLocation, randomYLocation);
-            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, new Vector2(randomXLocation, randomYLocation), moveSpeed);
+            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, new Vector2(randomXLocation, randomYLocation), moveSpeed * 50 * Time.deltaTime);
         }
         else
         {
@@ -84,6 +84,6 @@ public class BanditMovement : EnemyMovement
     public override void MoveTowardsDestination(Vector2 _targetDestination)
     {
         targetDestination = _targetDestination;
-        gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, _targetDestination, moveSpeed);
+        gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, _targetDestination, moveSpeed * 50 * Time.deltaTime);
     }
 }
