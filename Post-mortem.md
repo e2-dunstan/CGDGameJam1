@@ -44,9 +44,9 @@ The same went for the web swing mechanic, which is arguably what makes a Spiderm
 
 - Wall crawling
 
-Player combat was an interesting challenge due to the limited available inputs and visual feedback given the nature of trying to demake to the Atari 2600. The player could punch to deal damage in the immediate area in-front of them or web shoot to stun enemies at range, allowing them to be easily knocked out by punching or avoided entirely. However, since one of our two inputs had already been binded to jump, this meant that both web shooting and punching were assigned to a single button while pressing down on the dpad allowed you to swap modes. Since this wasn't visually shown / taught to the player, testing showed that it is not imediately obvious that you can web shoot at first.
+Player combat was an interesting challenge due to the limited available inputs and visual feedback given the nature of trying to de-make to the Atari 2600. The player could punch to deal damage in the immediate area in-front of them or web shoot to stun enemies at range, allowing them to be easily knocked out by punching or avoided entirely. However, since one of our two inputs had already been binded to jump, this meant that both web shooting and punching were assigned to a single button while pressing down on the d-pad allowed you to swap modes. Since this wasn't visually shown / taught to the player, testing showed that it is not immediately obvious that you can web shoot at first.
 
-While web swinging the player can only web shoot, this reduced the complexcity by allowing players to focus on the swinging mechanic. In the final area, web shooting locks on-to the boss allowing for more tense moments while the player desperately tries to avoid incoming projectiles. 
+While web swinging the player can only web shoot, this reduced the complexity by allowing players to focus on the swinging mechanic. In the final area, web shooting locks on-to the boss allowing for more tense moments while the player desperately tries to avoid incoming projectiles.
 
 - Collectibles
 - Highscore system (is this local or online? Possible improvement there)
