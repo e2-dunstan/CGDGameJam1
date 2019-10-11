@@ -7,8 +7,10 @@
 
 ### GitHub
 
-Github was a big focus in our project. Due to the sizes of the group we worked in we needed to make sure we followed a base set of rules when using Git so people wouldn't lose work from bad merges or the like. We leveraged the Git issue system to break down the game into smaller components then assign these components to a group member. We then worked in seperate branches under the names of the issues and made sure to use the # of the issue in the commits to reference back to them.
+Github was a big focus in our project. Due to the size of the group we needed to make sure we followed a base set of rules when using Git so people wouldn't lose work from bad merges or the like. We leveraged the Git issue system to break down the game into smaller components with labels to identify what aspect of the development they affected then assign these components to a group member. We then worked in seperate branches under the names of the issues and made sure to use the # of the issue in the commits to reference back to them.
     For the next project we will also use the Git Projects board to further break down issues into more granular tasks so that a clear sense of progression can be seen whilst working on the project. We also need to make more use of setting and paying attention to priorities of features and ensure that we get high priority tasks completed before starting lower priority ones. However in the same vain as this if priorities needs to be adjusted mid project then communcation for this should be used to ensure everyones on the same place because in the end a game development is iterative process and changes are going to be made throughout development.
+    
+![Example Issue on GitHub](/images/Git issues example.PNG)
 
 ### Communication
 
