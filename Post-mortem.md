@@ -43,7 +43,11 @@ The player movement was the first port of call. Without it navigation of the lev
 The same went for the web swing mechanic, which is arguably what makes a Spiderman game. This was implemented by utilising Unity's physics 2D spring joint and a line renderer combined with the player states. The player's rigid body gravity scale was increased to make the swing faster, and drag was disabled so the swing speed was solely dependent on the player's input. The origin point (spring joint position) was offset from the player in the direction they are looking by a set number pixels in the x-axis with a multiplier based on the player's velocity which increased this offset. The swing state also defined the horizontal and vertical inputs to control the swing speed (horizontal) and moving up and down the web (vertical). These features were not initially in place however after external playtesting we noticed players naturally trying to do it so it was added. Extra consideration what put in place for how the player would collide with other objects in the scene whilst web swinging to further improve the web micro loop. It was decided that objects on the 'Building' layer would cause the player to collide, and objects with the 'Ground' layer would also detach the player from the web.
 
 - Wall crawling
-- Combat - how this worked with web swing and shooting webs could have been improved.
+
+Player combat was an interesting challenge due to the limited available inputs and visual feedback given the nature of trying to demake to the Atari 2600. The player could punch to deal damage in the immediate area in-front of them or web shoot to stun enemies at range, allowing them to be easily knocked out by punching or avoided entirely. However, since one of our two inputs had already been binded to jump, this meant that both web shooting and punching were assigned to a single button while pressing down on the dpad allowed you to swap modes. Since this wasn't visually shown / taught to the player, testing showed that it is not imediately obvious that you can web shoot at first.
+
+While web swinging the player can only web shoot, this reduced the complexcity by allowing players to focus on the swinging mechanic. In the final area, web shooting locks on-to the boss allowing for more tense moments while the player desperately tries to avoid incoming projectiles. 
+
 - Collectibles
 - Highscore system (is this local or online? Possible improvement there)
 
