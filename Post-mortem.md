@@ -75,5 +75,16 @@ Meta: Reasonbly well with the restriction had. We shouldve also saved times as w
 ### Playtest
 Small sample size for playtesting, in the future have more people play.
 
+##
+## Screenshots
 
-` insert screenshots here `
+<p float="left">
+  <img src="/images/mainmenu.PNG" width="400" />
+  <img src="/images/gameplay1.PNG" width="400" />
+  <img src="/images/gameplay2.PNG" width="400" /> 
+  <img src="/images/gameplay3.PNG" width="400" />
+  <img src="/images/gameplay4.PNG" width="400" />
+  <img src="/images/gameplay5.PNG" width="400" />
+  <img src="/images/gameover.PNG" width="400" />
+  <img src="/images/highscores.PNG" width="400" />
+</p>
