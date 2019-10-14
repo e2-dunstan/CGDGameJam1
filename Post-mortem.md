@@ -55,7 +55,7 @@ While web swinging the player can only web shoot, this reduced the complexity by
 
 Web swinging could have fed into the macro loop more by having sections of the level which required skill to traverse rather than the web feeling like an option rather than a requirement.
 
-- Level - More web swinging sections. More people on the level next time as the level is core to the gameplay.
+- Level - The level did not spend enough time developing each of the player's mechanics. There are some moves that the player has access to that are never encouraged by the level design due to its brevity. Expanding the level to take each player mechanic to its furthest, i.e. web swinging, would create a smoother difficulty curve and allow the player to better play with and explore their options. This could be attained by having multiple people working on the level design.
 - Combat - Different variety of enemies. Maybe change punch into a combo that included the web into it. Limitations hurt feedback to player aka when hitting the enemies
 - Boss fight - Boss fight couldve been more adaptive maybe based on player score / time.
 
