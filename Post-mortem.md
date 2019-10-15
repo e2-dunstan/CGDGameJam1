@@ -78,8 +78,12 @@ Meta: Reasonbly well with the restriction had. We shouldve also saved times as w
 Small sample size for playtesting, in the future have more people play.
 
 ##
-## Screenshots
+## Gameplay
 
+### Video
+[![Watch the video](https://img.youtube.com/vi/9CEdEyLf21U/maxresdefault.jpg)](https://www.youtube.com/watch?v=9CEdEyLf21U&feature=youtu.be)
+
+### Screenshots
 <p float="left">
   <img src="/images/mainmenu.PNG" width="400" />
   <img src="/images/gameplay1.PNG" width="400" />
