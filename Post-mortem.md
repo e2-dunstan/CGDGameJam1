@@ -68,7 +68,7 @@ Finally, we would have liked to factor the time into the game more for speed run
 
 ### Playtest
 
-Only a small group was used for external playtesting. Most of the feedback from this were the same issues that were known but weren’t fixed in time. Most of this was done right before the deadline as there wasn’t a playable level to test the mechanics. Next time, having a level to test mechanics earlier in the development cycle is important next time in order to find bug and fix them.
+Only a small group was used for external playtesting. Most of the feedback from this were the same issues that were known but weren’t fixed in time. This is because most of the playtesting was done right before the deadline, as there wasn’t a playable level to test the mechanics. Next time, having a level to test mechanics earlier in the development cycle is important next time in order to find bug and fix them.
 
 ##
 ## Gameplay
