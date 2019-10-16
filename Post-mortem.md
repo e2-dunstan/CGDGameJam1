@@ -51,28 +51,19 @@ Player combat was an interesting challenge due to the limited available inputs a
 While web swinging the player can only web-shoot which reduced the complexity by allowing players to focus on the swinging mechanic. In the final area, web-shooting locks on-to the boss allowing for more tense moments while the player desperately tries to avoid incoming projectiles.
 
 - Collectibles
-- Highscore system (is this local or online? Possible improvement there)
+- Highscore system (is this local or online? Possible improvement there if it wasn't an old game)
 
-### Difficulty Loop
+### Improvements
 
-Web swinging could have fed into the macro loop more by having sections of the level which required skill to traverse rather than the web feeling like an option rather than a requirement.
+Web swinging could have fed into the macro loop more by having sections of the level which required skill to traverse rather than the web feeling like an option rather than a requirement. On the macro level, momentum added to the player when they begin swinging when stationary would be a nice improvement.
 
-- Level - The level did not spend enough time developing each of the player's mechanics. There are some moves that the player has access to that are never encouraged by the level design due to its brevity. Expanding the level to take each player mechanic to its furthest, i.e. web swinging, would create a smoother difficulty curve and allow the player to better play with and explore their options. This could be attained by having multiple people working on the level design.
-- Combat - Different variety of enemies. Maybe change punch into a combo that included the web into it. Limitations hurt feedback to player aka when hitting the enemies
-- Boss fight - Boss fight couldve been more adaptive maybe based on player score / time.
+The player movement could also be made to feel nicer if the friction was stronger between them and the surfaces to reduce the feeling of slipperiness which doesn't 100% reflect the Atari 2600 playstyle.
 
-### Feedback
+The level did not spend enough time developing each of the player's mechanics. There are some moves that the player has access to that are never encouraged by the level design due to its brevity. Expanding the level to take each player mechanic to its furthest, i.e. web swinging, would create a smoother difficulty curve and allow the player to better play with and explore their options. This could be attained by having multiple people working on the level design.
 
-- Playtesting, feedback form
-- Controls
+Combat could have been improved by having a larger variety of enemies and/or changing the punch into a combo that included the web into it. It was not clear to the player when they successfully hit an enemy which could have been reflected better through audio cues. Some of the enemy placements could have been improved where they obstruct a clear path of movement that added an unreasonable spike of difficulty. Additionally, the difficulty of the boss fight could have been more adaptive: based on the player's score or time rather than a fixed difficulty.
 
-### Micro macro meta improvements
-
-Micro: Maybe add a slight bit of momentum to swinging if your stationary. Player felt slippery. Webbing to wall climbing felt a bit clunky at times. 
-
-Macro: Variation of enemies could've been better and couldve been placed in better places, Some enemies obstructed clear path of movement which made an unreasonable spike of difficulty. Didn't have time to implement the swinging gauntlet 
-
-Meta: Reasonbly well with the restriction had. We shouldve also saved times as well as scores to encourage speed runs.
+Finally, we would have liked to factor the time into the game more for speed runs for the meta loop, although this may have required more than one level for leaderboards for each.
 
 ### Playtest
 Small sample size for playtesting, in the future have more people play.
