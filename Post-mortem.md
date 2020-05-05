@@ -74,6 +74,7 @@ Only a small group was used for external playtesting. Most of the feedback from 
 ## Gameplay
 
 ### Video
+https://www.youtube.com/watch?v=9CEdEyLf21U&feature=youtu.be
 [![Watch the video](https://img.youtube.com/vi/9CEdEyLf21U/maxresdefault.jpg)](https://www.youtube.com/watch?v=9CEdEyLf21U&feature=youtu.be)
 
 ### Screenshots
