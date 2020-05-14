@@ -71,6 +71,8 @@ public class GameOver : MonoBehaviour
 
     private IEnumerator FlashScore()
     {
+        enterName.ForceNameActive();
+
         AudioManager.Instance.PlayRandomClip(AudioManager.ClipType.POINTS_GAINED, AudioManager.Instance.transform);
 
         //heh, I know this is gross and could be done in a for loop

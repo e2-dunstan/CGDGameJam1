@@ -163,4 +163,11 @@ public class EnterName : MonoBehaviour
             return chars[0].text + chars[1].text + chars[2].text;
         }
     }
+
+    public void ForceNameActive()
+    {
+        chars[0].enabled = true;
+        chars[1].enabled = true;
+        chars[2].enabled = true;
+    }
 }
