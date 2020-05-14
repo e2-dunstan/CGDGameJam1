@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3907179888732382496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 52.533745, y: -72.1, z: 0}
-  m_LocalScale: {x: 1.5, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4976470069784301207, guid: de083c59984a59e409fa53327b2f45e0,
+  m_Sprite: {fileID: 8885104847892619740, guid: 43a5718d88a147a44a4271f8d3f39a28,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -160,11 +160,11 @@ MonoBehaviour:
   punchAudioClip: {fileID: 8300000, guid: 86fb7e90f4e780c4aa35b90ae1180177, type: 3}
   stunTime: 3
   sprites:
-  - {fileID: -4976470069784301207, guid: de083c59984a59e409fa53327b2f45e0, type: 3}
-  - {fileID: 4498157542350301121, guid: de083c59984a59e409fa53327b2f45e0, type: 3}
-  - {fileID: -6503192962705188052, guid: de083c59984a59e409fa53327b2f45e0, type: 3}
-  - {fileID: -2150336189015821351, guid: de083c59984a59e409fa53327b2f45e0, type: 3}
-  - {fileID: 5111115600232855643, guid: de083c59984a59e409fa53327b2f45e0, type: 3}
+  - {fileID: 8885104847892619740, guid: 43a5718d88a147a44a4271f8d3f39a28, type: 3}
+  - {fileID: 5624825312539412993, guid: 43a5718d88a147a44a4271f8d3f39a28, type: 3}
+  - {fileID: 6892364030637507576, guid: 43a5718d88a147a44a4271f8d3f39a28, type: 3}
+  - {fileID: 5394042560703292387, guid: 43a5718d88a147a44a4271f8d3f39a28, type: 3}
+  - {fileID: -6262983032883063658, guid: 43a5718d88a147a44a4271f8d3f39a28, type: 3}
 --- !u!114 &3907179888732382499
 MonoBehaviour:
   m_ObjectHideFlags: 0
