@@ -17,11 +17,4 @@ public class ScreenManager : MonoBehaviour
     {
         currentScreen = 0;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-
 }

@@ -60,7 +60,7 @@ public class ScreenTransition : MonoBehaviour
 
             case boundaryType.EXIT:
 
-                if (sm.currentScreen != 6)
+                if (sm.currentScreen != 8)
                 {
                     Player.Instance().transform.position = new Vector2(
                     sm.screenPlayerSpawn[sm.currentScreen].position.x,
