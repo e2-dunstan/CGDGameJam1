@@ -90,6 +90,7 @@ public class GameOver : MonoBehaviour
         saveLoadManager.gameData.AddScoreToLeaderboard(new LeaderboardEntry { playerName = enterName.NameEntered, playerScore = FinalScore });
         saveLoadManager.ForceSave();
         ScoreManager.Instance.ResetScore();
+        Debug.Log("Showing Score Screen");
         ShowHighscores();
     }
 

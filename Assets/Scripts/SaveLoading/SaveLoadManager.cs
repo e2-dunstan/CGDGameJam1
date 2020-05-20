@@ -38,7 +38,7 @@ public class SaveLoadManager : MonoBehaviour
 
     void Start()
     {
-        jsonSavePath = Application.dataPath + "/StreamingAssets/SaveFile.json";
+        jsonSavePath = Application.streamingAssetsPath + "/SaveFile.json";
 
     }
 
@@ -85,7 +85,7 @@ public class SaveLoadManager : MonoBehaviour
 
     public void LoadData()
     {
-        gameData = JsonUtility.FromJson<GameData>(File.ReadAllText(Application.dataPath + "/SaveFile.json"));
+        gameData = JsonUtility.FromJson<GameData>(File.ReadAllText(Application.streamingAssetsPath + "/SaveFile.json"));
 
         foreach(var enemy in gameData.enemyMetaDataList)
         {
