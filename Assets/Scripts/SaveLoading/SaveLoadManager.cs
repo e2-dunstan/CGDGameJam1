@@ -38,7 +38,7 @@ public class SaveLoadManager : MonoBehaviour
 
     void Start()
     {
-        jsonSavePath = Application.dataPath + "/SaveFile.json";
+        jsonSavePath = Application.dataPath + "/StreamingAssets/SaveFile.json";
 
     }
 
